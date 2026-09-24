@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golden Pelican's Whereabouts｜鵜鶘踩點地圖</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root { --ink:#F4EBD2; --gold:#E8B860; --red:#C8453A; --bg:#14100C; --panel:#1A1410; --line:#4A3A30; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; background:var(--bg); color:var(--ink); }
+  header { padding:22px 22px 10px; text-align:center; }
+  h1 { margin:0 0 6px; font-size:26px; color:var(--gold); letter-spacing:1px; }
+  .motto { color:#C9A8FF; font-style:italic; font-size:14px; margin:4px 0 0; }
+  .wanted { max-width:640px; margin:14px auto 6px; border:3px double #C9A04A; background:var(--panel); padding:12px 18px; font-size:14px; line-height:1.8; }
+  .wanted b { color:#E0592A; letter-spacing:2px; }
+  #wrap { display:flex; gap:0; height:62vh; min-height:420px; padding:12px 16px; }
+  #map { flex:1; border-radius:12px 0 0 12px; border:1px solid var(--line); border-right:none; z-index:1; }
+  #locker { width:250px; background:var(--panel); border:1px solid var(--line); border-radius:0 12px 12px 0; padding:14px; overflow-y:auto; }
+  #locker h2 { font-size:15px; color:#9FB4E0; margin:2px 0 10px; }
+  .evi { background:#241D18; border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:13px; }
+  .evi a { color:var(--gold); text-decoration:none; font-weight:700; }
+  .evi .why { color:#8E8272; font-size:12px; margin-top:2px; }
+  .evi .time { color:#9FB4E0; font-size:11px; }
+  .pin { background:var(--red); color:#fff; border:2px solid #fff; border-radius:50% 50% 50% 0; transform:rotate(-45deg); width:22px; height:22px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.5); }
+  .pin span { display:block; transform:rotate(45deg); font-size:11px; line-height:20px; }
+  .pin.prop { background:#E8702E; }
+  .leaflet-popup-content-wrapper { background:var(--panel); color:var(--ink); border:1px solid var(--gold); border-radius:10px; }
+  .leaflet-popup-tip { background:var(--panel); }
+  .card h3 { margin:0 0 4px; color:var(--gold); font-size:16px; }
+  .card .time { font-size:12px; color:#9FB4E0; }
+  .card .report { font-size:13px; margin:6px 0; }
+  .card a.go { display:inline-block; margin-top:4px; background:var(--red); color:#fff; padding:5px 12px; border-radius:6px; text-decoration:none; font-size:13px; }
+  .postcard { background:#FFFDF4; border-radius:6px; padding:6px 6px 2px; transform:rotate(-1.2deg); box-shadow:0 3px 10px rgba(0,0,0,.45); position:relative; }
+  .postcard img { display:block; width:240px; border-radius:3px; }
+  .postcard .stamp { position:absolute; top:-7px; right:-7px; background:#FFFDF4; border:1px dashed #C8453A; border-radius:4px; width:40px; height:30px; text-align:center; font-size:19px; line-height:28px; transform:rotate(8deg); }
+  .postcard .pm { font-family:"Kaiti TC","STKaiti",cursive; color:#3A2A20; font-size:12px; padding:3px 2px 4px; }
+  #ballot { padding:10px 16px 26px; text-align:center; }
+  #nominate { background:var(--gold); color:#241D18; border:none; font-size:16px; font-weight:700; padding:12px 26px; border-radius:999px; cursor:pointer; }
+  #nominate.armed { background:var(--red); color:#fff; }
+  #hint { font-size:13px; color:#8E8272; margin-top:8px; }
+  .vote { margin-top:6px; background:#2F5F4A; color:#fff; border:none; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:13px; }
+  footer { text-align:center; color:#5E5648; font-size:12px; padding:0 0 18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🗺️ GOLDEN PELICAN'S WHEREABOUTS</h1>
+  <p class="motto">"The pelican is free to go anywhere. The model is free to bring its imagination to the world."</p>
+  <div class="wanted">
+    <b>WANTED｜黃金鵜鶘</b><br>
+    罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車<br>
+    特徵：剪紙質感、紅色單車、每站換帽子　｜　最後目擊：威尼斯（鴿子拒絕作證）
+  </div>
+</header>
+
+<div id="wrap">
+  <div id="map"></div>
+  <aside id="locker">
+    <h2>🗄️ 無法定位的地點</h2>
+    <div id="lockerList"></div>
+  </aside>
+</div>
+
+<div id="ballot">
+  <button id="nominate">📍 提名下一站</button>
+  <p id="hint">按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。</p>
+</div>
+<footer>目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const SITE = 'https://crystal32378.github.io/golden-pelican/';
+const SIGHTINGS = [
+  ['island','小島',23.57,119.62,'09/23 20:31','第一次目擊。一隻鵜鶘騎上木棧道，從此沒有回頭（有，最後回來了）。'],
+  ['school','操場',25.036,121.565,'09/23 20:31','在跑道上繞圈，被誤認為新型態晨操。'],
+  ['market','夜市',25.051,121.577,'09/23 20:31','混入夜市人群，無人發現，只記得有人點了很多串。'],
+  ['circle','圓環',25.0537,121.5149,'09/23 20:31','在圓環繞行，方向正確，駕訓班表示欣慰。'],
+  ['kyoto','銀閣寺',35.0270,135.7982,'09/23 20:31','楓葉與鵜鶘同色，目擊者以為是楓葉成精。'],
+  ['moon','登月',null,null,'09/23 20:31','不在地球上，通緝管轄權爭議中。'],
+  ['polar','極地',-75.25,0,'09/23 20:31','企鵝與北極熊首次會面的歷史現場，嫌犯戴毛帽。'],
+  ['jungle','雨林',-3.47,-62.37,'09/23 20:31','亞馬遜深處，與藍閃蝶競速，戰績不明。'],
+  ['sky','雲海',23.51,120.80,'09/23 20:31','海拔過高，圖釘插不太到，勉強標在阿里山。'],
+  ['paris','凱旋門',48.8738,2.2950,'09/23 20:31','在十二條大道之間優雅繞行，法國鴿子表示抗議。'],
+  ['ocean','深海',null,null,'09/23 21:36','海面下三千公尺，GPS 訊號微弱，珊瑚可以作證。'],
+  ['space','宇宙',null,null,'09/23 21:44','已脫離本系通緝範圍，轉交宇宙警察。'],
+  ['home','家',null,null,'09/23 21:57','私人住宅，基於個資法不予定位（有三隻貓目擊）。'],
+  ['wetmarket','菜市場',25.042,121.531,'09/23 22:09','muse 點的菜。橘貓在桌下睡著，後來在雨天被目擊躲雨。'],
+  ['library','書海',null,null,'09/23 22:19','Kimi 點的菜。無限延伸的圖書館，沒有地址，只有借書證。'],
+  ['rain','雨天',null,null,'09/23 22:31','下在圖書館門口的雨。地點不明，但傘是透明的。'],
+  ['vinyl','黑膠',null,null,'09/23 22:55','位於一張 33⅓ 轉唱片 A 面上，B 面待定。'],
+  ['globe','雪花球',null,null,'09/23 23:08','在某人書桌的木頭底座上，銘牌：黃金鵜鶘 · 2026。'],
+  ['garden','植物園',25.0315,121.5105,'09/23 23:16','溫室內繞行仙人掌花壇，戴花冠，蜜蜂未抗議。'],
+  ['homecoming','回家',23.62,119.70,'09/23 23:27','同一座島，但是晚上。燈塔亮著，朋友在門口等。'],
+  ['venice','威尼斯',45.4371,12.3326,'09/24 13:39','GPT Sol 點的菜。本島禁止騎單車，屬違規，鴿子拒絕作證。'],
+];
+
+const map = L.map('map', { worldCopyJump:true }).setView([25.05, 121.0], 3);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'© OpenStreetMap', maxZoom: 18 }).addTo(map);
+
+const bikeIcon = p => L.divIcon({ className:'', html:`<div class="pin${p?' prop':''}"><span>${p?'📍':'🚲'}</span></div>`, iconSize:[22,22], iconAnchor:[11,22], popupAnchor:[0,-20] });
+
+SIGHTINGS.forEach(([id,name,lat,lon,time,report]) => {
+  const pc = `<div class="postcard"><div class="stamp">🐦</div><img src="postcards/${id}.png" alt="${name} 現場照片" loading="lazy"><div class="pm">目擊時間 ${time}</div></div>`;
+  if (lat === null) {
+    document.getElementById('lockerList').insertAdjacentHTML('beforeend',
+      `<div class="evi">${pc}<a href="${SITE}#${id}" target="_blank">${name}</a> <span class="time">${time}</span><div class="why">${report}</div></div>`);
+  } else {
+    L.marker([lat,lon], { icon: bikeIcon(false) }).addTo(map)
+      .bindPopup(`<div class="card">${pc}<h3>${name}</h3><p class="report">${report}</p><a class="go" href="${SITE}#${id}" target="_blank">進入現場 →</a></div>`, { maxWidth: 270 });
+  }
+});
+
+// ---- 個人投票箱（localStorage）----
+const KEY = 'gpw-proposals';
+const props = JSON.parse(localStorage.getItem(KEY) || '[]');
+const markers = [];
+function renderProps() {
+  markers.forEach(m => map.removeLayer(m)); markers.length = 0;
+  props.forEach((p,i) => {
+    const m = L.marker([p.lat,p.lon], { icon: bikeIcon(true) }).addTo(map)
+      .bindPopup(`<div class="card"><h3>📍 ${p.name}</h3><div class="time">本站提名 ${p.votes} 票（存在你的瀏覽器）</div><button class="vote" onclick="vote(${i})">投這裡一票</button></div>`);
+    markers.push(m);
+  });
+  localStorage.setItem(KEY, JSON.stringify(props));
+}
+window.vote = i => { props[i].votes++; renderProps(); markers[i].openPopup(); };
+
+let armed = false;
+const btn = document.getElementById('nominate');
+btn.onclick = () => { armed = !armed; btn.classList.toggle('armed', armed); btn.textContent = armed ? '在地圖上點一個位置…' : '📍 提名下一站'; };
+map.on('click', e => {
+  if (!armed) return;
+  const name = prompt('這裡是哪裡？（我家巷口也可以）');
+  if (name) { props.push({ lat:+e.latlng.lat.toFixed(4), lon:+e.latlng.lng.toFixed(4), name, votes:1 }); renderProps(); markers[markers.length-1].openPopup(); }
+  armed = false; btn.classList.remove('armed'); btn.textContent = '📍 提名下一站';
+});
+renderProps();
+</script>
+</body>
+</html>
