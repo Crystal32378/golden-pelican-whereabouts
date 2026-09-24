@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golden Pelican's Whereabouts — Scope</title>
+<style>
+  body { font-family: -apple-system, "PingFang TC", sans-serif; background: #14100C; color: #F4EBD2; max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; line-height: 1.7; }
+  h1 { color: #E8B860; } h2 { color: #E8B860; border-bottom: 1px solid #4A3A30; padding-bottom: 6px; margin-top: 40px; }
+  .wanted { border: 3px double #C9A04A; padding: 16px 20px; margin: 24px 0; background: #1A1410; }
+  .wanted b { color: #E0592A; }
+  details { background: #1A1410; border: 1px solid #4A3A30; border-radius: 8px; padding: 10px 16px; margin: 10px 0; }
+  summary { cursor: pointer; color: #9FB4E0; font-weight: 700; }
+  .tag { display: inline-block; background: #2F5F4A; color: #F4EBD2; border-radius: 999px; padding: 1px 10px; font-size: 13px; margin-right: 6px; }
+  .tag.cut { background: #8C2F39; } .tag.later { background: #2F4A6E; }
+  svg text { font-family: inherit; }
+  .motto { font-style: italic; color: #C9A8FF; text-align: center; margin: 28px 0; }
+</style>
+</head>
+<body>
+<h1>🗺️ Golden Pelican's Whereabouts — Scope</h1>
+<p class="motto">"The pelican is free to go anywhere. The model is free to bring its imagination to the world."</p>
+
+<div class="wanted">
+  <b>WANTED｜黃金鵜鶘</b><br>
+  罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車<br>
+  特徵：剪紙質感、紅色單車、每站換帽子<br>
+  最後目擊：威尼斯（鴿子拒絕作證）
+</div>
+
+<h2>怎麼運作</h2>
+<svg viewBox="0 0 820 300" width="100%" role="img" aria-label="使用者打開踩點地圖，點圖釘跳進本店場景，或在投票箱插下自己的圖釘">
+  <rect x="10" y="110" width="150" height="70" rx="12" fill="#2F4A6E"/>
+  <text x="85" y="140" fill="#fff" text-anchor="middle" font-size="14">被朋友丟連結</text>
+  <text x="85" y="160" fill="#fff" text-anchor="middle" font-size="14">滿頭問號的人</text>
+  <rect x="240" y="60" width="240" height="180" rx="12" fill="#1A1410" stroke="#C9A04A" stroke-width="2"/>
+  <text x="360" y="88" fill="#E8B860" text-anchor="middle" font-size="15" font-weight="bold">踩點地圖（本站）</text>
+  <circle cx="290" cy="130" r="8" fill="#C8453A"/><text x="306" y="135" fill="#F4EBD2" font-size="13">21 根圖釘</text>
+  <rect x="265" y="155" width="120" height="30" rx="6" fill="#4A3A30"/><text x="325" y="175" fill="#F4EBD2" text-anchor="middle" font-size="12">無法定位的地點 🌕</text>
+  <rect x="265" y="195" width="150" height="30" rx="6" fill="#2F5F4A"/><text x="340" y="215" fill="#F4EBD2" text-anchor="middle" font-size="12">投票箱：我家巷口 📍</text>
+  <rect x="570" y="110" width="230" height="70" rx="12" fill="#8C2F39"/>
+  <text x="685" y="140" fill="#fff" text-anchor="middle" font-size="14">本店 golden-pelican</text>
+  <text x="685" y="160" fill="#fff" text-anchor="middle" font-size="12">#venice 直接跳進現場</text>
+  <path d="M160 145 H235" stroke="#C9A04A" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M482 145 H565" stroke="#C9A04A" stroke-width="2" marker-end="url(#a)"/>
+  <text x="524" y="135" fill="#C9A04A" text-anchor="middle" font-size="12">#hash 深連結</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#C9A04A"/></marker></defs>
+</svg>
+
+<details open><summary>🌟 內餡（kernel）：航班追蹤器追蹤一隻鵜鶘</summary>
+<p>荒謬內容 × 平凡容器。地圖越正經，內容越荒謬。目擊時間使用真實 git commit 時間戳——21 站、24 小時，證據確鑿。</p></details>
+
+<h2>範圍</h2>
+<details open><summary><span class="tag">做</span>Proof of Concept 邊界</summary>
+<ul>
+<li>真實世界地圖（免費圖磚函式庫）＋21 張剪紙風目擊卡（站名、commit 時間戳、一句「案情報告」、#hash 連結）</li>
+<li>「無法定位的地點」證物櫃：月球、宇宙、深海、黑膠、雪花球</li>
+<li>個人投票箱：插圖釘、取名字、投票，全部存在訪客自己的瀏覽器；可用網址分享提名的位置</li>
+<li>純靜態、免 build、手機可看</li>
+</ul></details>
+<details><summary><span class="tag later">之後</span>值得做但先不做</summary>
+<ul>
+<li>從本店 git log 自動同步站點</li>
+<li>「畫自己家的河濱騎行」：完整手繪路線提名</li>
+<li>「我投給 X」分享卡、各站留言牆、鵜鶘圖示沿地圖旅行</li>
+</ul></details>
+<details><summary><span class="tag cut">切掉</span>明確不做，附理由</summary>
+<ul>
+<li><b>帳號登入</b> — 會殺死 60 秒 demo，對笑點零貢獻</li>
+<li><b>剪紙風手繪世界地圖</b> — 美但可預期；平凡容器才是笑點</li>
+<li><b>全網即時票數</b> — 老闆說「不用存票啦」，投票箱是個人偵查筆記本，不是選舉</li>
+<li><b>修改本店</b> — 分店必須零侵入，#hash 深連結已經存在</li>
+</ul></details>
+
+<h2>錢的畫面</h2>
+<p>地圖亮起 21 根圖釘 → 點「威尼斯」→ 鵜鶘突然在運河邊騎車、三十隻鴿子同時飛起來。</p>
+</body>
+</html>
