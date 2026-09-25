@@ -45,6 +45,14 @@
   #explainer { margin:8px auto 10px; max-width:560px; font-size:13px; line-height:1.7; color:#C9A04A; opacity:.85; }
   #enterBtn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; font-size:14px; font-weight:700; padding:8px 20px; border-radius:6px; }
   #enterBtn:hover { background:#E0592A; }
+  #teaser { max-width:520px; margin:0 auto 30px; background:#FFFDF4; color:#3A2A20; border:1px solid #C9A04A; border-radius:4px; padding:18px 22px 16px; position:relative; box-shadow:0 3px 12px rgba(0,0,0,.4); }
+  #teaser .teaserStamp { position:absolute; top:10px; right:14px; border:2px solid #C8453A; color:#C8453A; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; transform:rotate(6deg); opacity:.85; }
+  #teaser .teaserTitle { font-family:Georgia,"Times New Roman",serif; font-size:22px; letter-spacing:2px; }
+  #teaser .teaserNote { font-size:13px; margin-top:6px; color:#5A4632; }
+  #teaser .teaserNote button { margin-top:8px; background:#2F5F4A; color:#fff; border:none; border-radius:5px; padding:5px 12px; font-size:12px; cursor:pointer; }
+  #teaser.unsealed { background:#1A1410; color:var(--gold); border-color:var(--gold); }
+  #teaser.unsealed .teaserNote { color:#C9B896; }
+  #teaser.unsealed .teaserStamp { border-color:var(--gold); color:var(--gold); }
   .postcard .stamp { position:absolute; top:-7px; right:-7px; background:#FFFDF4; border:1px dashed #C8453A; border-radius:4px; width:40px; height:30px; text-align:center; font-size:19px; line-height:28px; transform:rotate(8deg); }
   .postcard .pm { font-family:"Kaiti TC","STKaiti",cursive; color:#3A2A20; font-size:12px; padding:3px 2px 4px; }
   #ballot { padding:10px 16px 26px; text-align:center; }
@@ -81,6 +89,13 @@
   <p id="hint">按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。</p>
 </div>
 <footer id="foot">目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣</footer>
+<div id="teaser" class="sealed">
+  <div class="teaserStamp">提名中</div>
+  <div class="teaserBody">
+    <div class="teaserTitle">NEXT STOP: <span id="teaserName">?????</span></div>
+    <div class="teaserNote" id="teaserNote"></div>
+  </div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
@@ -108,6 +123,7 @@ const SIGHTINGS = [
   ['garden','植物園','Botanical Garden',25.0315,121.5105,'09/23 23:16','溫室內繞行仙人掌花壇，戴花冠，蜜蜂未抗議。','Lapped the cactus bed in a conservatory wearing a flower crown. The bees did not object.'],
   ['homecoming','回家','Homecoming',23.62,119.70,'09/23 23:27','同一座島，但是晚上。燈塔亮著，朋友在門口等。',"Same island, but at night. The lighthouse is on. Friends are waiting at the door."],
   ['venice','威尼斯','Venice',45.4371,12.3326,'09/24 13:39','GPT Sol 點的菜。本島禁止騎單車，屬違規，鴿子拒絕作證。','Ordered by GPT Sol. Cycling is banned on the islands — a violation. The pigeons declined to testify.'],
+  ['rabbit','兔子洞','Rabbit Hole',null,null,'09/25 22:15','Space Bunny 點的菜。目擊者：無。嫌犯疑似進入地下，隧道口僅留一組單車輪印與一頂標價 10/6 的高帽。','Ordered by Space Bunny. No witnesses. The suspect appears to have gone underground; only a set of tyre tracks and a 10/6 top hat were left at the entrance.'],
 ];
 
 const map = L.map('map', { worldCopyJump:true }).setView([25.05, 121.0], 3);
@@ -120,14 +136,18 @@ const STR = {
     hint:'按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。',
     foot:'目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣',
     votes:v=>`本站提名 ${v} 票（存在你的瀏覽器）`, voteBtn:'投這裡一票', prompt:'這裡是哪裡？（我家巷口也可以）',
-    charges:'罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：威尼斯（鴿子拒絕作證）', photo:n=>`${n} 現場照片`,
-    explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 21 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →' },
+    charges:'罪名：未經許可環遊 22 個地點、在威尼斯違規騎單車、在地下失聯', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
+    explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 22 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →',
+    teaserStamp:'提名中', teaserNone:'還沒有人提名，你就是第一個。', teaserTie:'本案陷入票數僵局。',
+    teaserLead:(n,v)=>`暫定下一站：${n}（${v} 票。票只存在你的瀏覽器裡，所以這只是暫定。）`, tear:'撕掉這張（重新封存）' },
   en: { sighted:'Sighted', enter:'Enter the scene →', locker:'🗄️ Unlocatable Locations', nominate:'📍 Nominate the Next Stop', armed:'Click a spot on the map…',
     hint:'Press the button, then click anywhere on the map to nominate it — your own alley counts. Nominations live in your browser only; this is your detective notebook.',
     foot:'Sighting times are real git commit timestamps (golden-pelican repo) | the main store and this sibling operate independently 🍣',
     votes:v=>`${v} vote${v>1?'s':''} (stored in your browser)`, voteBtn:'Vote here', prompt:'Where is this? (Your own alley counts)',
-    charges:'CHARGES: toured 21 locations without a permit; cycled illegally in Venice', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: Venice (pigeons declined to testify)', photo:n=>`${n}, scene photo`,
-    explain:'This is a 3D world where a pelican rides a bicycle through 21 scenes, each one ordered by a different AI — see the crime scenes', enter:'Enter the moon scene →' },
+    charges:'CHARGES: toured 22 locations without a permit; cycled illegally in Venice; went missing underground', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: the Rabbit Hole (no witnesses)', photo:n=>`${n}, scene photo`,
+    explain:'This is a 3D world where a pelican rides a bicycle through 22 scenes, each one ordered by a different AI — see the crime scenes', enter:'Enter the moon scene →',
+    teaserStamp:'Nominating', teaserNone:'No nominations yet — you would be the first.', teaserTie:'The case is deadlocked.',
+    teaserLead:(n,v)=>`Provisional next stop: ${n} (${v} vote${v>1?'s':''}. Votes live only in your browser, so this is only provisional.)`, tear:'Tear this one up (re-seal)' },
 };
 let LANG = localStorage.getItem('gpw-lang') || 'zh';
 
@@ -167,8 +187,27 @@ function renderProps() {
     markers.push(m);
   });
   localStorage.setItem(KEY, JSON.stringify(props));
+  renderTeaser();
 }
 window.vote = i => { props[i].votes++; renderProps(); markers[i].openPopup(); };
+
+function renderTeaser() {
+  const T = STR[LANG], el = document.getElementById('teaser');
+  el.querySelector('.teaserStamp').textContent = T.teaserStamp;
+  const nameEl = document.getElementById('teaserName'), noteEl = document.getElementById('teaserNote');
+  if (!props.length) {
+    el.classList.add('sealed'); el.classList.remove('unsealed');
+    nameEl.textContent = '?????'; noteEl.textContent = T.teaserNone; return;
+  }
+  const max = Math.max(...props.map(p => p.votes));
+  const lead = props.filter(p => p.votes === max);
+  el.classList.remove('sealed'); el.classList.add('unsealed');
+  if (lead.length > 1) { nameEl.textContent = '?????'; noteEl.textContent = T.teaserTie; return; }
+  const i = props.indexOf(lead[0]);
+  nameEl.textContent = lead[0].name;
+  noteEl.innerHTML = `${T.teaserLead(lead[0].name, lead[0].votes)} <button onclick="tear(${i})">${T.tear}</button>`;
+}
+window.tear = i => { props.splice(i, 1); renderProps(); };
 
 let armed = false;
 const btn = document.getElementById('nominate');

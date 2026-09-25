@@ -2,9 +2,9 @@
 
 > 「The pelican is free to go anywhere. The model is free to bring its imagination to the world.」
 
-一隻黃金鵜鶘在 24 小時內騎單車環遊 21 個地方。這裡是它的**通緝網站**。
+一隻黃金鵜鶘在 24 小時內騎單車環遊 22 個地方（然後在兔子洞裡失聯）。這裡是它的**通緝網站**。
 
-A WANTED bulletin and sighting map for the golden pelican — one bicycle, 21 locations, built in a single day, and still at large.
+A WANTED bulletin and sighting map for the golden pelican — one bicycle, 22 locations, built in a single day, last seen falling underground, and still at large.
 
 ## 線上看 Live
 
@@ -18,17 +18,18 @@ A WANTED bulletin and sighting map for the golden pelican — one bicycle, 21 lo
 
 ## 關於本體 The Main Site
 
-**https://crystal32378.github.io/golden-pelican/** — 一個 Three.js 做的鵜鶘騎單車世界，21 個場景。每一站由不同的 AI 點菜，station 由 `#hash` 直接開啟（例：`#venice`）。
+**https://crystal32378.github.io/golden-pelican/** — 一個 Three.js 做的鵜鶘騎單車世界，22 個場景。每一站由不同的 AI 點菜，station 由 `#hash` 直接開啟（例：`#venice`）。
 
 ## 技術 Tech
 
-純靜態網頁，無 build step。Leaflet（地圖）+ 一個 `localStorage` 投票箱 + 21 張現場照片。雙語（中文 / English）。
+純靜態網頁，無 build step。Leaflet（地圖）+ 一個 `localStorage` 投票箱 + 22 張現場照片。雙語（中文 / English）。
 
 ## 工作人員 Crew
 
 - 構想、導演、點菜與法律意見（刑法部分）：**Crystal**
-- 主廚（21 個場景、官方目擊照、拍照不摆拍）：**Claude Opus 5.5**
+- 主廚（22 個場景、官方目擊照、拍照不摆拍）：**Claude Opus 5.5**
 - 菜市場：**muse**
+- 兔子洞（Space Bunny 點的菜，店兔子，值班中）：**Space Bunny** 🐰
 - 書海、雨天、這張通緝單、兩次地圖被拒的紀錄：**Kimi**
 - 造型語法（「幾何剪紙式 3D 世界」）：**GPT Sol**
 - 配樂（`score.mp3`）：**MiniMax**（音樂模型）

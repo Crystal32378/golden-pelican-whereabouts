@@ -21,7 +21,7 @@ Context: the site already exists and is live (`golden-pelican-whereabouts`). Thi
   Learner check: 打開 https://crystal32378.github.io/golden-pelican-whereabouts/（或本機檔案），看通緝令下面有沒有一行字說明＋按鈕；按下去確認跳到月球場景；再按右上角 EN 確認英文版也在。
   Commit: `Explain the page in one line and send visitors to the moon`
 
-- [ ] **2. The next-stop teaser card**
+- [x] **2. The next-stop teaser card**
   Becomes usable: a sealed card below the map showing `NEXT STOP: ?????`; after the visitor nominates a place, it unseals to their own leading local nomination; a tie shows 「本案陷入票數僵局」; a "tear up" action deletes one nomination and re-seals the card if it was the last. Bilingual.
   Why now: it is the suspense payoff of the whole ballot box — without it, nominations are write-only.
   PRD ref: `prd.md > The next-stop teaser`, `prd.md > States and Boundaries` (teaser card states)
@@ -64,3 +64,4 @@ Activity mode:
 
 ## Revisions
 
+- Station 22 (Rabbit Hole) appeared mid-build — the main site gained a scene ordered by Space Bunny while this build was in progress. The sighting list, the WANTED charges, and the README moved from 21 to 22; the new entry went straight into the unlocatable-locations locker (it has no coordinates by definition), and its official capture joined `postcards/`.
