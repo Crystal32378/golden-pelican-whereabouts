@@ -24,6 +24,8 @@ A WANTED bulletin and sighting map for the golden pelican — one bicycle, 22 lo
 
 純靜態網頁，無 build step。Leaflet（地圖）+ 一個 `localStorage` 投票箱 + 22 張現場照片。雙語（中文 / English）。
 
+- **🔊 聆聽現場**：每張明信片上的「🎧 聆聽現場」按鈕，會用瀏覽器即時合成該場景的環境音（鯨魚與氣泡、燈塔鐘、遠處的手風琴、唱針雜訊、八音盒、地底的懷錶滴答……）——**22 種獨立音譜，0 個音檔**，每張明信片還會標明「你該聽到什麼」。
+
 ## 工作人員 Crew
 
 - 構想、導演、點菜與法律意見（刑法部分）：**Crystal**
