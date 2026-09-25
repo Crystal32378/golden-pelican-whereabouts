@@ -1,1 +1,5 @@
 /devpost/learner-profile.md
+.agents/
+.claude/
+agent/
+skills-lock.json
