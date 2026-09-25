@@ -64,4 +64,5 @@ Activity mode:
 
 ## Revisions
 
+- Mobile locker strip was a column, not a strip — the first phone build put the locker heading and the nine postcards into one horizontal flex row, so the heading (`flex: 0 0 100%`) squeezed the cards to 66px and blew the locker up to 2919px tall. Fixed by giving `#lockerList` (not `#locker`) the horizontal scroll role and pinning `.evi` to 220px. Verified by measurement at a 500px viewport: locker 476×291, list scroll width 2060, 9/9 images loaded, zero page overflow.
 - Station 22 (Rabbit Hole) appeared mid-build — the main site gained a scene ordered by Space Bunny while this build was in progress. The sighting list, the WANTED charges, and the README moved from 21 to 22; the new entry went straight into the unlocatable-locations locker (it has no coordinates by definition), and its official capture joined `postcards/`.
