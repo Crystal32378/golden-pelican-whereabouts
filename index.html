@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Golden Pelican's Whereabouts｜鵜鶘踩點地圖</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <style>
+
   :root { --ink:#F4EBD2; --gold:#E8B860; --red:#C8453A; --bg:#14100C; --panel:#1A1410; --line:#4A3A30; }
   * { box-sizing: border-box; }
   body { margin:0; font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; background:var(--bg); color:var(--ink); }
@@ -34,7 +36,10 @@
   .postcard { background:#FFFDF4; border-radius:6px; padding:6px 6px 2px; transform:rotate(-1.2deg); box-shadow:0 3px 10px rgba(0,0,0,.45); position:relative; }
   .postcard img { display:block; width:300px; border-radius:3px; }
   #locker .postcard img { width:100%; }
-  #locker { width:300px; }
+  #locker { width:300px; overflow-x:hidden; }
+  .clusterIcon { background:var(--red); color:#fff; border:2px solid #fff; border-radius:50%; width:34px; height:34px; text-align:center; line-height:30px; font-size:13px; font-weight:700; box-shadow:0 2px 6px rgba(0,0,0,.5); }
+  .clusterIcon::after { content:' 起目擊'; font-size:10px; font-weight:400; }
+  body.en .clusterIcon::after { content:' sightings'; }
   header { position:relative; }
   #langBtn { position:absolute; top:16px; right:18px; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:999px; padding:5px 14px; font-size:13px; cursor:pointer; }
   .postcard .stamp { position:absolute; top:-7px; right:-7px; background:#FFFDF4; border:1px dashed #C8453A; border-radius:4px; width:40px; height:30px; text-align:center; font-size:19px; line-height:28px; transform:rotate(8deg); }
@@ -66,7 +71,6 @@
     <div id="lockerList"></div>
   </aside>
 </div>
-
 <div id="ballot">
   <button id="nominate">📍 提名下一站</button>
   <p id="hint">按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。</p>
@@ -74,6 +78,7 @@
 <footer id="foot">目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 const SITE = 'https://crystal32378.github.io/golden-pelican/';
 const SIGHTINGS = [
@@ -120,9 +125,11 @@ const STR = {
 let LANG = localStorage.getItem('gpw-lang') || 'zh';
 
 const sightMarkers = [];
+const cluster = L.markerClusterGroup({ iconCreateFunction: c => L.divIcon({ className:'clusterIcon', html:c.getChildCount(), iconSize:[34,34] }) });
 SIGHTINGS.forEach((s, idx) => {
-  if (s[3] !== null) { const m = L.marker([s[3], s[4]], { icon: bikeIcon(false) }).addTo(map); m._si = idx; sightMarkers.push(m); }
+  if (s[3] !== null) { const m = L.marker([s[3], s[4]], { icon: bikeIcon(false) }); m._si = idx; cluster.addLayer(m); sightMarkers.push(m); }
 });
+map.addLayer(cluster);
 function renderSightings() {
   const T = STR[LANG];
   document.getElementById('lockerList').innerHTML = '';
@@ -168,6 +175,7 @@ map.on('click', e => {
 
 function applyLang() {
   const T = STR[LANG];
+  document.body.classList.toggle('en', LANG === 'en');
   document.getElementById('langBtn').textContent = LANG === 'zh' ? 'EN' : '中文';
   document.getElementById('wCharges').textContent = T.charges;
   document.getElementById('wLooks').textContent = T.looks;
