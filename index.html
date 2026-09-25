@@ -46,6 +46,8 @@
   .snd { display:block; width:100%; margin:0 0 6px; background:#2F4A6E; color:#fff; border:none; border-radius:4px; padding:5px 8px; font-size:12px; cursor:pointer; }
   .snd:hover { background:#3A5A85; }
   .snd.playing { background:#E0592A; }
+  .sndLabel { font-size:11px; line-height:1.5; color:#6B5B45; padding:0 2px 4px; }
+  .sndTech { color:#A8998A; }
   #explainer { margin:8px auto 10px; max-width:560px; font-size:13px; line-height:1.7; color:#C9A04A; opacity:.85; }
   #enterBtn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; font-size:14px; font-weight:700; padding:8px 20px; border-radius:6px; }
   #enterBtn:hover { background:#E0592A; }
@@ -155,7 +157,7 @@ const STR = {
     charges:'罪名：未經許可環遊 22 個地點、在威尼斯違規騎單車、在地下失聯', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
     explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 22 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →',
     teaserStamp:'提名中', teaserNone:'還沒有人提名，你就是第一個。', teaserTie:'本案陷入票數僵局。',
-    soundPlay:'🎧 聆聽現場', soundStop:'🔇 停止聆聽', muted:'🔇 靜音', unmuted:'🔊 恢復聲音',
+    soundPlay:'🎧 聆聽現場', soundStop:'🔇 停止聆聽', muted:'🔇 靜音', unmuted:'🔊 恢復聲音', sndNote:'🔊 現場音：', sndTech:'（技術：瀏覽器即時合成，無音檔）',
     teaserLead:(n,v)=>`暫定下一站：${n}（${v} 票。票只存在你的瀏覽器裡，所以這只是暫定。）`, tear:'撕掉這張（重新封存）' },
   en: { sighted:'Sighted', enter:'Enter the scene →', locker:'🗄️ Unlocatable Locations', nominate:'📍 Nominate the Next Stop', armed:'Click a spot on the map…',
     hint:'Press the button, then click anywhere on the map to nominate it — your own alley counts. Nominations live in your browser only; this is your detective notebook.',
@@ -164,7 +166,7 @@ const STR = {
     charges:'CHARGES: toured 22 locations without a permit; cycled illegally in Venice; went missing underground', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: the Rabbit Hole (no witnesses)', photo:n=>`${n}, scene photo`,
     explain:'This is a 3D world where a pelican rides a bicycle through 22 scenes, each one ordered by a different AI — see the crime scenes', enter:'Enter the moon scene →',
     teaserStamp:'Nominating', teaserNone:'No nominations yet — you would be the first.', teaserTie:'The case is deadlocked.',
-    soundPlay:'🎧 Hear the scene', soundStop:'🔇 Stop', muted:'🔇 Mute', unmuted:'🔊 Sound on',
+    soundPlay:'🎧 Hear the scene', soundStop:'🔇 Stop', muted:'🔇 Mute', unmuted:'🔊 Sound on', sndNote:'🔊 Scene sound: ', sndTech:'(synthesised live in your browser — no audio files)',
     teaserLead:(n,v)=>`Provisional next stop: ${n} (${v} vote${v>1?'s':''}. Votes live only in your browser, so this is only provisional.)`, tear:'Tear this one up (re-seal)' },
 };
 let LANG = localStorage.getItem('gpw-lang') || 'zh';
@@ -181,7 +183,7 @@ function renderSightings() {
   SIGHTINGS.forEach((s, idx) => {
     const [id, zh, en, lat, lon, time, zhR, enR] = s;
     const name = LANG === 'zh' ? zh : en, report = LANG === 'zh' ? zhR : enR;
-    const pc = `<div class="postcard"><div class="stamp">🐦</div><img src="postcards/${id}.png" alt="${T.photo(name)}" loading="lazy"><div class="pm">${T.sighted} ${time}</div><button class="snd" data-sound="${id}" onclick="toggleSound('${id}')">🎧 ${T.soundPlay}</button></div>`;
+    const pc = `<div class="postcard"><div class="stamp">🐦</div><img src="postcards/${id}.png" alt="${T.photo(name)}" loading="lazy"><div class="pm">${T.sighted} ${time}</div><button class="snd" data-sound="${id}" onclick="toggleSound('${id}')">🎧 ${T.soundPlay}</button><div class="sndLabel">${T.sndNote}${LANG === 'zh' ? SOUND_LABEL[SOUND_MAP[id]] : SOUND_LABEL_EN[SOUND_MAP[id]]}<br><span class="sndTech">${T.sndTech}</span></div></div>`;
     if (lat === null) {
       document.getElementById('lockerList').insertAdjacentHTML('beforeend',
         `<div class="evi">${pc}<a href="${SITE}#${id}" target="_blank">${name}</a> <span class="time">${time}</span><div class="why">${report}</div></div>`);
@@ -193,10 +195,22 @@ function renderSightings() {
 }
 
 // ---------- 聆聽現場：每個場景的環境音都由程式現場合成（0 KB、沒有音檔） ----------
-// 設計原則：底噪全部壓低，**特色事件才是主角**——每個場景只有那裡才有的那個聲音
+// 設計原則：底噪壓到最小，**特色事件才是主角**——而且要夠密夠大，短時間內就聽得出差別
 const SOUND_MAP = { island:'island', school:'yard', market:'market', circle:'city', kyoto:'temple', moon:'moon', polar:'polar',
   jungle:'jungle', sky:'sky', paris:'paris', ocean:'ocean', space:'space', home:'room', wetmarket:'wetmarket', library:'library',
   rain:'rain', vinyl:'vinyl', globe:'globe', garden:'garden', homecoming:'lighthouse', venice:'venice', rabbit:'rabbit' };
+// 明信片上會寫出「你該聽到什麼」——提示決定體驗
+const SOUND_LABEL = { island:'海鷗與遠浪', yard:'哨聲與球的彈跳', market:'人聲、叮噹與鑊聲', city:'車流與遠處的喇叭',
+  temple:'風鈴（寺廟鐘）', moon:'宇航服的摩擦與無線電的靜', polar:'風與冰層的碎裂', jungle:'蟲鳴與蛙', sky:'高空的風與遠處的鳥',
+  paris:'遠處的手風琴', ocean:'鯨魚的滑翔與氣泡', space:'幾乎聽不到的無人機嗡鳴與聲納', home:'冰箱、時鐘與遠處的寶寶',
+  wetmarket:'熱鍋與叫賣', room:'冰箱、時鐘與遠處的寶寶', library:'翻書聲與極慢的鐘', rain:'雨與滴水', vinyl:'唱針的雜訊與電流聲', globe:'八音盒',
+  garden:'蜜蜂與葉子', lighthouse:'燈塔鐘與遠處的霧號', venice:'水拍岸邊與遠處的人聲', rabbit:'地底的隆隆、迴響的水滴與懷錶滴答' };
+const SOUND_LABEL_EN = { island:'gull cries and far surf', yard:'a whistle and a bouncing ball', market:'voices, chimes and a sizzling wok',
+  city:'traffic and a distant horn', temple:'a wind chime (temple bell)', moon:'a spacesuit creak and radio silence', polar:'wind and ice cracking',
+  jungle:'insects and a frog', sky:'high wind and a far bird', paris:'a distant accordion', ocean:'a whale gliding and bubbles',
+  space:'barely-heard engine hum and a sonar ping', home:'a fridge, a clock and a far-off baby', wetmarket:'a hot pan and a vendor call', room:'a fridge, a clock and a far-off baby',
+  library:'page turns and a very slow clock', rain:'rain and dripping', vinyl:'stylus noise and mains hum', globe:'a music box',
+  garden:'bees and leaves', lighthouse:'the lighthouse bell and a far foghorn', venice:'water lapping and distant voices', rabbit:'underground rumble, echoing drips and a ticking watch' };
 let AC = null, current = null, playing = null;
 const muted = localStorage.getItem('gpw-muted') === '1';
 
@@ -263,28 +277,28 @@ function buildSound(kind) {
     s.connect(f); f.connect(ng); ng.connect(g); s.start(); s.stop(c.currentTime + len + 0.1); nodes.push(s);
   };
   switch (kind) {
-    case 'island':  bed('brown','lowpass',500,0,0.5,0.08); vol(0.10); every(2600,0.5,()=>glide(c,g,1500,880,0.05,0.35)); break;   // 海鷗
-    case 'yard':    bed('brown','lowpass',260,0,0.6); vol(0.09); every(3800,0.5,()=>glide(c,g,2050,2750,0.035,0.22)); every(5200,0.35,()=>env(c,g,520,0.05,{len:0.12,sweep:0.6})); break; // 哨聲＋球
-    case 'market':  bed('brown','bandpass',520,0.8,0.9,0.4); vol(0.10); every(900,0.35,()=>env(c,g,900+R()*700,0.045,{len:0.3})); every(3000,0.3,()=>burst(3200,0.05,1.2)); break; // 叮噹＋鑊聲
-    case 'city':    bed('brown','lowpass',300,0,0.7); vol(0.10); every(6000,0.4,()=>glide(c,g,220,120,0.05,1.2)); every(9000,0.25,()=>env(c,g,440,0.04,{len:0.45})); break; // 車流＋喇叭
-    case 'temple':  bed('brown','lowpass',300,0,0.4); vol(0.06); every(7000,0.5,()=>bell(c,g,660,0.05,2.6)); break;                // 風鈴／寺廟鐘
-    case 'moon':    bed('brown','lowpass',340,0,0.4); vol(0.05); every(5000,0.35,()=>burst(1800,0.05,0.14)); every(2600,0.5,()=>burst(5000,0.012,0.08)); break; // 太空人的靜
-    case 'polar':   bed('brown','lowpass',420,0,0.6,0.06); vol(0.16); every(2200,0.3,()=>env(c,g,2600,0.05,{len:0.05,sweep:1.25})); break; // 冰裂
-    case 'jungle':  bed('white','highpass',700,0,0.35); vol(0.07); every(700,0.4,()=>env(c,g,4200,0.028,{len:0.04})); every(5000,0.35,()=>glide(c,g,180,115,0.04,0.26)); break; // 蟲＋蛙
-    case 'sky':     bed('white','bandpass',600,0.5,0.5,0.05); vol(0.07); every(5000,0.3,()=>glide(c,g,1800,1200,0.035,0.3)); break;
-    case 'paris':   bed('brown','lowpass',300,0,0.7); vol(0.09); every(9000,0.5,()=>[523,659,784].forEach((f,i)=>setTimeout(()=>env(c,g,f,0.035,{len:0.5}),i*220))); break; // 手風琴
-    case 'ocean':   bed('brown','lowpass',700,0,0.6,0.09); vol(0.20); every(8000,0.4,()=>glide(c,g,70,32,0.06,3.2)); every(2400,0.4,()=>glide(c,g,300,900,0.028,0.12)); break; // 鯨魚＋氣泡
-    case 'space':   [54,81.5].forEach(f=>{const o=c.createOscillator(),ng=c.createGain();o.frequency.value=f;ng.gain.value=0.03;o.connect(ng);ng.connect(g);o.start();nodes.push(o);}); breathe(g,0.04,0.012); vol(0.5); every(7000,0.4,()=>env(c,g,1200,0.035,{len:1.0})); break; // 聲納
+    case 'island':  bed('brown','lowpass',500,0,0.5,0.08); vol(0.10); every(1800,0.7,()=>glide(c,g,1500,880,0.07,0.35)); break;   // 海鷗
+    case 'yard':    bed('brown','lowpass',260,0,0.6); vol(0.09); every(2800,0.7,()=>glide(c,g,2050,2750,0.05,0.22)); every(5200,0.35,()=>env(c,g,520,0.05,{len:0.12,sweep:0.6})); break; // 哨聲＋球
+    case 'market':  bed('brown','bandpass',520,0.8,0.9,0.4); vol(0.10); every(700,0.45,()=>env(c,g,900+R()*700,0.06,{len:0.3})); every(3000,0.3,()=>burst(3200,0.05,1.2)); break; // 叮噹＋鑊聲
+    case 'city':    bed('brown','lowpass',300,0,0.7); vol(0.10); every(4500,0.6,()=>glide(c,g,220,120,0.07,1.2)); every(9000,0.25,()=>env(c,g,440,0.04,{len:0.45})); break; // 車流＋喇叭
+    case 'temple':  bed('brown','lowpass',300,0,0.4); vol(0.06); every(4500,0.75,()=>bell(c,g,660,0.07,2.6)); break;                // 風鈴／寺廟鐘
+    case 'moon':    bed('brown','lowpass',340,0,0.4); vol(0.05); every(3000,0.6,()=>burst(1800,0.07,0.14)); every(2600,0.5,()=>burst(5000,0.012,0.08)); break; // 太空人的靜
+    case 'polar':   bed('brown','lowpass',420,0,0.6,0.06); vol(0.16); every(1400,0.55,()=>env(c,g,2600,0.075,{len:0.05,sweep:1.25})); break; // 冰裂
+    case 'jungle':  bed('white','highpass',700,0,0.35); vol(0.07); every(450,0.55,()=>env(c,g,4200,0.04,{len:0.04})); every(5000,0.35,()=>glide(c,g,180,115,0.04,0.26)); break; // 蟲＋蛙
+    case 'sky':     bed('white','bandpass',600,0.5,0.5,0.05); vol(0.07); every(3500,0.5,()=>glide(c,g,1800,1200,0.05,0.3)); break;
+    case 'paris':   bed('brown','lowpass',300,0,0.7); vol(0.09); every(6000,0.7,()=>[523,659,784].forEach((f,i)=>setTimeout(()=>env(c,g,f,0.035,{len:0.5}),i*220))); break; // 手風琴
+    case 'ocean':   bed('brown','lowpass',700,0,0.6,0.09); vol(0.20); every(5000,0.7,()=>glide(c,g,70,32,0.09,3.2)); every(1200,0.6,()=>glide(c,g,300,900,0.045,0.12)); break; // 鯨魚＋氣泡
+    case 'space':   [54,81.5].forEach(f=>{const o=c.createOscillator(),ng=c.createGain();o.frequency.value=f;ng.gain.value=0.03;o.connect(ng);ng.connect(g);o.start();nodes.push(o);}); breathe(g,0.04,0.012); vol(0.5); every(5000,0.65,()=>env(c,g,1200,0.05,{len:1.0})); break; // 聲納
     case 'room':    bed('brown','lowpass',300,0,0.5); vol(0.05); every(1000,0.9,()=>env(c,g,2000,0.018,{len:0.03})); every(9000,0.3,()=>{env(c,g,900,0.03,{len:0.12});setTimeout(()=>env(c,g,1150,0.03,{len:0.12}),150);}); break; // 時鐘＋寶寶
-    case 'wetmarket': bed('brown','bandpass',600,0.8,0.9,0.5); vol(0.11); every(2200,0.35,()=>burst(2600,0.045,1.6)); every(6500,0.35,()=>glide(c,g,480,720,0.04,0.5)); break; // 熱鍋＋叫賣
-    case 'library': bed('brown','lowpass',300,0,0.4); vol(0.045); every(6000,0.4,()=>burst(2600,0.035,0.35)); every(2000,0.5,()=>env(c,g,1900,0.012,{len:0.02})); break; // 翻書＋鐘
-    case 'rain':    bed('white','highpass',900,0,0.5,0.25); bed('white','lowpass',6500,0,0.28); vol(0.15); every(900,0.4,()=>env(c,g,1400,0.03,{len:0.08})); break; // 雨＋滴水
-    case 'vinyl':   bed('white','lowpass',2200,0,0.1); { const h=c.createOscillator(),hg=c.createGain(); h.frequency.value=60; hg.gain.value=0.02; h.connect(hg); hg.connect(g); h.start(); nodes.push(h); } vol(0.5); every(320,0.3,()=>env(c,g,700+R()*1800,0.08,{len:0.09},'square')); break; // 唱針
-    case 'globe':   bed('brown','lowpass',260,0,0.8); vol(0.09); every(5000,0.45,()=>bell(c,g,1046,0.028,1.1)); break;                 // 八音盒
-    case 'garden':  bed('brown','bandpass',320,1.2,0.7); bed('white','bandpass',1800,0.6,0.2,0.3); vol(0.10); every(250,0.3,()=>env(c,g,160,0.022,{len:0.09})); every(4200,0.3,()=>glide(c,g,2400,1700,0.03,0.16)); break; // 蜜蜂＋葉
-    case 'lighthouse': bed('brown','lowpass',600,0,0.6,0.07); vol(0.16); every(7000,0.6,()=>bell(c,g,330,0.06,3.4)); every(12000,0.4,()=>glide(c,g,120,108,0.05,1.6)); break; // 燈塔鐘＋霧號
-    case 'venice':  bed('white','bandpass',800,0.7,0.45,0.55); vol(0.09); every(3500,0.4,()=>glide(c,g,300,220,0.04,1.0)); break;           // 水聲＋遠處人聲
-    case 'rabbit':  bed('brown','lowpass',200,0,0.9,0.05); vol(0.14); every(1200,0.5,()=>glide(c,g,700,1800,0.04,0.1)); every(250,0.22,()=>env(c,g,3000,0.02,{len:0.02})); break; // 地底＋滴答
+    case 'wetmarket': bed('brown','bandpass',600,0.8,0.9,0.5); vol(0.11); every(1600,0.55,()=>burst(2600,0.06,1.6)); every(6500,0.35,()=>glide(c,g,480,720,0.04,0.5)); break; // 熱鍋＋叫賣
+    case 'library': bed('brown','lowpass',300,0,0.4); vol(0.045); every(3500,0.65,()=>burst(2600,0.05,0.35)); every(2000,0.5,()=>env(c,g,1900,0.012,{len:0.02})); break; // 翻書＋鐘
+    case 'rain':    bed('white','highpass',900,0,0.5,0.25); bed('white','lowpass',6500,0,0.28); vol(0.15); every(600,0.6,()=>env(c,g,1400,0.045,{len:0.08})); break; // 雨＋滴水
+    case 'vinyl':   bed('white','lowpass',2200,0,0.1); { const h=c.createOscillator(),hg=c.createGain(); h.frequency.value=60; hg.gain.value=0.02; h.connect(hg); hg.connect(g); h.start(); nodes.push(h); } vol(0.5); every(260,0.45,()=>env(c,g,700+R()*1800,0.09,{len:0.09},'square')); break; // 唱針
+    case 'globe':   bed('brown','lowpass',260,0,0.8); vol(0.09); every(3200,0.7,()=>bell(c,g,1046,0.04,1.1)); break;                 // 八音盒
+    case 'garden':  bed('brown','bandpass',320,1.2,0.7); bed('white','bandpass',1800,0.6,0.2,0.3); vol(0.10); every(200,0.5,()=>env(c,g,160,0.03,{len:0.09})); every(4200,0.3,()=>glide(c,g,2400,1700,0.03,0.16)); break; // 蜜蜂＋葉
+    case 'lighthouse': bed('brown','lowpass',600,0,0.6,0.07); vol(0.16); every(4500,0.85,()=>bell(c,g,330,0.085,3.4)); every(9000,0.6,()=>glide(c,g,120,108,0.07,1.6)); break; // 燈塔鐘＋霧號
+    case 'venice':  bed('white','bandpass',800,0.7,0.45,0.55); vol(0.09); every(2400,0.6,()=>glide(c,g,300,220,0.06,1.0)); break;           // 水聲＋遠處人聲
+    case 'rabbit':  bed('brown','lowpass',200,0,0.9,0.05); vol(0.14); every(900,0.7,()=>glide(c,g,700,1800,0.06,0.1)); every(180,0.4,()=>env(c,g,3000,0.028,{len:0.02})); break; // 地底＋滴答
     default:        bed('brown','lowpass',340,0,0.5); vol(0.09);
   }
   return { out: g, nodes, timers };
