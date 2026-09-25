@@ -193,9 +193,10 @@ function renderSightings() {
 }
 
 // ---------- 聆聽現場：每個場景的環境音都由程式現場合成（0 KB、沒有音檔） ----------
-const SOUND_MAP = { rain:'rain', vinyl:'vinyl', polar:'wind', jungle:'wind', sky:'wind', ocean:'ocean', space:'space',
-  library:'quiet', globe:'globe', market:'market', wetmarket:'market', home:'home', island:'birds', circle:'city',
-  kyoto:'quiet', paris:'city', school:'city', garden:'birds', moon:'quiet', homecoming:'ocean', venice:'city', rabbit:'globe' };
+// 設計原則：底噪全部壓低，**特色事件才是主角**——每個場景只有那裡才有的那個聲音
+const SOUND_MAP = { island:'island', school:'yard', market:'market', circle:'city', kyoto:'temple', moon:'moon', polar:'polar',
+  jungle:'jungle', sky:'sky', paris:'paris', ocean:'ocean', space:'space', home:'room', wetmarket:'wetmarket', library:'library',
+  rain:'rain', vinyl:'vinyl', globe:'globe', garden:'garden', homecoming:'lighthouse', venice:'venice', rabbit:'rabbit' };
 let AC = null, current = null, playing = null;
 const muted = localStorage.getItem('gpw-muted') === '1';
 
@@ -216,16 +217,34 @@ function env(c, dest, freq, peak, dur, type) {           // 短促的點狀音�
   gn.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + dur.len);
   o.connect(gn); gn.connect(dest); o.start(); o.stop(c.currentTime + dur.len + 0.05);
 }
+function bell(c, dest, freq, peak, len) {               // 長尾音：燈塔鐘、寺廟鐘、風鈴
+  const o = c.createOscillator(), gn = c.createGain();
+  o.frequency.value = freq;
+  [1, 2.76, 5.4].forEach((h, i) => { const p = c.createOscillator(), pg = c.createGain(); p.frequency.value = freq * h; pg.gain.value = peak * (i ? 0.22 / i : 1); p.connect(pg); pg.connect(dest); p.start(); p.stop(c.currentTime + len + 0.1); });
+  gn.gain.setValueAtTime(0.0001, c.currentTime);
+  gn.gain.exponentialRampToValueAtTime(peak, c.currentTime + 0.008);
+  gn.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + len);
+  o.connect(gn); gn.connect(dest); o.start(); o.stop(c.currentTime + len + 0.1);
+}
+function glide(c, dest, f0, f1, peak, len) {            // 長滑音：鯨魚、水滴上升
+  const o = c.createOscillator(), gn = c.createGain(); o.type = 'sine';
+  o.frequency.setValueAtTime(f0, c.currentTime);
+  o.frequency.exponentialRampToValueAtTime(f1, c.currentTime + len);
+  gn.gain.setValueAtTime(0.0001, c.currentTime);
+  gn.gain.exponentialRampToValueAtTime(peak, c.currentTime + len * 0.25);
+  gn.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + len);
+  o.connect(gn); gn.connect(dest); o.start(); o.stop(c.currentTime + len + 0.05);
+}
 function stopAll() {
   if (!current) return;
-  if (current.timer) clearInterval(current.timer);
+  (current.timers || []).forEach(t => clearInterval(t));
   current.nodes.forEach(n => { try { n.stop(); } catch (e) {} });
   try { current.out.disconnect(); } catch (e) {}
   current = null; playing = null; refreshSoundBtns();
 }
 function buildSound(kind) {
   const c = actx(), g = c.createGain(); g.gain.value = 0.0001; g.connect(c.destination);
-  const nodes = []; let timer = null, lfo = null;
+  const nodes = [], timers = []; let lfo = null;
   const breathe = (target, freq, depth) => { lfo = c.createOscillator(), lg = c.createGain(); lfo.frequency.value = freq; lg.gain.value = depth; lfo.connect(lg); lg.connect(target.gain); lfo.start(); nodes.push(lfo); };
   const bed = (buf, type, freq, q, vol, amp) => {
     const src = loopSrc(c, buf), f = c.createBiquadFilter(), ng = c.createGain();
@@ -233,21 +252,42 @@ function buildSound(kind) {
     src.connect(f); f.connect(ng); ng.connect(g); nodes.push(src);
     if (amp) breathe(ng, amp, 0.3);
   };
-  if (kind === 'rain') { bed('white', 'highpass', 900, 0, 0.5, 0.25); bed('white', 'lowpass', 6500, 0, 0.28); g.gain.value = 0.15; }
-  else if (kind === 'wind') { bed('brown', 'lowpass', 420, 0, 0.6, 0.06); g.gain.value = 0.2; }
-  else if (kind === 'ocean') { bed('brown', 'lowpass', 700, 0, 0.6, 0.09); g.gain.value = 0.26; }
-  else if (kind === 'vinyl') {
-    bed('white', 'lowpass', 2200, 0, 0.1);
-    const hum = c.createOscillator(), hg = c.createGain(); hum.frequency.value = 60; hg.gain.value = 0.02; hum.connect(hg); hg.connect(g); hum.start(); nodes.push(hum);
-    g.gain.value = 0.5; timer = setInterval(() => { if (Math.random() < 0.3) env(c, g, 700 + Math.random() * 1800, 0.09, { len: 0.09 }, 'square'); }, 320);
+  const every = (ms, p, fn) => timers.push(setInterval(() => { if (Math.random() < p) fn(); }, ms));
+  const vol = v => { g.gain.value = v; }, R = Math.random;
+  const burst = (freq, peak, len, type) => {            // 短噪音：鑊聲、摩擦、翻頁
+    const s = loopSrc(c, 'white'), f = c.createBiquadFilter(), ng = c.createGain();
+    f.type = 'bandpass'; f.frequency.value = freq;
+    ng.gain.setValueAtTime(0.0001, c.currentTime);
+    ng.gain.exponentialRampToValueAtTime(peak, c.currentTime + 0.04);
+    ng.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + len);
+    s.connect(f); f.connect(ng); ng.connect(g); s.start(); s.stop(c.currentTime + len + 0.1); nodes.push(s);
+  };
+  switch (kind) {
+    case 'island':  bed('brown','lowpass',500,0,0.5,0.08); vol(0.10); every(2600,0.5,()=>glide(c,g,1500,880,0.05,0.35)); break;   // 海鷗
+    case 'yard':    bed('brown','lowpass',260,0,0.6); vol(0.09); every(3800,0.5,()=>glide(c,g,2050,2750,0.035,0.22)); every(5200,0.35,()=>env(c,g,520,0.05,{len:0.12,sweep:0.6})); break; // 哨聲＋球
+    case 'market':  bed('brown','bandpass',520,0.8,0.9,0.4); vol(0.10); every(900,0.35,()=>env(c,g,900+R()*700,0.045,{len:0.3})); every(3000,0.3,()=>burst(3200,0.05,1.2)); break; // 叮噹＋鑊聲
+    case 'city':    bed('brown','lowpass',300,0,0.7); vol(0.10); every(6000,0.4,()=>glide(c,g,220,120,0.05,1.2)); every(9000,0.25,()=>env(c,g,440,0.04,{len:0.45})); break; // 車流＋喇叭
+    case 'temple':  bed('brown','lowpass',300,0,0.4); vol(0.06); every(7000,0.5,()=>bell(c,g,660,0.05,2.6)); break;                // 風鈴／寺廟鐘
+    case 'moon':    bed('brown','lowpass',340,0,0.4); vol(0.05); every(5000,0.35,()=>burst(1800,0.05,0.14)); every(2600,0.5,()=>burst(5000,0.012,0.08)); break; // 太空人的靜
+    case 'polar':   bed('brown','lowpass',420,0,0.6,0.06); vol(0.16); every(2200,0.3,()=>env(c,g,2600,0.05,{len:0.05,sweep:1.25})); break; // 冰裂
+    case 'jungle':  bed('white','highpass',700,0,0.35); vol(0.07); every(700,0.4,()=>env(c,g,4200,0.028,{len:0.04})); every(5000,0.35,()=>glide(c,g,180,115,0.04,0.26)); break; // 蟲＋蛙
+    case 'sky':     bed('white','bandpass',600,0.5,0.5,0.05); vol(0.07); every(5000,0.3,()=>glide(c,g,1800,1200,0.035,0.3)); break;
+    case 'paris':   bed('brown','lowpass',300,0,0.7); vol(0.09); every(9000,0.5,()=>[523,659,784].forEach((f,i)=>setTimeout(()=>env(c,g,f,0.035,{len:0.5}),i*220))); break; // 手風琴
+    case 'ocean':   bed('brown','lowpass',700,0,0.6,0.09); vol(0.20); every(8000,0.4,()=>glide(c,g,70,32,0.06,3.2)); every(2400,0.4,()=>glide(c,g,300,900,0.028,0.12)); break; // 鯨魚＋氣泡
+    case 'space':   [54,81.5].forEach(f=>{const o=c.createOscillator(),ng=c.createGain();o.frequency.value=f;ng.gain.value=0.03;o.connect(ng);ng.connect(g);o.start();nodes.push(o);}); breathe(g,0.04,0.012); vol(0.5); every(7000,0.4,()=>env(c,g,1200,0.035,{len:1.0})); break; // 聲納
+    case 'room':    bed('brown','lowpass',300,0,0.5); vol(0.05); every(1000,0.9,()=>env(c,g,2000,0.018,{len:0.03})); every(9000,0.3,()=>{env(c,g,900,0.03,{len:0.12});setTimeout(()=>env(c,g,1150,0.03,{len:0.12}),150);}); break; // 時鐘＋寶寶
+    case 'wetmarket': bed('brown','bandpass',600,0.8,0.9,0.5); vol(0.11); every(2200,0.35,()=>burst(2600,0.045,1.6)); every(6500,0.35,()=>glide(c,g,480,720,0.04,0.5)); break; // 熱鍋＋叫賣
+    case 'library': bed('brown','lowpass',300,0,0.4); vol(0.045); every(6000,0.4,()=>burst(2600,0.035,0.35)); every(2000,0.5,()=>env(c,g,1900,0.012,{len:0.02})); break; // 翻書＋鐘
+    case 'rain':    bed('white','highpass',900,0,0.5,0.25); bed('white','lowpass',6500,0,0.28); vol(0.15); every(900,0.4,()=>env(c,g,1400,0.03,{len:0.08})); break; // 雨＋滴水
+    case 'vinyl':   bed('white','lowpass',2200,0,0.1); { const h=c.createOscillator(),hg=c.createGain(); h.frequency.value=60; hg.gain.value=0.02; h.connect(hg); hg.connect(g); h.start(); nodes.push(h); } vol(0.5); every(320,0.3,()=>env(c,g,700+R()*1800,0.08,{len:0.09},'square')); break; // 唱針
+    case 'globe':   bed('brown','lowpass',260,0,0.8); vol(0.09); every(5000,0.45,()=>bell(c,g,1046,0.028,1.1)); break;                 // 八音盒
+    case 'garden':  bed('brown','bandpass',320,1.2,0.7); bed('white','bandpass',1800,0.6,0.2,0.3); vol(0.10); every(250,0.3,()=>env(c,g,160,0.022,{len:0.09})); every(4200,0.3,()=>glide(c,g,2400,1700,0.03,0.16)); break; // 蜜蜂＋葉
+    case 'lighthouse': bed('brown','lowpass',600,0,0.6,0.07); vol(0.16); every(7000,0.6,()=>bell(c,g,330,0.06,3.4)); every(12000,0.4,()=>glide(c,g,120,108,0.05,1.6)); break; // 燈塔鐘＋霧號
+    case 'venice':  bed('white','bandpass',800,0.7,0.45,0.55); vol(0.09); every(3500,0.4,()=>glide(c,g,300,220,0.04,1.0)); break;           // 水聲＋遠處人聲
+    case 'rabbit':  bed('brown','lowpass',200,0,0.9,0.05); vol(0.14); every(1200,0.5,()=>glide(c,g,700,1800,0.04,0.1)); every(250,0.22,()=>env(c,g,3000,0.02,{len:0.02})); break; // 地底＋滴答
+    default:        bed('brown','lowpass',340,0,0.5); vol(0.09);
   }
-  else if (kind === 'space') { [54, 81.5].forEach(f => { const o = c.createOscillator(), ng = c.createGain(); o.frequency.value = f; ng.gain.value = 0.03; o.connect(ng); ng.connect(g); o.start(); nodes.push(o); }); breathe(g, 0.04, 0.012); g.gain.value = 0.5; }
-  else if (kind === 'market') { bed('brown', 'bandpass', 520, 0.8, 0.9, 0.4); g.gain.value = 0.13; timer = setInterval(() => { if (Math.random() < 0.4) env(c, g, 900 + Math.random() * 700, 0.05, { len: 0.3 }); }, 700); }
-  else if (kind === 'birds') { g.gain.value = 0.4; timer = setInterval(() => { if (Math.random() < 0.35) env(c, g, 2000 + Math.random() * 900, 0.05, { len: 0.13, sweep: 1.4 }); }, 900); }
-  else if (kind === 'city') { bed('brown', 'lowpass', 300, 0, 0.7); g.gain.value = 0.11; }
-  else if (kind === 'globe') { bed('brown', 'lowpass', 260, 0, 0.8); g.gain.value = 0.14; timer = setInterval(() => { if (Math.random() < 0.14) env(c, g, 1300 + Math.random() * 400, 0.04, { len: 0.7 }); }, 2600); }
-  else { bed('brown', 'lowpass', 340, 0, 0.5); g.gain.value = 0.09; }
-  return { out: g, nodes, timer };
+  return { out: g, nodes, timers };
 }
 function toggleSound(id) {
   if (muted) { toggleMute(); }
