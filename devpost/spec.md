@@ -1,6 +1,6 @@
 ---
 doc: spec
-status: draft
+status: approved
 ---
 
 # Golden Pelican's Whereabouts — Technical Spec
@@ -125,6 +125,6 @@ golden-pelican-whereabouts/
 
 - **Esri Dark Gray over OSM/CARTO** (agreed after both blocked us) — the dark map fits the surveillance tone and needs no key. Tradeoff accepted: the provider could change its policy again; the fix is a one-line URL swap.
 - **Uncertainty discussed with the learner:** tile-provider policies are opaque and have already bitten this project twice. Small investigation during the build: confirm Esri's terms allow a hobby public demo (they do, with attribution), and keep the provider name + attribution line in the README so a future maintainer knows exactly what to change.
-- **Open (carried from `prd.md > Open Questions`):** whether the "Enter the Main Site" button targets the main site's default scene or a specific station — default behavior for now; trivially changeable.
+- **"Enter the Main Site" targets `#moon`** (learner's choice, the runner-up being `#space`) — the moon scene is the most iconic "crime-scene photo" (transparent helmet, orange oxygen tank, a flag, a tyre track nothing will ever erase), so it is the best first impression. PRD ref: `prd.md > The Core Journey` step 1.
 - **Contract to remember:** if the main site renames a scene id, the matching row's id must change with it — the deep link is the contract.
 
