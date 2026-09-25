@@ -31,7 +31,7 @@ Context: the site already exists and is live (`golden-pelican-whereabouts`). Thi
   Learner check: 打開網站，看地圖下面有沒有「NEXT STOP: ?????」的封緘卡；提名「我家巷口」再看卡片有沒有揭開；再投一票給另一個地方，看它怎麼變；按撕掉看會怎樣。
   Commit: `Add the sealed next-stop teaser card`
 
-- [ ] **3. The phone layout**
+- [x] **3. The phone layout**
   Becomes usable: under 700px the map goes full width, the locker becomes a horizontally scrolling strip of postcards, and the ballot/footer stack below.
   Why now: it is the last surface a real visitor might be holding; the demo will be viewed on phones.
   PRD ref: `prd.md > Screens and Layout` (mobile)
