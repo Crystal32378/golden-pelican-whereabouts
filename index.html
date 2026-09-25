@@ -42,6 +42,9 @@
   body.en .clusterIcon::after { content:' sightings'; }
   header { position:relative; }
   #langBtn { position:absolute; top:16px; right:18px; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:999px; padding:5px 14px; font-size:13px; cursor:pointer; }
+  #explainer { margin:8px auto 10px; max-width:560px; font-size:13px; line-height:1.7; color:#C9A04A; opacity:.85; }
+  #enterBtn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; font-size:14px; font-weight:700; padding:8px 20px; border-radius:6px; }
+  #enterBtn:hover { background:#E0592A; }
   .postcard .stamp { position:absolute; top:-7px; right:-7px; background:#FFFDF4; border:1px dashed #C8453A; border-radius:4px; width:40px; height:30px; text-align:center; font-size:19px; line-height:28px; transform:rotate(8deg); }
   .postcard .pm { font-family:"Kaiti TC","STKaiti",cursive; color:#3A2A20; font-size:12px; padding:3px 2px 4px; }
   #ballot { padding:10px 16px 26px; text-align:center; }
@@ -61,6 +64,8 @@
     <b>WANTED｜黃金鵜鶘</b><br>
     <span id="wCharges">罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車</span><br>
     <span id="wLooks">特徵：剪紙質感、紅色單車、每站換帽子</span>　｜　<span id="wLast">最後目擊：威尼斯（鴿子拒絕作證）</span>
+    <p id="explainer">其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 21 個場景，每一站由不同的 AI 點菜——來看看犯罪現場</p>
+    <a id="enterBtn" href="https://crystal32378.github.io/golden-pelican/#moon" target="_blank">進入本月球現場 →</a>
   </div>
 </header>
 
@@ -115,12 +120,14 @@ const STR = {
     hint:'按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。',
     foot:'目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣',
     votes:v=>`本站提名 ${v} 票（存在你的瀏覽器）`, voteBtn:'投這裡一票', prompt:'這裡是哪裡？（我家巷口也可以）',
-    charges:'罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：威尼斯（鴿子拒絕作證）', photo:n=>`${n} 現場照片` },
+    charges:'罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：威尼斯（鴿子拒絕作證）', photo:n=>`${n} 現場照片`,
+    explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 21 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →' },
   en: { sighted:'Sighted', enter:'Enter the scene →', locker:'🗄️ Unlocatable Locations', nominate:'📍 Nominate the Next Stop', armed:'Click a spot on the map…',
     hint:'Press the button, then click anywhere on the map to nominate it — your own alley counts. Nominations live in your browser only; this is your detective notebook.',
     foot:'Sighting times are real git commit timestamps (golden-pelican repo) | the main store and this sibling operate independently 🍣',
     votes:v=>`${v} vote${v>1?'s':''} (stored in your browser)`, voteBtn:'Vote here', prompt:'Where is this? (Your own alley counts)',
-    charges:'CHARGES: toured 21 locations without a permit; cycled illegally in Venice', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: Venice (pigeons declined to testify)', photo:n=>`${n}, scene photo` },
+    charges:'CHARGES: toured 21 locations without a permit; cycled illegally in Venice', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: Venice (pigeons declined to testify)', photo:n=>`${n}, scene photo`,
+    explain:'This is a 3D world where a pelican rides a bicycle through 21 scenes, each one ordered by a different AI — see the crime scenes', enter:'Enter the moon scene →' },
 };
 let LANG = localStorage.getItem('gpw-lang') || 'zh';
 
@@ -180,6 +187,8 @@ function applyLang() {
   document.getElementById('wCharges').textContent = T.charges;
   document.getElementById('wLooks').textContent = T.looks;
   document.getElementById('wLast').textContent = T.last;
+  document.getElementById('explainer').textContent = T.explain;
+  document.getElementById('enterBtn').textContent = T.enter;
   document.getElementById('lockerTitle').textContent = T.locker;
   document.getElementById('hint').textContent = T.hint;
   document.getElementById('foot').textContent = T.foot;
