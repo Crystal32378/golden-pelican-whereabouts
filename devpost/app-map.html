@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Map — Golden Pelican's Whereabouts</title>
+<style>
+  body { font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; background:#14100C; color:#F4EBD2; max-width:920px; margin:0 auto; padding:30px 20px 70px; line-height:1.75; }
+  h1 { color:#E8B860; font-size:26px; margin-bottom:4px; }
+  h2 { color:#E8B860; border-bottom:1px solid #4A3A30; padding-bottom:6px; margin-top:38px; font-size:19px; }
+  .lead { color:#C9A04A; }
+  table { border-collapse:collapse; width:100%; margin:12px 0; font-size:14px; }
+  th, td { border:1px solid #4A3A30; padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#1A1410; color:#E8B860; }
+  code { background:#241D18; color:#F2C14E; padding:1px 6px; border-radius:4px; font-size:13px; }
+  .box { background:#1A1410; border:1px solid #4A3A30; border-radius:8px; padding:12px 16px; margin:14px 0; }
+  ol li { margin-bottom:6px; }
+  .muted { color:#8E8272; font-size:13px; }
+</style>
+</head>
+<body>
+<h1>🗺️ App Map — Golden Pelican's Whereabouts</h1>
+<p class="lead"><b>一個檔案，就是整個網站。</b> <code>index.html</code>（約 250 行）＝版面＋樣式＋資料＋邏輯。沒有資料庫、沒有伺服器、沒有 build。<br>
+這張地圖的用途：<b>下次你想改東西，知道去哪裡改。</b></p>
+
+<h2>1. 資料流：整個網站在做什麼</h2>
+<svg viewBox="0 0 900 330" width="100%" role="img" aria-label="資料流圖：SIGHTINGS 資料同時餵給地圖圖釘、證物櫃明信片與彈出視窗；提名資料餵給橘色圖釕與預告卡。">
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#C9A04A"/></marker></defs>
+  <rect x="20" y="26" width="215" height="78" rx="8" fill="#2F4A6E"/>
+  <text x="127" y="52" fill="#fff" text-anchor="middle" font-size="13" font-weight="bold">SIGHTINGS（22 筆）</text>
+  <text x="127" y="72" fill="#cfe0ff" text-anchor="middle" font-size="11">index.html 第 115 行</text>
+  <text x="127" y="90" fill="#cfe0ff" text-anchor="middle" font-size="10">整站唯一的事實來源</text>
+  <rect x="305" y="8" width="200" height="54" rx="8" fill="#2F5F4A"/>
+  <text x="405" y="32" fill="#fff" text-anchor="middle" font-size="12">地圖圖釘 + 群聚</text>
+  <text x="405" y="50" fill="#d8f0e4" text-anchor="middle" font-size="10">第 140-170 行</text>
+  <rect x="305" y="72" width="200" height="54" rx="8" fill="#2F5F4A"/>
+  <text x="405" y="96" fill="#fff" text-anchor="middle" font-size="12">證物櫃明信片</text>
+  <text x="405" y="114" fill="#d8f0e4" text-anchor="middle" font-size="10">renderSightings() 第 171 行</text>
+  <rect x="305" y="136" width="200" height="54" rx="8" fill="#2F5F4A"/>
+  <text x="405" y="160" fill="#fff" text-anchor="middle" font-size="12">圖釕彈出視窗</text>
+  <text x="405" y="178" fill="#d8f0e4" text-anchor="middle" font-size="10">同一個 renderSightings()</text>
+  <rect x="20" y="196" width="215" height="78" rx="8" fill="#8C2F39"/>
+  <text x="127" y="222" fill="#fff" text-anchor="middle" font-size="13" font-weight="bold">提名（localStorage）</text>
+  <text x="127" y="242" fill="#ffe0e0" text-anchor="middle" font-size="11">gpw-proposals</text>
+  <text x="127" y="260" fill="#ffe0e0" text-anchor="middle" font-size="10">renderProps() 第 192 行</text>
+  <rect x="305" y="214" width="200" height="54" rx="8" fill="#8C2F39"/>
+  <text x="405" y="238" fill="#fff" text-anchor="middle" font-size="12">橘色提名圖釕 + 投票</text>
+  <text x="405" y="256" fill="#ffe0e0" text-anchor="middle" font-size="10">vote() / tear() 第 203-221 行</text>
+  <rect x="600" y="120" width="235" height="80" rx="8" fill="#8A6A2A"/>
+  <text x="717" y="148" fill="#fff" text-anchor="middle" font-size="13" font-weight="bold">下一站預告卡</text>
+  <text x="717" y="168" fill="#ffeec2" text-anchor="middle" font-size="11">renderTeaser() 第 205 行</text>
+  <text x="717" y="186" fill="#ffeec2" text-anchor="middle" font-size="10">讀提名，算最高票</text>
+  <path d="M235 60 H300" stroke="#C9A04A" stroke-width="2" marker-end="url(#a)" fill="none"/>
+  <path d="M235 70 C270 70 270 100 300 100" stroke="#C9A04A" stroke-width="2" marker-end="url(#a)" fill="none"/>
+  <path d="M235 85 C275 85 275 165 300 165" stroke="#C9A04A" stroke-width="2" marker-end="url(#a)" fill="none"/>
+  <path d="M505 240 C555 240 555 165 595 165" stroke="#E0592A" stroke-width="2" marker-end="url(#a)" fill="none"/>
+  <text x="127" y="300" fill="#C9A04A" text-anchor="middle" font-size="11">新增一站 = 在這個陣列加一行</text>
+  <text x="717" y="300" fill="#C9A04A" text-anchor="middle" font-size="11">刪到沒有名單 = 卡片自動重新封存</text>
+</svg>
+<p class="lead"><b>最重要的一句：</b>地圖圖釘、證物櫃、彈出視窗<b>都是同一份資料生出來的</b>。所以新增第 23 站只要加一行字，三個地方同時長出來。</p>
+
+<h2>2. 想改什麼？去哪一行</h2>
+<table>
+<tr><th>你想做的事</th><th>去哪裡改</th></tr>
+<tr><td>加／減一個場景、改時間、改案情報告</td><td><code>SIGHTINGS</code> 陣列（第 115 行起），一行一站</td></tr>
+<tr><td>改任何一句中英文</td><td><code>STR</code> 字典（第 145 行起），中英各一句</td></tr>
+<tr><td>換地圖樣式</td><td><code>L.tileLayer(...)</code>（第 141 行）——換一行網址</td></tr>
+<tr><td>換圖釘造型</td><td><code>bikeIcon()</code>（第 143 行）</td></tr>
+<tr><td>群聚圓球樣式</td><td>CSS 的 <code>.clusterIcon</code> ＋第 166 行</td></tr>
+<tr><td>改預告卡的規則</td><td><code>renderTeaser()</code>（第 205 行）</td></tr>
+<tr><td>改手機版外觀</td><td><code>@media (max-width: 700px)</code>（第 56 行起）</td></tr>
+<tr><td>改整體配色</td><td>最上面 CSS 的 <code>:root</code> 變數（<code>--gold</code>、<code>--red</code>、<code>--ink</code>）</td></tr>
+<tr><td>「進入本店」按鈕去哪</td><td>HTML 第 87 行，網址寫死在錨點上</td></tr>
+</table>
+
+<h2>3. 這個世界的四條家規（GPT Sol 訂，Opus 實作）</h2>
+<div class="box">
+<ol>
+<li><b>一片羽毛走天下</b> — 所有東西都是同一個幾何形拉長、壓扁、換顏色</li>
+<li><b>一顆多面體走天下</b> — 身體、石頭、雲、鴿子都是同一種切面</li>
+<li><b>不准光滑曲面</b> — 每個面各自受光，所以看起來像剪紙</li>
+<li><b>顏色平塗</b> — 沒有照片、沒有雜訊材質</li>
+</ol>
+</div>
+<p>分店也照這四條做：<b>正經的世界地圖（容器）＋ 荒謬的內容（一隻鵜鶘在騎車）＝ 這就是笑點。</b></p>
+
+<h2>4. 五分鐘練習：親手加第 23 站</h2>
+<div class="box">
+<ol>
+<li>打開 <code>index.html</code>，找到第 126 行（兔子洞那一行）</li>
+<li>複製整行，改四個地方：<code>id</code>（要跟主站的錨點一樣）、中英文名字、經緯度（不知道就填 <code>null,null</code>，它就會自己進「無法定位的地點」）、兩種語言的案情報告</li>
+<li>把照片命名成 <code>id.png</code> 丟進 <code>postcards/</code></li>
+<li>重新整理瀏覽器</li>
+</ol>
+<p><b>你會發現：</b>你剛剛做的所有事（點菜 → 蓋 → 實測 → 修 → 上線）就是這個練習的完整版——<b>用 AI 蓋網站的實際工作內容是「決定內容、驗收、修正」，不是寫程式。</b></p>
+</div>
+
+<h2>5. 三個已知的坑（別重蹈覆轍）</h2>
+<table>
+<tr><th>坑</th><th>發生什麼</th><th>現在怎麼處理</th></tr>
+<tr><td>地圖服務會擋你</td><td>OpenStreetMap 對本機檔案回 403、CARTO 要 API key</td><td>改用 Esri 深色底圖（免金鑰）。<b>換服務商只要改一行</b></td></tr>
+<tr><td>無頭 Chrome 最小視窗 500px</td><td>截「手機版」其實是 500px 排版再裁圖 → 誤判 bug</td><td>手機版用<b>真手機</b>驗收；程式碼用「量寬度」判斷，不靠看圖</td></tr>
+<tr><td>捲動容器別混標題</td><td>標題跟卡片排同一列，卡片被壓成 66px</td><td>捲動交給「內容列表」，標題當普通標題</td></tr>
+</table>
+
+<h2>6. 誰做的</h2>
+<p class="muted">企劃（scope / prd / spec）：老闆口述、Kimi 採訪整理。程式碼：Space Bunny 蓋、Opus 隨時待命。bug 由老闆（手機實測）＋ 量測雙軌抓出。<br>
+主站 22 個場景：Claude Opus 5.5（主廚）、muse（菜市場）、Kimi（書海、雨天）、GPT Sol（威尼斯、造型語法）、Space Bunny（兔子洞 🐰）、MiniMax（配樂）、Astra（第一位通緝犯）。</p>
+</body>
+</html>
+
