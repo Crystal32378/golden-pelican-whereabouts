@@ -42,6 +42,10 @@
   body.en .clusterIcon::after { content:' sightings'; }
   header { position:relative; }
   #langBtn { position:absolute; top:16px; right:18px; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:999px; padding:5px 14px; font-size:13px; cursor:pointer; }
+  #muteBtn { position:absolute; top:16px; right:104px; background:var(--panel); color:#C9A04A; border:1px solid #4A3A30; border-radius:999px; padding:5px 12px; font-size:13px; cursor:pointer; }
+  .snd { display:block; width:100%; margin:0 0 6px; background:#2F4A6E; color:#fff; border:none; border-radius:4px; padding:5px 8px; font-size:12px; cursor:pointer; }
+  .snd:hover { background:#3A5A85; }
+  .snd.playing { background:#E0592A; }
   #explainer { margin:8px auto 10px; max-width:560px; font-size:13px; line-height:1.7; color:#C9A04A; opacity:.85; }
   #enterBtn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; font-size:14px; font-weight:700; padding:8px 20px; border-radius:6px; }
   #enterBtn:hover { background:#E0592A; }
@@ -77,6 +81,7 @@
 <body>
 <header>
   <button id="langBtn">EN</button>
+  <button id="muteBtn" onclick="toggleMute()" aria-pressed="false">🔇 靜音</button>
   <h1>🗺️ GOLDEN PELICAN'S WHEREABOUTS</h1>
   <p class="motto">"The pelican is free to go anywhere. The model is free to bring its imagination to the world."</p>
   <div class="wanted">
@@ -150,6 +155,7 @@ const STR = {
     charges:'罪名：未經許可環遊 22 個地點、在威尼斯違規騎單車、在地下失聯', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
     explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 22 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →',
     teaserStamp:'提名中', teaserNone:'還沒有人提名，你就是第一個。', teaserTie:'本案陷入票數僵局。',
+    soundPlay:'🎧 聆聽現場', soundStop:'🔇 停止聆聽', muted:'🔇 靜音', unmuted:'🔊 恢復聲音',
     teaserLead:(n,v)=>`暫定下一站：${n}（${v} 票。票只存在你的瀏覽器裡，所以這只是暫定。）`, tear:'撕掉這張（重新封存）' },
   en: { sighted:'Sighted', enter:'Enter the scene →', locker:'🗄️ Unlocatable Locations', nominate:'📍 Nominate the Next Stop', armed:'Click a spot on the map…',
     hint:'Press the button, then click anywhere on the map to nominate it — your own alley counts. Nominations live in your browser only; this is your detective notebook.',
@@ -158,6 +164,7 @@ const STR = {
     charges:'CHARGES: toured 22 locations without a permit; cycled illegally in Venice; went missing underground', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: the Rabbit Hole (no witnesses)', photo:n=>`${n}, scene photo`,
     explain:'This is a 3D world where a pelican rides a bicycle through 22 scenes, each one ordered by a different AI — see the crime scenes', enter:'Enter the moon scene →',
     teaserStamp:'Nominating', teaserNone:'No nominations yet — you would be the first.', teaserTie:'The case is deadlocked.',
+    soundPlay:'🎧 Hear the scene', soundStop:'🔇 Stop', muted:'🔇 Mute', unmuted:'🔊 Sound on',
     teaserLead:(n,v)=>`Provisional next stop: ${n} (${v} vote${v>1?'s':''}. Votes live only in your browser, so this is only provisional.)`, tear:'Tear this one up (re-seal)' },
 };
 let LANG = localStorage.getItem('gpw-lang') || 'zh';
@@ -174,7 +181,7 @@ function renderSightings() {
   SIGHTINGS.forEach((s, idx) => {
     const [id, zh, en, lat, lon, time, zhR, enR] = s;
     const name = LANG === 'zh' ? zh : en, report = LANG === 'zh' ? zhR : enR;
-    const pc = `<div class="postcard"><div class="stamp">🐦</div><img src="postcards/${id}.png" alt="${T.photo(name)}" loading="lazy"><div class="pm">${T.sighted} ${time}</div></div>`;
+    const pc = `<div class="postcard"><div class="stamp">🐦</div><img src="postcards/${id}.png" alt="${T.photo(name)}" loading="lazy"><div class="pm">${T.sighted} ${time}</div><button class="snd" data-sound="${id}" onclick="toggleSound('${id}')">🎧 ${T.soundPlay}</button></div>`;
     if (lat === null) {
       document.getElementById('lockerList').insertAdjacentHTML('beforeend',
         `<div class="evi">${pc}<a href="${SITE}#${id}" target="_blank">${name}</a> <span class="time">${time}</span><div class="why">${report}</div></div>`);
@@ -183,6 +190,86 @@ function renderSightings() {
       m.bindPopup(`<div class="card">${pc}<h3>${name}</h3><p class="report">${report}</p><a class="go" href="${SITE}#${id}" target="_blank">${T.enter}</a></div>`, { maxWidth: 330 });
     }
   });
+}
+
+// ---------- 聆聽現場：每個場景的環境音都由程式現場合成（0 KB、沒有音檔） ----------
+const SOUND_MAP = { rain:'rain', vinyl:'vinyl', polar:'wind', jungle:'wind', sky:'wind', ocean:'ocean', space:'space',
+  library:'quiet', globe:'globe', market:'market', wetmarket:'market', home:'home', island:'birds', circle:'city',
+  kyoto:'quiet', paris:'city', school:'city', garden:'birds', moon:'quiet', homecoming:'ocean', venice:'city', rabbit:'globe' };
+let AC = null, current = null, playing = null;
+const muted = localStorage.getItem('gpw-muted') === '1';
+
+function actx() { if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); return AC; }
+function noiseBuf(c, kind) {
+  const len = c.sampleRate * 2, b = c.createBuffer(1, len, c.sampleRate), d = b.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < len; i++) { const w = Math.random() * 2 - 1; if (kind === 'brown') { last = (last + 0.02 * w) / 1.02; d[i] = last * 3.5; } else d[i] = w; }
+  return b;
+}
+function loopSrc(c, kind) { const s = c.createBufferSource(); s.buffer = noiseBuf(c, kind); s.loop = true; s.start(); return s; }
+function env(c, dest, freq, peak, dur, type) {           // 短促的點狀音：雜訊「啵」、叮噹、鳥叫、玻璃響
+  const o = c.createOscillator(), gn = c.createGain(); o.type = type || 'sine';
+  o.frequency.setValueAtTime(freq, c.currentTime);
+  if (dur.sweep) o.frequency.exponentialRampToValueAtTime(freq * dur.sweep, c.currentTime + dur.len);
+  gn.gain.setValueAtTime(0.0001, c.currentTime);
+  gn.gain.exponentialRampToValueAtTime(peak, c.currentTime + 0.01);
+  gn.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + dur.len);
+  o.connect(gn); gn.connect(dest); o.start(); o.stop(c.currentTime + dur.len + 0.05);
+}
+function stopAll() {
+  if (!current) return;
+  if (current.timer) clearInterval(current.timer);
+  current.nodes.forEach(n => { try { n.stop(); } catch (e) {} });
+  try { current.out.disconnect(); } catch (e) {}
+  current = null; playing = null; refreshSoundBtns();
+}
+function buildSound(kind) {
+  const c = actx(), g = c.createGain(); g.gain.value = 0.0001; g.connect(c.destination);
+  const nodes = []; let timer = null, lfo = null;
+  const breathe = (target, freq, depth) => { lfo = c.createOscillator(), lg = c.createGain(); lfo.frequency.value = freq; lg.gain.value = depth; lfo.connect(lg); lg.connect(target.gain); lfo.start(); nodes.push(lfo); };
+  const bed = (buf, type, freq, q, vol, amp) => {
+    const src = loopSrc(c, buf), f = c.createBiquadFilter(), ng = c.createGain();
+    f.type = type; f.frequency.value = freq; if (q) f.Q.value = q; ng.gain.value = vol;
+    src.connect(f); f.connect(ng); ng.connect(g); nodes.push(src);
+    if (amp) breathe(ng, amp, 0.3);
+  };
+  if (kind === 'rain') { bed('white', 'highpass', 900, 0, 0.5, 0.25); bed('white', 'lowpass', 6500, 0, 0.28); g.gain.value = 0.15; }
+  else if (kind === 'wind') { bed('brown', 'lowpass', 420, 0, 0.6, 0.06); g.gain.value = 0.2; }
+  else if (kind === 'ocean') { bed('brown', 'lowpass', 700, 0, 0.6, 0.09); g.gain.value = 0.26; }
+  else if (kind === 'vinyl') {
+    bed('white', 'lowpass', 2200, 0, 0.1);
+    const hum = c.createOscillator(), hg = c.createGain(); hum.frequency.value = 60; hg.gain.value = 0.02; hum.connect(hg); hg.connect(g); hum.start(); nodes.push(hum);
+    g.gain.value = 0.5; timer = setInterval(() => { if (Math.random() < 0.3) env(c, g, 700 + Math.random() * 1800, 0.09, { len: 0.09 }, 'square'); }, 320);
+  }
+  else if (kind === 'space') { [54, 81.5].forEach(f => { const o = c.createOscillator(), ng = c.createGain(); o.frequency.value = f; ng.gain.value = 0.03; o.connect(ng); ng.connect(g); o.start(); nodes.push(o); }); breathe(g, 0.04, 0.012); g.gain.value = 0.5; }
+  else if (kind === 'market') { bed('brown', 'bandpass', 520, 0.8, 0.9, 0.4); g.gain.value = 0.13; timer = setInterval(() => { if (Math.random() < 0.4) env(c, g, 900 + Math.random() * 700, 0.05, { len: 0.3 }); }, 700); }
+  else if (kind === 'birds') { g.gain.value = 0.4; timer = setInterval(() => { if (Math.random() < 0.35) env(c, g, 2000 + Math.random() * 900, 0.05, { len: 0.13, sweep: 1.4 }); }, 900); }
+  else if (kind === 'city') { bed('brown', 'lowpass', 300, 0, 0.7); g.gain.value = 0.11; }
+  else if (kind === 'globe') { bed('brown', 'lowpass', 260, 0, 0.8); g.gain.value = 0.14; timer = setInterval(() => { if (Math.random() < 0.14) env(c, g, 1300 + Math.random() * 400, 0.04, { len: 0.7 }); }, 2600); }
+  else { bed('brown', 'lowpass', 340, 0, 0.5); g.gain.value = 0.09; }
+  return { out: g, nodes, timer };
+}
+function toggleSound(id) {
+  if (muted) { toggleMute(); }
+  if (playing === id) { stopAll(); return; }
+  stopAll();
+  current = buildSound(SOUND_MAP[id] || 'quiet');
+  playing = id;
+  current.out.gain.setTargetAtTime(1, actx().currentTime, 0.5);
+  refreshSoundBtns();
+}
+function refreshSoundBtns() {
+  document.querySelectorAll('[data-sound]').forEach(b => {
+    const on = playing === b.getAttribute('data-sound');
+    b.classList.toggle('playing', on);
+    b.textContent = on ? STR[LANG].soundStop : STR[LANG].soundPlay;
+  });
+  const mb = document.getElementById('muteBtn');
+  if (mb) { mb.textContent = muted ? STR[LANG].unmuted : STR[LANG].muted; mb.setAttribute('aria-pressed', String(muted)); }
+}
+function toggleMute() {
+  localStorage.setItem('gpw-muted', muted ? '0' : '1');
+  location.reload();
 }
 
 // ---- 個人投票箱（localStorage）----
@@ -243,7 +330,7 @@ function applyLang() {
   document.getElementById('hint').textContent = T.hint;
   document.getElementById('foot').textContent = T.foot;
   btn.textContent = armed ? T.armed : T.nominate;
-  renderSightings(); renderProps();
+  renderSightings(); renderProps(); refreshSoundBtns();
 }
 document.getElementById('langBtn').onclick = () => { LANG = LANG === 'zh' ? 'en' : 'zh'; localStorage.setItem('gpw-lang', LANG); applyLang(); };
 applyLang();
