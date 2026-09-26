@@ -15,7 +15,13 @@
 - 參考圖沿用 `refs/1-moon-頭盔與國旗.png`，讓鵜鶘的剪紙質感、紅色單車一致
 - 每張都要求：**除列出的文字外不得出現任何其他文字**
 - 不要水印、不要浮水印 logo。**不做視覺引流**——引流靠作品本身
-- 「鵜鶘」藝術字：要求它像印章或書法墨跡，可以辨識為鳥，也可以明顯走樣
+- 「鵜鶘」藝術字：**視為瑕疵，不再使用**（實測走樣成亂碼，且觀感怪異）
+- **質感原則（重要）**：粗糙的手寫感要**從照片本身的紙張與光線自然帶出**，
+  不要靠「請寫得潦草一點」這種指令。實測證實：主體是照片時手感最好
+  （RA-01 資料夾封面、RB-01 雨夜街頭），主體是「表格上的手寫字」時
+  模型會把它畫成工整印刷體，質感全失（RB-02 失物招領即為此例）。
+  → **一律以照片為主體**，字寫在照片裡的物件上（便條、紙片、牆上的字），
+    而非讓模型在白紙上排版文字。
 
 ---
 
@@ -54,30 +60,26 @@ anywhere. No watermark, no logo, no website.
 ## RA-02｜案件卷宗 · 威尼斯罰單（風格 A · the fine）
 
 ```
-An official Italian traffic citation on pale pink carbonless paper, shot flat
-from above under cool fluorescent light, resting on a scratched metal counter.
-The form is filled in by hand in blue ballpoint, the handwriting impatient.
+A photograph of a worn pink traffic citation taped to a damp stone wall by a
+harbour, taken at night with a phone flash. The paper is curling at one corner,
+water-stained, held up by a strip of yellowing tape. The wall behind it is rough
+grey stone with moss in the joints. Everything slightly out of focus except the
+paper. Flash shadow cast to the lower left.
 
-At the top, printed in capitals:
+The form is filled in by hand in blue ballpoint, the writing hurried and uneven,
+as if written at the harbour in the rain. It reads:
 
 COMUNE DI VENEZIA
-NOTIZA DI VIOLAZIONE
-
-Then a ruled form with these handwritten entries, all legible:
-
-OFFENCE: BICYCLE USE IN PROHIBITED AREA
+OFFENCE: BICYCLE IN PROHIBITED AREA
 LOCATION: SAN MARCO
 SUSPECT: A BIRD
 WITNESSES: PIGEONS
 STATEMENT: REFUSED TO TESTIFY
 FINE: 200 EUROS
-DISPUTED: YES
 
-At the bottom, a rubber date stamp in violet ink, and beside it a small
-decorative mark of two Chinese characters brushed in red ink, like a seal. The
-characters are decorative only and may look hand-lettered or slightly malformed.
+At the bottom, a rubber date stamp in violet ink, blurred and half off the paper.
 
-Clinical, deadpan, faintly absurd. The Chinese characters are the only non-Latin
+Deadpan, damp, faintly absurd. The Chinese characters are the only non-Latin
 text in the image. No other text anywhere. No watermark, no logo, no website.
 ```
 
@@ -109,30 +111,233 @@ no website.
 ## RB-02｜目擊現場 · 失物（風格 B · lost and found）
 
 ```
-A lost property form from a transit station, photographed flat under
-fluorescent light on a clipboard. The form is creased and has been folded in a
-bag. A photograph of a paper-cut style bird helmet and a red bicycle is stapled
-to the top left corner of the form.
+A photograph taken from above on a wet wooden bench in a ferry terminal at
+dusk, as if by someone who found something and photographed it where it lay. On
+the bench: an open paper bag, a striped wool hat, and a folded sheet of paper
+with handwriting on it. Rain has started to soak the corner of the paper. The
+bench slats are wet and reflective, the harbour out of focus behind.
 
-Printed heading:
+The handwriting on the folded paper is small, cramped, hurried, the way people
+write on a form they are about to lose. It reads:
 
-LOST PROPERTY
-REPORTED BY: A FRIEND OF THE FRIEND
+LOST: ONE ANDEAN WOOL HAT
+STRIPED
+LAST SEEN: A PLACE THAT IS NOT ON ANY MAP
 
-Then handwritten in ballpoint, legible:
+At the bottom, a rubber stamp reading VILLAGE JEALOUSY OFFICE, faded and
+partly smudged by the rain.
 
-ITEM: ONE HELMET
-COLOUR: ANDEAN WOOL, STRIPED
-LAST SEEN: SOMEWHERE IT DOES NOT EXIST
-OWNER: NOT COMING BACK
+Quietly sad, ordinary, unmistakably a real find rather than a design. The
+Chinese characters are the only non-Latin text in the image. No other text
+anywhere. No watermark, no logo, no website.
+```
 
-At the bottom, a rubber stamp reading VILLAGE JEALOUSY OFFICE, and beside it a
-small decorative mark of two Chinese characters brushed in red ink, like a seal.
-The characters are decorative only and may look hand-lettered or slightly
-malformed.
+---
 
-Quietly sad. The Chinese characters are the only non-Latin text in the image.
-No other text anywhere. No watermark, no logo, no website.
+## RA-03｜案件卷宗 · 掛在牆上的通緝令（風格 A）
+
+```
+A photograph of a printed wanted notice nailed to a weathered wooden wall
+outside a shuttered harbour office, taken on an overcast morning. The paper is
+sun-faded at the edges and has curled away from the wall at one corner. Three
+different nails hold it. The wall behind is peeling grey-green paint over
+boards. A puddle has dampened the lower edge, blurring one line of type. Shot
+slightly from below, the paper not quite square to the frame.
+
+Printed across the top in heavy condensed capitals:
+
+WANTED
+
+Below, a woodcut illustration of a long-beaked bird in a tiny top hat riding a
+bicycle, drawn with black ink lines like a nineteenth-century engraving. Under
+it, in smaller type:
+
+THE GOLDEN PELICAN
+LAST SEEN: THE RABBIT HOLE
+CHARGE: 24 LOCATIONS, NO PERMIT
+REWARD: 200 EUROS
+
+Below that, a rubber stamp in faded red, pressed crooked, the ink patchy.
+
+Bleached, patient, slightly forlorn. The Chinese characters are the only
+non-Latin text in the image. No other text anywhere. No watermark, no logo,
+no website.
+```
+
+## RA-04｜案件卷宗 · 證物袋（風格 A）
+
+```
+A photograph of a brown paper evidence bag lying on a steel table under a
+single overhead light in an otherwise dim room. The bag is flat, creased shut,
+its paper tie wrapped twice. A white label is taped to the front, and someone
+has written on it by hand in thick black marker, the writing large and
+unhurried. A pair of cotton gloves rests beside it, and a paper evidence seal
+sticker is half peeled at one corner of the bag. The steel table has old
+scratches and one coffee ring.
+
+The handwriting on the label reads:
+
+ITEM: A HAT
+DESCRIPTION: STRIPED WOOL
+STATUS: UNRETURNED
+CASE: GP-001
+
+Underneath, a hand-lettered line:
+
+DO NOT FILE THIS PROPERLY
+
+Flat, quiet, oddly tender. The Chinese characters are the only non-Latin text in
+the image. No other text anywhere. No watermark, no logo, no website.
+```
+
+## RA-05｜案件卷宗 · 地圖上的紅線（風格 A）
+
+```
+A photograph of a large paper street map pinned to a corkboard, photographed
+from slightly to the left so the board is seen at an angle. Red string runs
+between pins in a tangled path across the map, the string slack in some places
+and taut in others. There are far too many pins. Small numbered labels are
+written in ballpoint beside the pins, the numbers crowded and overlapping. A
+magnifying glass lies on the board, its handle worn. The cork is pale and dusty,
+the map edges curling.
+
+Handwritten in ballpoint at the top of the map, in a hurried hand:
+
+24 STOPS IN 24 HOURS
+I COUNTED TWICE
+
+And in a different, shakier hand, circled:
+
+I COUNTED ONCE
+
+Crowded, obsessive, faintly unhinged. The Chinese characters are the only
+non-Latin text in the image. No other text anywhere. No watermark, no logo,
+no website.
+```
+
+## RA-06｜案件卷宗 · 打字機的一頁（風格 A）
+
+```
+A photograph of a single sheet of paper held in the roller of a mechanical
+typewriter, the last line still part-fed. The paper is yellowed and thin, with
+a faint blue ribbon mark down the centre. The typewriter itself is old, chipped
+black enamel, photographed only as a dark shape at the edges of the frame. The
+sheet is lit from one side by a desk lamp, the right side falling into shadow.
+A pair of reading glasses sits on the machine, one lens catching the light.
+
+The typed text, the ribbon slightly uneven as old typewriters are, reads:
+
+THE VILLAGE JEALOUSY OFFICE
+CONFIDENTIAL
+
+THE SUBJECT VISITED 24 PLACES
+IN 24 HOURS, MOSTLY AT NIGHT
+
+IN EVERY PLACE SOMEBODY
+HAD ALREADY GIVEN IT SOMETHING
+
+We do not know where it keeps
+the things it was given.
+
+The last line trails off, half-typed, the ribbon fading. The Chinese characters
+are the only non-Latin text in the image. No other text anywhere. No watermark,
+no logo, no website.
+```
+
+## RB-03｜目擊現場 · 貓的證詞（風格 B）
+
+```
+A photograph of a hand-drawn sketch on torn notebook paper, the paper creased
+and damp at one corner, lying on a wet pavement. It has been left out in the
+weather: the pencil is smudged, one corner of the paper is curling, rain has
+bled the graphite. Beside the sketch, a pair of cat paws printed in dust on the
+pavement, as if the cat stood there. The photograph is taken from directly
+above, phone camera, the pavement filling the frame.
+
+The sketch is done in rough pencil, the way someone draws a thing they only saw
+for two seconds. Underneath, in the same rough pencil, unevenly spaced:
+
+SOMETHING BIG
+WITH A BIG MOUTH
+WENT PAST
+
+CONFUSION: LOW
+
+The lines are shaky and the proportions are wrong. It is a bad drawing by
+somebody who was not trying to be good at it. The Chinese characters are the
+only non-Latin text in the image. No other text anywhere. No watermark, no logo,
+no website.
+```
+
+## RB-04｜目擊現場 · 鴿子的版本（風格 B）
+
+```
+A photograph of a torn-off page from a spiral notebook, taped at one corner to
+a metal railing at a harbour, fluttering slightly. Rain has speckled the page.
+Behind it, out of focus: grey water, a moored boat, and a group of pigeons
+standing on the quay. The page is shot through the railing, so one vertical
+bar crosses the frame. Someone has written on it in biro, pressed hard enough to
+score the paper:
+
+WITNESS: PIGEONS
+STATEMENT:
+
+and then nothing, the line left blank, the pen still on the page as if the
+witness stopped mid-sentence and left. Under that, a small drawing of a bird
+shape that is mostly a triangle.
+
+The blank space where the statement should be is the point. The Chinese
+characters are the only non-Latin text in the image. No other text anywhere.
+No watermark, no logo, no website.
+```
+
+## RB-05｜目擊現場 · 滑板上的粉筆字（風格 B）
+
+```
+A photograph taken at night, looking down at a concrete kerb where someone has
+written in chalk. The chalk is old and smeared, half of it already scuffed
+away by feet, and the writing runs off the end of the kerb so the last word is
+incomplete. A bicycle is lying on its side in the road beside it, and someone
+has also drawn a small circle on the pavement where a wheel came to rest. The
+streetlight is overhead, the chalk bright in the middle and shadowed at the
+edges. Night, damp asphalt, the glow of a phone light at the edge of frame.
+
+The chalk text reads:
+
+SLOW DOWN
+SOMEONE IS STILL LOOKING FOR IT
+
+and beneath, added later in shakier chalk:
+
+MOSTLY FOR THE HAT
+
+Urban, quiet, slightly forlorn. The Chinese characters are the only non-Latin
+text in the image. No other text anywhere. No watermark, no logo, no website.
+```
+
+## RB-06｜目擊現場 · 便利店櫥窗（風格 B）
+
+```
+A photograph of a convenience store window at 3am, taken from the pavement.
+The window is fogged at the edges, the shelves behind it lit cold and blue, a
+half-eaten sandwich on the counter. A handwritten sign has been taped to the
+inside of the glass, the tape at one corner curling. The glass reflects the
+street behind the camera, so a ghost of a red bicycle is visible in it,
+distorted. The clerk is a figure behind the counter, out of focus, not looking
+up.
+
+The handwritten sign, on torn masking tape, in thick marker, uneven:
+
+WE HAVE NO
+HAT POLICY
+FOR BIRDS
+
+Below it, printed in small type on a shelf-edge label behind the glass:
+
+PLEASE DO NOT ASK ABOUT THE BIRD
+
+Late-night, fluorescent, deadpan. The Chinese characters are the only non-Latin
+text in the image. No other text anywhere. No watermark, no logo, no website.
 ```
 
 ---
