@@ -35,7 +35,7 @@ def key():
     return k
 
 
-def _curl(args, data=None, raw_out=False, timeout=120):
+def _curl(args, data=None, raw_out=False, timeout=180):
     """全部走 curl：python.org 的 Python 3.13 在這台 Mac 上抓不到系統根憑證，curl 可以。"""
     import subprocess, tempfile
     cmd = ["curl", "-sS", "--max-time", str(timeout),
@@ -122,7 +122,7 @@ def upload_refs(max_n=1):
 def parse_prompts():
     text = PROMPTS_MD.read_text()
     out = {}
-    for m in re.finditer(r"^## ([A-T])｜(.+?)$(.*?)(?=^## |\Z)", text, re.S | re.M):
+    for m in re.finditer(r"^## ([A-V])｜(.+?)$(.*?)(?=^## |\Z)", text, re.S | re.M):
         code = re.search(r"```(.*?)```", m.group(3), re.S)
         if code:
             out[m.group(1)] = (m.group(2).strip(), code.group(1).strip())
@@ -138,7 +138,7 @@ def generate(letter, title, prompt, ratio, refs):
         inner["size"] = size
     if refs:
         inner["image"] = refs
-    job = api("/requests", {"model": MODEL, "payload": inner})
+    job = api("/requests", {"model": MODEL, "payload": inner}, timeout=180)
     rid = job.get("request_id") or job.get("id")
     print(f"  → 提交完成 request_id={rid} status={job.get('status')}")
     for i in range(180):

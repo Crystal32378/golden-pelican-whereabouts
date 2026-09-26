@@ -441,3 +441,38 @@ that reads: NEVER LATE. The watch lies on a dark wooden table.
 
 No other legible text, no watermark.
 ```
+---
+
+## 第三輪：Opus「嫌犯自白書」＋ 重畫鴿子空畫框
+
+## U｜嫌犯自白書（做完這張封牆）
+
+```
+A police statement form on cream paper, photographed flat under a single desk lamp.
+The printed form has boxes and lines and a small official header, but the only
+handwriting on it is one single line written very large, uneven, and slightly
+rotated, as if written by someone in a hurry with a fat marker:
+
+我只是在騎車。
+
+The signature line at the bottom is left completely empty. In the small box beside
+it there is a single soft grey webbed-foot print, like a wet stamp, slightly
+smudged. A coffee ring near the top corner. Everything else on the page is blank.
+No other writing, no other marks, no watermark.
+```
+
+## V｜鴿子版素描：重畫成「空畫框」（第一次畫到鳥了）
+
+```
+A police sketch sheet lying on a desk, photographed straight from above. In the
+centre of the sheet is a printed rectangular frame, like a picture frame or a
+placeholder box, and INSIDE THE FRAME THERE IS ABSOLUTELY NOTHING — it is blank
+white paper, completely empty, no drawing, no lines, no figure, no outline.
+The frame itself is printed in thin black type. Below the frame, a small stamp in
+red ink, slightly crooked, reads:
+
+WITNESS REFUSED TO TESTIFY
+
+Around the sheet: a desk, a pencil, an eraser with a worn tip, and nothing else.
+Deadpan, funny, quiet. No other text, no watermark.
+```

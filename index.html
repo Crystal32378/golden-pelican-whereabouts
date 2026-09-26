@@ -61,6 +61,7 @@
   #explainer { margin:8px auto 10px; max-width:560px; font-size:13px; line-height:1.7; color:#C9A04A; opacity:.85; }
   #enterBtn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; font-size:14px; font-weight:700; padding:8px 20px; border-radius:6px; }
   #enterBtn:hover { background:#E0592A; }
+  .wanted .count { display:block; margin:6px 0 2px; font-size:12px; color:#8E8272; font-style:italic; }
   #teaser { max-width:520px; margin:0 auto 30px; background:#FFFDF4; color:#3A2A20; border:1px solid #C9A04A; border-radius:4px; padding:18px 22px 16px; position:relative; box-shadow:0 3px 12px rgba(0,0,0,.4); }
   #teaser .teaserStamp { position:absolute; top:10px; right:14px; border:2px solid #C8453A; color:#C8453A; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; transform:rotate(6deg); opacity:.85; }
   #teaser .teaserTitle { font-family:Georgia,"Times New Roman",serif; font-size:22px; letter-spacing:2px; }
@@ -101,6 +102,7 @@
     <span id="wCharges">罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車</span><br>
     <span id="wLooks">特徵：剪紙質感、紅色單車、每站換帽子</span>　｜　<span id="wLast">最後目擊：威尼斯（鴿子拒絕作證）</span>
     <p id="explainer">其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 22 個場景，每一站由不同的 AI 點菜——來看看犯罪現場</p>
+    <span id="wCount" class="count">官方紀錄：21 地點。鄉民堅稱有第 22 站。</span>
     <a id="enterBtn" href="https://crystal32378.github.io/golden-pelican/#moon" target="_blank">進入本月球現場 →</a>
   </div>
 </header>
@@ -115,7 +117,7 @@
 
 <section id="wall">
   <div class="wallTitle">🧲 證物牆 · 本室證物均由鄉民繳交</div>
-  <div class="wallNote">以下 16 件均非本中心製作，為各界鄉民自行搜尋、印製、代筆、繳交。格式不一、語言不一、字體不一、認真程度不一，一概不拒收。</div>
+  <div class="wallNote">以下 17 件均非本中心製作，為各界鄉民自行搜尋、印製、代筆、繳交。格式不一、語言不一、字體不一、認真程度不一，一概不拒收。</div>
   <div id="wallGrid">
     <div class="wcard" style="--tilt:-.8deg"><img src="posters/A.jpg" alt="通緝令海報"><div class="tag"><span class="lang">中</span><b>繳交者：鄉民 #001</b><br>自稱「本室元老」，聲稱這張是他用影印機印第 11 稿才成功的。前 10 稿在河濱公園被風吹走。</div></div>
     <div class="wcard" style="--tilt:.7deg"><img src="posters/B.jpg" alt="Western wanted poster"><div class="tag"><span class="lang">EN</span><b>Contributor: villager #013</b><br>English only, claims to be from a country with no Chinese on its stamps. Provided his own engraving of the suspect.</div></div>
@@ -131,9 +133,11 @@
     <div class="wcard" style="--tilt:-.4deg"><img src="posters/P.jpg" alt="失物招領"><div class="tag"><span class="lang">EN</span><b>繳交者：鄉民 #074</b><br>帽子、鑰匙、一瓶 DRINK ME、一只懷錶、一根羽毛、一張紅色停車牌。他說寫「Owner has not returned.」那行的時候手在抖。</div></div>
     <div class="wcard" style="--tilt:.5deg"><img src="posters/Q.jpg" alt="線人電話線"><div class="tag"><span class="lang">EN</span><b>繳交者：全體鄉民（共同）</b><br>27 則未證實目擊，其中 9 則互相矛盾。本室選擇全部保留，並附註：矛盾也是資料。</div></div>
     <div class="wcard" style="--tilt:-.9deg"><img src="posters/R.jpg" alt="三隻貓的素描"><div class="tag"><span class="lang">EN</span><b>繳交者：三隻流浪貓（口述，鄉民 #080 代筆）</b><br>牠們只記得一個巨大的、嘴巴很大的東西騎車經過。信心度：低。</div></div>
-    <div class="wcard" style="--tilt:.6deg"><img src="posters/S.jpg" alt="鴿子拒絕作證"><div class="tag"><span class="lang">EN</span><b>繳交者：威尼斯鴿子代表</b><br>附言：空白不是拒絕，是風格。本室接受此說法。</div></div>
+    <div class="wcard" style="--tilt:.6deg"><img src="posters/V.jpg" alt="鴿子拒絕作證（空畫框）"><div class="tag"><span class="lang">EN</span><b>繳交者：威尼斯鴿子代表</b><br>附一張空畫框與一枚印章。鄉民 #103 附註：框內什麼都沒有——這是重點。</div></div>
     <div class="wcard" style="--tilt:-.3deg"><img src="posters/T.jpg" alt="懷錶上的手畫像"><div class="tag"><span class="lang">EN</span><b>繳交者：白兔</b><br>趕時間，所以直接畫在錶上。錶面自己印的 NEVER LATE 與手寫的 LATE. NO TIME. 互相矛盾，本室認為兩句都對。</div></div>
+    <div class="wcard" style="--tilt:-.2deg"><img src="posters/U.jpg" alt="嫌犯自白書"><div class="tag"><span class="lang">中</span><b>繳交者：嫌犯本人</b><br>全案唯一一句供詞。簽名欄空白，只蓋了一枚濕的蹼印。牠從頭到尾只說了這一句，而且是真的。</div></div>
   </div>
+  <div class="wallNote" style="margin-top:6px">本案證物收集完畢（17 件）。嫌犯仍在騎車。</div>
   <div class="wallNote" style="margin-top:6px">＊本牆所有海報由 <b>Hy Image 3.5（混元）</b> 生成，非本店攝影。字跡如有訛誤，概由生成模型負責，本室不更正。</div>
 </section>
 <div id="ballot">
@@ -188,7 +192,7 @@ const STR = {
     hint:'按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。',
     foot:'目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣',
     votes:v=>`本站提名 ${v} 票（存在你的瀏覽器）`, voteBtn:'投這裡一票', prompt:'這裡是哪裡？（我家巷口也可以）',
-    charges:'罪名：未經許可環遊 22 個地點、在威尼斯違規騎單車、在地下失聯', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
+    charges:'罪名：未經許可環遊 22 個地點、在威尼斯違規騎單車、在地下失聯', count:'官方紀錄：21 地點。鄉民堅稱有第 22 站。', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
     explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 22 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →',
     teaserStamp:'提名中', teaserNone:'還沒有人提名，你就是第一個。', teaserTie:'本案陷入票數僵局。',
     soundPlay:'🎧 聆聽現場', soundStop:'🔇 停止聆聽', muted:'🔇 靜音', unmuted:'🔊 恢復聲音', sndNote:'🔊 現場音：', sndTech:'（技術：瀏覽器即時合成，無音檔）',
@@ -197,7 +201,7 @@ const STR = {
     hint:'Press the button, then click anywhere on the map to nominate it — your own alley counts. Nominations live in your browser only; this is your detective notebook.',
     foot:'Sighting times are real git commit timestamps (golden-pelican repo) | the main store and this sibling operate independently 🍣',
     votes:v=>`${v} vote${v>1?'s':''} (stored in your browser)`, voteBtn:'Vote here', prompt:'Where is this? (Your own alley counts)',
-    charges:'CHARGES: toured 22 locations without a permit; cycled illegally in Venice; went missing underground', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: the Rabbit Hole (no witnesses)', photo:n=>`${n}, scene photo`,
+    charges:'CHARGES: toured 22 locations without a permit; cycled illegally in Venice; went missing underground', count:'Official record: 21 locations. Villagers insist there is a 22nd.', looks:'FEATURES: paper-cut texture, red bicycle, a different hat at every stop', last:'LAST SEEN: the Rabbit Hole (no witnesses)', photo:n=>`${n}, scene photo`,
     explain:'This is a 3D world where a pelican rides a bicycle through 22 scenes, each one ordered by a different AI — see the crime scenes', enter:'Enter the moon scene →',
     teaserStamp:'Nominating', teaserNone:'No nominations yet — you would be the first.', teaserTie:'The case is deadlocked.',
     soundPlay:'🎧 Hear the scene', soundStop:'🔇 Stop', muted:'🔇 Mute', unmuted:'🔊 Sound on', sndNote:'🔊 Scene sound: ', sndTech:'(synthesised live in your browser — no audio files)',
@@ -411,6 +415,7 @@ function applyLang() {
   document.getElementById('langBtn').textContent = LANG === 'zh' ? 'EN' : '中文';
   document.getElementById('wCharges').textContent = T.charges;
   document.getElementById('wLooks').textContent = T.looks;
+  document.getElementById('wCount').textContent = T.count;
   document.getElementById('wLast').textContent = T.last;
   document.getElementById('explainer').textContent = T.explain;
   document.getElementById('enterBtn').textContent = T.enter;
