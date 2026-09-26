@@ -168,3 +168,62 @@ corkboard above and below, the text block occupying the middle third」。**不�
 2. **放進網站**：海報縮到長邊 1200px、JPEG 品質 80 → **< 250KB**（分店「0.2 秒載入」不能被一張大圖毀掉）。
 3. **F 分享卡**：裁成 1200×630 後，丟進 `<meta og:image>`（評審從 Discord／X 點進來看到的第一張圖）。
 4. **favicon**：另外用 1024×1024 生一張，只有圖釘＋「WANTED」兩字，不要小字。
+---
+
+## 修訂版（第一輪 OCR 檢查後重生）
+
+第一輪六版的 OCR 結果：C 版掉了字（SUBJECT: GOLDE）、E 版 22 個標籤太密開始胡言亂語、
+F 版掉了「鵜鶘」兩個字。以下三版是針對這些錯誤重寫的 prompt。
+
+## G｜機密檔案 v2（修掉 GOLDE）
+
+```
+An official-looking redacted government document on manila folder paper, shot flat
+from above under cool fluorescent light. Heavy black redaction bars cover most
+paragraphs; a stamped header reads CONFIDENTIAL in tall condensed type. One
+visible, unredacted block, in a monospaced type, each line short and widely spaced:
+
+SUBJECT: THE PELICAN
+STATUS: AT LARGE
+CHARGE: 22 LOCATIONS, NO PERMIT
+LAST SEEN: THE RABBIT HOLE
+FILE: GP-001
+NOTE: 黑粉也是粉
+
+The black bars are uneven and clearly hand-placed with a marker, a few characters
+peek out from under them. A violet rubber date stamp in the corner, deliberately
+blurred and illegible. Clinical, deadpan, slightly funny. No other legible text,
+no watermark.
+```
+
+## H｜時間軸 v2（只留時間，22 個標籤減成 12 個）
+
+```
+A dark corkboard evidence board photographed straight on: a loop of red string with
+twelve small photo thumbnails pinned at slight angles, generous empty corkboard
+around them so nothing is crowded. Under each thumbnail, one small paper label in
+a legible monospaced type. The labels read, clockwise from the top:
+
+小島 20:31 / 登月 20:31 / 凱旋門 20:31 / 深海 21:36 / 宇宙 21:44 / 家 21:57 /
+菜市場 22:09 / 書海 22:19 / 黑膠 22:55 / 雪花球 23:08 / 回家 23:27 / 威尼斯 09:39
+
+A single handwritten red note pinned at the centre reads: 全部在 24 小時內完成。
+A small stamp at the corner reads "鄉民嫉妒中心". Warm lamp, dark room, one flat
+plane. Only the text listed above appears. No other text, no watermark.
+```
+
+## I｜分享卡 v2（補回「鵜鶘」）
+
+```
+A wide banner, dark corkboard background with a single large cream paper notice
+centred, drop shadow, very slight rotation. On the paper, a centred slab-serif
+headline in English, and below it exactly one line of monospaced Chinese:
+
+GOLDEN PELICAN'S WHEREABOUTS
+22 locations in 24 hours. One bicycle. Still at large.
+一隻鵜鶘，最後目擊：兔子洞。
+
+A small red stamp reads "鄉民嫉妒中心". All text sits within the central
+horizontal band of the frame, with generous empty space above and below, so it
+survives a wide crop. Everything else is dark and empty. No other text, no watermark.
+```
