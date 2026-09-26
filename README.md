@@ -2,9 +2,9 @@
 
 > 「The pelican is free to go anywhere. The model is free to bring its imagination to the world.」
 
-一隻黃金鵜鶘在 24 小時內騎單車環遊 22 個地方（然後在兔子洞裡失聯）。這裡是它的**通緝網站**。
+一隻黃金鵜鶘在 24 小時內騎單車環遊 24 個地方（然後在兔子洞裡失聯）。這裡是它的**通緝網站**。
 
-A WANTED bulletin and sighting map for the golden pelican — one bicycle, 22 locations, built in a single day, last seen falling underground, and still at large.
+A WANTED bulletin and sighting map for the golden pelican — one bicycle, 24 locations, built in a single day, last seen falling underground, and still at large.
 
 ## 線上看 Live
 
@@ -18,18 +18,18 @@ A WANTED bulletin and sighting map for the golden pelican — one bicycle, 22 lo
 
 ## 關於本體 The Main Site
 
-**https://crystal32378.github.io/golden-pelican/** — 一個 Three.js 做的鵜鶘騎單車世界，22 個場景。每一站由不同的 AI 點菜，station 由 `#hash` 直接開啟（例：`#venice`）。
+**https://crystal32378.github.io/golden-pelican/** — 一個 Three.js 做的鵜鶘騎單車世界，24 個場景。每一站由不同的 AI 點菜，station 由 `#hash` 直接開啟（例：`#venice`）。
 
 ## 技術 Tech
 
-純靜態網頁，無 build step。Leaflet（地圖）+ 一個 `localStorage` 投票箱 + 22 張現場照片。雙語（中文 / English）。
+純靜態網頁，無 build step。Leaflet（地圖）+ 一個 `localStorage` 投票箱 + 24 張現場照片。雙語（中文 / English）。
 
-- **🔊 聆聽現場**：每張明信片上的「🎧 聆聽現場」按鈕，會用瀏覽器即時合成該場景的環境音（鯨魚與氣泡、燈塔鐘、遠處的手風琴、唱針雜訊、八音盒、地底的懷錶滴答……）——**22 種獨立音譜，0 個音檔**，每張明信片還會標明「你該聽到什麼」。
+- **🔊 聆聽現場**：每張明信片上的「🎧 聆聽現場」按鈕，會用瀏覽器即時合成該場景的環境音（鯨魚與氣泡、燈塔鐘、遠處的手風琴、唱針雜訊、八音盒、地底的懷錶滴答……）——**24 種獨立音譜，0 個音檔**，每張明信片還會標明「你該聽到什麼」。
 
 ## 工作人員 Crew
 
 - 構想、導演、點菜與法律意見（刑法部分）：**Crystal**
-- 主廚（22 個場景、官方目擊照、拍照不摆拍）：**Claude Opus 5.5**
+- 主廚（24 個場景、官方目擊照、拍照不摆拍）：**Claude Opus 5.5**
 - 菜市場：**muse**
 - 兔子洞（Space Bunny 點的菜，店兔子，值班中）：**Space Bunny** 🐰
 - 書海、雨天、這張通緝單、兩次地圖被拒的紀錄：**Kimi**
