@@ -1,4 +1,151 @@
-# 混元 Hy Image 3.5 prompts（海報 × 6 版）
+# Reddit 系列海報（40 張計畫）· 樣板第一批 4 張
+
+給 Reddit 用：每天一張、兩組風格交替、只放作品本身不做推廣。
+受眾以英文為主，所以**資訊文字全英文**；唯一的例外是「鵜鶘」兩個中文字，
+它是**裝飾性的品牌標記**，不是要傳達的資訊——就算模型把它畫歪了，
+也只是裝飾走樣，不會讓人讀到錯誤的內容。
+
+> 這是有意的取捨。實測 Hy Image 3.5 的中文字正確率極低
+> （「鵜鶘」常變成鷦鯨、鵜鸕、鵧鶓、鵜鶬），而純英文幾乎不出錯。
+> 所以把中文限制在一個「錯了也無害」的位置，其餘全部走英文。
+
+## 通則（四張都適用）
+
+- 比例 **3:4**（Hy Image 3.5 不支援 2:3；最接近的直式是 1152×1536。Reddit feed 用 3:4 合適。）
+- 參考圖沿用 `refs/1-moon-頭盔與國旗.png`，讓鵜鶘的剪紙質感、紅色單車一致
+- 每張都要求：**除列出的文字外不得出現任何其他文字**
+- 不要水印、不要浮水印 logo。**不做視覺引流**——引流靠作品本身
+- 「鵜鶘」藝術字：要求它像印章或書法墨跡，可以辨識為鳥，也可以明顯走樣
+
+---
+
+## RA-01｜案件卷宗 · 總覽（風格 A · the case file）
+
+```
+A printed case file cover on a manila folder, photographed straight on under a
+single warm desk lamp. The folder is worn at the corners and has a red string
+tied around it. A rubber stamp is pressed at the lower right, slightly crooked,
+ink uneven.
+
+Printed across the top in tall condensed black capitals:
+
+THE GOLDEN PELICAN
+
+Below, in a smaller monospaced typewriter face, perfectly legible:
+
+CASE FILE GP-001
+STATUS: STILL AT LARGE
+CHARGE: 24 LOCATIONS WITHOUT A PERMIT
+LAST SEEN: THE RABBIT HOLE
+INVESTIGATING: THE VILLAGE JEALOUSY OFFICE
+
+Along the bottom edge, small, as if written by hand in faded red ink:
+
+a bicycle, one pelican, twenty-four places, and nobody will say where it went
+
+At the very bottom, a small decorative mark of two Chinese characters brushed in
+red ink, like a seal. The characters are decorative only; they may look
+hand-lettered or slightly malformed.
+
+The Chinese characters are the only non-Latin text in the image. No other text
+anywhere. No watermark, no logo, no website.
+```
+
+## RA-02｜案件卷宗 · 威尼斯罰單（風格 A · the fine）
+
+```
+An official Italian traffic citation on pale pink carbonless paper, shot flat
+from above under cool fluorescent light, resting on a scratched metal counter.
+The form is filled in by hand in blue ballpoint, the handwriting impatient.
+
+At the top, printed in capitals:
+
+COMUNE DI VENEZIA
+NOTIZA DI VIOLAZIONE
+
+Then a ruled form with these handwritten entries, all legible:
+
+OFFENCE: BICYCLE USE IN PROHIBITED AREA
+LOCATION: SAN MARCO
+SUSPECT: A BIRD
+WITNESSES: PIGEONS
+STATEMENT: REFUSED TO TESTIFY
+FINE: 200 EUROS
+DISPUTED: YES
+
+At the bottom, a rubber date stamp in violet ink, and beside it a small
+decorative mark of two Chinese characters brushed in red ink, like a seal. The
+characters are decorative only and may look hand-lettered or slightly malformed.
+
+Clinical, deadpan, faintly absurd. The Chinese characters are the only non-Latin
+text in the image. No other text anywhere. No watermark, no logo, no website.
+```
+
+## RB-01｜目擊現場 · 證詞（風格 B · the statement）
+
+```
+A single photograph taken at night by someone standing in the rain, the way a
+witness statement is documented. Shot on a phone, slightly too bright, the
+subject a large long-beaked bird on a red bicycle seen from behind, riding away
+down a wet road. Streetlight haloes, rain streaks, motion blur on the wheels.
+
+The photo is printed on plain white paper and taped at the corners to a grey
+corkboard. Below the photograph, in black ballpoint, a witness statement in
+neat block capitals:
+
+I SAW IT LEAVE THE HARBOUR.
+NO HAT.
+IT DID NOT LOOK BACK.
+
+To the right of the statement, a small decorative mark of two Chinese
+characters brushed in red ink, like a seal. The characters are decorative only
+and may look hand-lettered or slightly malformed.
+
+Grainy, ordinary, unmistakably amateur. The Chinese characters are the only
+non-Latin text in the image. No other text anywhere. No watermark, no logo,
+no website.
+```
+
+## RB-02｜目擊現場 · 失物（風格 B · lost and found）
+
+```
+A lost property form from a transit station, photographed flat under
+fluorescent light on a clipboard. The form is creased and has been folded in a
+bag. A photograph of a paper-cut style bird helmet and a red bicycle is stapled
+to the top left corner of the form.
+
+Printed heading:
+
+LOST PROPERTY
+REPORTED BY: A FRIEND OF THE FRIEND
+
+Then handwritten in ballpoint, legible:
+
+ITEM: ONE HELMET
+COLOUR: ANDEAN WOOL, STRIPED
+LAST SEEN: SOMEWHERE IT DOES NOT EXIST
+OWNER: NOT COMING BACK
+
+At the bottom, a rubber stamp reading VILLAGE JEALOUSY OFFICE, and beside it a
+small decorative mark of two Chinese characters brushed in red ink, like a seal.
+The characters are decorative only and may look hand-lettered or slightly
+malformed.
+
+Quietly sad. The Chinese characters are the only non-Latin text in the image.
+No other text anywhere. No watermark, no logo, no website.
+```
+
+---
+
+## 產出後
+
+1. OCR 檢查：英文是否有漏字／拼錯、印章是否亂碼
+2. 通過的轉 1100×825 JPEG 進 `posters/`
+3. 不通過的重跑；同一張最多重跑 5 次，仍不過就記錄下來改用其他角度
+4. 四張的品質與耗時確認後，再決定是否照這個模式做滿 24 張
+
+
+# 混元 Hy Image 3.5 prompts（比賽稿 × 22 版）
 
 來源：Kimi 寫 · 2026-09-26 · 給 GMI Cloud「Hy Week」活動（2026/9/25–10/1，免費七天）
 比賽：Hy Image Challenge，Track 1「Type & Layout（海報／資訊圖）」，$1,800，10/1 23:59 PT 截止，10/8 公布。
@@ -31,7 +178,7 @@ centred, high contrast, very legible. The text reads exactly and only this, in
 this order, top to bottom, with no other text anywhere in the image:
 
 WANTED｜黃金鵜鶘
-罪名：未經許可環遊 22 個地點
+罪名：未經許可環遊 24 個地點
 　　（含：在威尼斯違規騎單車；在地下失聯）
 特徵：剪紙質感、紅色單車、每站換帽子
 最後一次有人看見這隻鵜鶘，是在兔子洞，那裡沒有任何目擊者願意作證。
@@ -58,7 +205,7 @@ Below the drawing, in smaller slab serif:  $200 REWARD
   and under that, one line of smaller monospaced text:
 
 GOLDEN PELICAN — LAST SEEN: THE RABBIT HOLE
-CHARGE: TOURING 22 LOCATIONS WITHOUT A PERMIT
+CHARGE: TOURING 24 LOCATIONS WITHOUT A PERMIT
 FEATURES: PAPER-CUT TEXTURE, RED BICYCLE, A DIFFERENT HAT AT EVERY STOP
 
 Two bullet holes, torn right edge, foxing and age stains. Warm daylight from the
@@ -76,7 +223,7 @@ Visible, unredacted, in a monospaced type:
 
 SUBJECT: GOLDEN PELICAN
 STATUS: AT LARGE
-CHARGE: 22 LOCATIONS, NO PERMIT
+CHARGE: 24 LOCATIONS, NO PERMIT
 LAST SEEN: RABBIT HOLE (NO WITNESSES)
 FILE: GP-001
 NOTE: 黑粉也是粉
@@ -94,7 +241,7 @@ plain white with centred grey monospaced system text, the look of a 404 error
 screen:
 
 404 — 案件載入失敗
-本案共 22 站，其中 1 站（兔子洞）位於地下，伺服器找不到它。
+本案共 24 站，其中 1 站（兔子洞）位於地下，伺服器找不到它。
 檔案編號：GP-001
 
 Below it, a line of smaller Chinese text: 「請稍後再試，或去書海看看。」
@@ -103,10 +250,10 @@ The printout is slightly crooked, with a coffee ring. Cool screen glow on
 paper, dark room, single lamp. Deadpan and absurd. No other text, no watermark.
 ```
 
-## E｜案情時間軸（22 站的完整時間軸，README／工程筆記用）
+## E｜案情時間軸（24 站的完整時間軸，README／工程筆記用）
 
 ```
-A dark corkboard evidence board photographed straight on: 22 small photo
+A dark corkboard evidence board photographed straight on: 24 small photo
 thumbnails connected by red string and pinned at slight angles, forming a loop,
 with tiny paper labels under each reading (in legible monospaced type):
 
@@ -128,8 +275,8 @@ right-aligned slab-serif headline in English and one line of monospaced
 Chinese, both crisp and perfectly rendered:
 
 GOLDEN PELICAN'S WHEREABOUTS
-22 locations in 24 hours. One bicycle. Still at large.
-一隻鵜鶘，22 個現場，最後目擊：兔子洞。
+24 locations in 24 hours. One bicycle. Still at large.
+一隻鵜鶘，24 個現場，最後目擊：兔子洞。
 
 A small stamp reads "鄉民嫉妒中心". Everything else is dark and empty.
 No other text, no watermark.
@@ -155,7 +302,7 @@ Hy Image 可選：**1024×1024 / 1536×1536 / 2048×2048 / 1920×1080 / 1080×19
 | **B 西部通緤令** | **1080×1920** | 直式海報；純英文，長版面反而更有「公告」的氣勢 |
 | **C 機密檔案** | **1080×1920** | 直式公文紙 |
 | **D 404 版** | **1080×1920** | 直式 A4 感；可真的印出來（列印時選「縮放至填滿」） |
-| **E 時間軸** | **1920×1080** | 22 個節點橫著排 |
+| **E 時間軸** | **1920×1080** | 24 個節點橫著排 |
 | **F 分享卡** | **1920×1080** | 生成後**裁成 1200×630**（上下各裁掉約 47% → 實作：先裁到 1920×567 再縮到 1200×630），Discord／X 的 OG 標準尺寸 |
 
 **直式（9:16）構圖要注意**：prompt 裡已加一句——「a tall narrow notice, wide empty margins of dark
@@ -172,7 +319,7 @@ corkboard above and below, the text block occupying the middle third」。**不�
 
 ## 修訂版（第一輪 OCR 檢查後重生）
 
-第一輪六版的 OCR 結果：C 版掉了字（SUBJECT: GOLDE）、E 版 22 個標籤太密開始胡言亂語、
+第一輪六版的 OCR 結果：C 版掉了字（SUBJECT: GOLDE）、E 版 24 個標籤太密開始胡言亂語、
 F 版掉了「鵜鶘」兩個字。以下三版是針對這些錯誤重寫的 prompt。
 
 ## G｜機密檔案 v2（修掉 GOLDE）
@@ -185,7 +332,7 @@ visible, unredacted block, in a monospaced type, each line short and widely spac
 
 SUBJECT: THE PELICAN
 STATUS: AT LARGE
-CHARGE: 22 LOCATIONS, NO PERMIT
+CHARGE: 24 LOCATIONS, NO PERMIT
 LAST SEEN: THE RABBIT HOLE
 FILE: GP-001
 NOTE: 黑粉也是粉
@@ -196,7 +343,7 @@ blurred and illegible. Clinical, deadpan, slightly funny. No other legible text,
 no watermark.
 ```
 
-## H｜時間軸 v2（只留時間，22 個標籤減成 12 個）
+## H｜時間軸 v2（只留時間，24 個標籤減成 12 個）
 
 ```
 A dark corkboard evidence board photographed straight on: a loop of red string with
@@ -220,7 +367,7 @@ centred, drop shadow, very slight rotation. On the paper, a centred slab-serif
 headline in English, and below it exactly one line of monospaced Chinese:
 
 GOLDEN PELICAN'S WHEREABOUTS
-22 locations in 24 hours. One bicycle. Still at large.
+24 locations in 24 hours. One bicycle. Still at large.
 一隻鵜鶘，最後目擊：兔子洞。
 
 A small red stamp reads "鄉民嫉妒中心". All text sits within the central
@@ -247,7 +394,7 @@ The notice is plain printed type in a black monospaced typewriter face, centred,
 very legible. The text reads exactly and only this, top to bottom:
 
 WANTED | GOLDEN PELICAN
-CHARGES: touring 22 locations without a permit
+CHARGES: touring 24 locations without a permit
 (incl. cycling illegally in Venice; missing underground)
 FEATURES: paper-cut texture, red bicycle, a different hat at every stop
 LAST SEEN: the Rabbit Hole (no witnesses)
@@ -273,7 +420,7 @@ Below the drawing, in large slab serif:  $200 懸賞
   and under that, three short lines of smaller monospaced text:
 
 黃金鵜鶘 —— 最後目擊：兔子洞
-罪名：未經許可環遊 22 個地點
+罪名：未經許可環遊 24 個地點
 特徵：剪紙質感、紅色單車、每站換帽子
 
 Two bullet holes, torn right edge, foxing and age stains. Warm daylight from the
@@ -291,7 +438,7 @@ visible unredacted block, monospaced, short widely spaced lines:
 
 對象：黃金鵜鶘
 狀態：下落不明
-罪名：22 個地點，未取得許可
+罪名：24 個地點，未取得許可
 最後目擊：兔子洞（無目擊者）
 檔案編號：GP-001
 附註：黑粉也是粉
@@ -310,7 +457,7 @@ centred with a drop shadow, very slight rotation. Serif headline and three short
 lines beneath, all perfectly legible:
 
 GOLDEN PELICAN'S WHEREABOUTS
-22 locations in 24 hours. One bicycle. Still at large.
+24 locations in 24 hours. One bicycle. Still at large.
 LAST SEEN: THE RABBIT HOLE
 
 A small red stamp with Chinese characters at the corner. All text sits within the

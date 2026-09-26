@@ -26,6 +26,36 @@ MODEL = "hy-image-v3.5-preview"
 RATIO = {"A": "4:3", "B": "4:3", "C": "4:3", "D": "4:3", "E": "4:3", "F": "4:3"}
 
 
+def series_args():
+    """Reddit 系列：--series [prompt檔] [code前綴] [ratio]
+
+    這樣比賽稿（A–V）與 Reddit 系列可以共用一支腳本，不必複製。
+    例：python3 tools/gen_posters.py all --series docs/posters/reddit.md R 2:3
+    """
+    a = sys.argv[1:]
+    if "--series" not in a:
+        return None
+    i = a.index("--series")
+    rest = a[i + 1:]
+    md = Path(rest[0]) if rest else Path(__file__).resolve().parent.parent / "docs" / "posters" / "reddit.md"
+    prefix = rest[1] if len(rest) > 1 else "R"
+    ratio = rest[2] if len(rest) > 2 else "2:3"
+    for v in a[:i]:
+        if v != "all":
+            a = [v] + a[:i]
+    return {"md": md, "prefix": prefix, "ratio": ratio, "which": [x for x in a if x != "all"] or ["all"]}
+
+
+def parse_prompts(md_path=None):
+    text = (md_path or PROMPTS_MD).read_text(encoding="utf-8")
+    out = {}
+    for m in re.finditer(r"^## ([A-Z0-9\-]+)｜(.+?)$(.*?)(?=^## |\Z)", text, re.S | re.M):
+        code = re.search(r"```(.*?)```", m.group(3), re.S)
+        if code:
+            out[m.group(1)] = (m.group(2).strip(), code.group(1).strip())
+    return out
+
+
 def key():
     if not KEY_FILE.exists():
         sys.exit(f"找不到 {KEY_FILE}：請先執行 echo -n 'YOUR_KEY' > ~/.gmi_key")
@@ -119,16 +149,6 @@ def upload_refs(max_n=1):
     return urls
 
 
-def parse_prompts():
-    text = PROMPTS_MD.read_text()
-    out = {}
-    for m in re.finditer(r"^## ([A-V])｜(.+?)$(.*?)(?=^## |\Z)", text, re.S | re.M):
-        code = re.search(r"```(.*?)```", m.group(3), re.S)
-        if code:
-            out[m.group(1)] = (m.group(2).strip(), code.group(1).strip())
-    return out
-
-
 def generate(letter, title, prompt, ratio, refs):
     size, avail = pick_size(ratio)
     if avail and letter == "A":
@@ -163,6 +183,34 @@ def generate(letter, title, prompt, ratio, refs):
 
 
 def main():
+    series = series_args()
+    if series:
+        variants = parse_prompts(series["md"])
+        want = series["which"]
+        if want == ["all"]:
+            want = list(variants.keys())
+        ratio = series["ratio"]
+        outdir = OUT
+        refs = upload_refs(1)
+        print(f"系列模式：{series['md'].name}  前綴={series['prefix']}  比例={ratio}  → {outdir}")
+        print(f"輸出到 {outdir}；參考圖 {len(refs)} 張")
+        for letter in want:
+            if letter not in variants:
+                print(f"跳過：{letter}"); continue
+            title, prompt = variants[letter]
+            print(f"\n[{series['prefix']}-{letter}] {title}（{ratio}）")
+            p = generate(letter, title, prompt, ratio, refs)
+            if p:
+                stem = f"{series['prefix']}-{letter}"
+                dest = outdir / f"{stem}.png"
+                if p != dest:
+                    p.replace(dest)
+                    print(f"  → {dest}  ({dest.stat().st_size//1024} KB)")
+                else:
+                    print(f"  ✅ {dest}  ({dest.stat().st_size//1024} KB)")
+            time.sleep(1)
+        return
+
     which = sys.argv[1:] or ["A"]
     variants = parse_prompts()
     if which == ["all"]:
