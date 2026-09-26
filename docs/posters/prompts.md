@@ -18,8 +18,9 @@ API／MCP：GMI Cloud API（約 20 秒／張，可帶 5 張參考圖，輸出 1K
 ## A｜鄉民檔案室（★ 推薦投稿 + 網站 hero）
 
 ```
-A worn paper WANTED poster pinned to a dark corkboard in a cluttered amateur
-archive room, lit by a single warm desk lamp. The paper is cream, slightly
+A tall narrow printed notice pinned to a dark corkboard in a cluttered amateur archive
+room, lit by a single warm desk lamp, with wide empty margins of dark corkboard above
+and below and the text block occupying only the middle third of the frame. The paper is cream, slightly
 curled at the corners, held by four mismatched push pins, with a faint coffee
 stain and a red string crossing the wall behind it. Shot straight-on,
 photojournalistic, shallow depth of field, the surrounding room is dark and out
@@ -47,8 +48,8 @@ perfectly rendered. No English text, no gibberish, no watermark.
 ## B｜西部通緝令（純英文，字型風險最低）
 
 ```
-A weathered American western wanted poster on torn parchment, sepia and
-sun-bleached, nailed to a rough wooden barn wall. In the centre a crude
+A tall narrow weathered western wanted poster on torn parchment, sepia and sun-bleached,
+nailed to a rough wooden barn wall, with generous empty parchment above and below the notice. In the centre a crude
 woodcut illustration of a large long-beaked pelican wearing a tiny top hat,
 riding a bicycle, drawn with heavy black ink lines like a 19th-century engraving.
 
@@ -143,25 +144,27 @@ No other text, no watermark.
 3. 挑一張當網站 hero、一張當社群分享卡、進 README
 ---
 
-## 尺寸規格（生之前先選好）
+## 尺寸：只有五個選項（對應修正版）
 
-| 版 | 比例 | 建議像素（1K） | 建議像素（2K） | 備註 |
-|---|---|---|---|---|
-| **A 鄉民檔案室** | 直式 **2:3**（海報） | 1024×1536 | 1365×2048 | 真正的海報比例，牆上剛好 |
-| **B 西部通緤令** | 直式 **2:3** | 1024×1536 | 1365×2048 | 同上；英文版字型較不挑比例 |
-| **C 機密檔案** | 直式 **3:4** | 896×1195 或 1024×1365 | 1280×1706 | 公文紙感（比 2:3 更方） |
-| **D 404 版** | 直式 **3:4** | 1024×1365 | 1280×1706 | A4 感（列印出來貼牆上剛好） |
-| **E 時間軸** | 橫式 **3:2** | 1536×1024 | 2048×1365 | 22 個節點橫著排才塞得下 |
-| **F 分享卡** | 橫式 **1200×630** | 1200×630 | — | 社群／Discord／OG 標準尺寸 |
+Hy Image 可選：**1024×1024 / 1536×1536 / 2048×2048 / 1920×1080 / 1080×1920**
 
-**如果 Hy Image 只給固定選單**：挑「直式／portrait」給 A–D、挑「橫式／landscape」給 E–F。
+| 版 | 選哪個 | 理由 |
+|---|---|---|
+| **A 鄉民檔案室（投稿）** | **1080×1920**（直式） | 唯一的直式選項。海報往上長，建構要留白：文字塊放中間，上下留暗色軟木板與燈光 |
+| **A 備用（給網站）** | **2048×2048**（方形） | 方形放進網站兩欄版面最不彆扭，也不會糊 |
+| **B 西部通緤令** | **1080×1920** | 直式海報；純英文，長版面反而更有「公告」的氣勢 |
+| **C 機密檔案** | **1080×1920** | 直式公文紙 |
+| **D 404 版** | **1080×1920** | 直式 A4 感；可真的印出來（列印時選「縮放至填滿」） |
+| **E 時間軸** | **1920×1080** | 22 個節點橫著排 |
+| **F 分享卡** | **1920×1080** | 生成後**裁成 1200×630**（上下各裁掉約 47% → 實作：先裁到 1920×567 再縮到 1200×630），Discord／X 的 OG 標準尺寸 |
 
-**下載後怎麼處理（這步別跳）**
+**直式（9:16）構圖要注意**：prompt 裡已加一句——「a tall narrow notice, wide empty margins of dark
+corkboard above and below, the text block occupying the middle third」。**不然混元會把文字硬塞滿整張，
+中文字就會被拉得又長又細。**
 
-1. **競賽投稿**：交原檔（2K PNG 或高畫質 JPG），不要壓縮。
-2. **放進網站**：一定要先壓！
-   - 海報縮到**長邊 1200px**、轉 **JPEG 品質 80**（或 WebP）→ 目標 **< 250KB**
-   - 理由：分店現在「載入 0.2 秒」是我們的驕傲，別讓一張 4MB 的海報把這件事毀了 😌
-   - 分享卡 1200×630 另存一份，丟進 `<meta property="og:image">`（Discord／X 貼文會自動抓它）
-3. **A 版進網站的位置**：當「案件封面」——**直式海報不適合當橫幅 hero**，所以用法是：頁面最上方左邊放海報、右邊放通緝令文字（或做成兩欄），不要硬把海報拉成全寬 banner（會糊）。
-4. **favicon**：另外生一張 512×512 的方形版（只有圖釘＋「WANTED」兩字，不要小字）。
+**下載後處理**
+
+1. **競賽投稿**：交原檔（1080×1920 的 PNG／JPG），不壓縮。
+2. **放進網站**：海報縮到長邊 1200px、JPEG 品質 80 → **< 250KB**（分店「0.2 秒載入」不能被一張大圖毀掉）。
+3. **F 分享卡**：裁成 1200×630 後，丟進 `<meta og:image>`（評審從 Discord／X 點進來看到的第一張圖）。
+4. **favicon**：另外用 1024×1024 生一張，只有圖釘＋「WANTED」兩字，不要小字。
