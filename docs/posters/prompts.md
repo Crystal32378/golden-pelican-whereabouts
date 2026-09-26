@@ -227,3 +227,217 @@ A small red stamp reads "鄉民嫉妒中心". All text sits within the central
 horizontal band of the frame, with generous empty space above and below, so it
 survives a wide crop. Everything else is dark and empty. No other text, no watermark.
 ```
+---
+
+## 中英對照版（老闆要求：同一張要有中英兩個版本）
+
+風險筆記：「鵜鶘」是生圖高危字（實測會變成「鷦鯨」），所以中文版一律「短句 + 一次出現」，
+英文版則完全不寫中文——除了那枚**永遠是中文的印章**（那是本室的章，不是文案）。
+
+## J｜A 的英文版（英文孿生）
+
+```
+A worn paper WANTED notice pinned to a dark corkboard in a cluttered amateur
+archive room, lit by a single warm desk lamp. The paper is cream, slightly
+curled at the corners, held by four mismatched push pins, with a faint coffee
+stain and a red string crossing the wall behind it. Shot straight-on,
+photojournalistic, shallow depth of field, the room is dark and out of focus.
+
+The notice is plain printed type in a black monospaced typewriter face, centred,
+very legible. The text reads exactly and only this, top to bottom:
+
+WANTED | GOLDEN PELICAN
+CHARGES: touring 22 locations without a permit
+(incl. cycling illegally in Venice; missing underground)
+FEATURES: paper-cut texture, red bicycle, a different hat at every stop
+LAST SEEN: the Rabbit Hole (no witnesses)
+REWARD: one nomination for the next stop, paid by this office
+CASE FILE: GP-001
+This office is run by amateurs. Underqualified, over-invested.
+Haters are fans too.
+
+A small red rubber stamp with Chinese characters is pressed at the bottom right,
+slightly crooked. All lettering crisp and correct. No other text, no watermark.
+```
+
+## K｜B 的中文版（西部通緝令・中文）
+
+```
+A tall narrow weathered wanted poster on torn parchment, sepia and sun-bleached,
+nailed to a rough wooden barn wall, generous empty parchment above and below the
+notice. In the centre a crude woodcut of a large long-beaked pelican in a tiny top
+hat riding a bicycle, heavy black ink engraving lines.
+
+Above the drawing, large slab serif letters:  通緝令
+Below the drawing, in large slab serif:  $200 懸賞
+  and under that, three short lines of smaller monospaced text:
+
+黃金鵜鶘 —— 最後目擊：兔子洞
+罪名：未經許可環遊 22 個地點
+特徵：剪紙質感、紅色單車、每站換帽子
+
+Two bullet holes, torn right edge, foxing and age stains. Warm daylight from the
+left. Only the text listed above appears. Chinese characters crisp and correct.
+No other text, no watermark.
+```
+
+## L｜C 的中文版（機密檔案・全中文）
+
+```
+An official-looking redacted government document on manila folder paper, shot flat
+from above under cool fluorescent light. Heavy black redaction bars cover most
+paragraphs; a stamped header in tall condensed Chinese type reads 機密. One
+visible unredacted block, monospaced, short widely spaced lines:
+
+對象：黃金鵜鶘
+狀態：下落不明
+罪名：22 個地點，未取得許可
+最後目擊：兔子洞（無目擊者）
+檔案編號：GP-001
+附註：黑粉也是粉
+
+The black bars are uneven, clearly hand-placed with a marker. A violet rubber
+date stamp in the corner, deliberately blurred and illegible. Clinical, deadpan,
+slightly funny. Chinese characters crisp and correct. No other legible text,
+no watermark.
+```
+
+## M｜分享卡・全英文版（修掉「一隻鷦鯨」）
+
+```
+A wide banner, dark corkboard background, a single large cream paper notice
+centred with a drop shadow, very slight rotation. Serif headline and three short
+lines beneath, all perfectly legible:
+
+GOLDEN PELICAN'S WHEREABOUTS
+22 locations in 24 hours. One bicycle. Still at large.
+LAST SEEN: THE RABBIT HOLE
+
+A small red stamp with Chinese characters at the corner. All text sits within the
+central horizontal band with generous empty space above and below, so it survives
+a wide crop. Everything else dark and empty. No other text, no watermark.
+```
+---
+
+## 第二輪題目（Sol 出公文題、Opus 出素描題、Kimi 寫 prompt）
+
+共同笑點：**一件荒唐事，被所有人極度認真地記錄。**
+（不畫潮間帶、魚、花絮——那是還沒公開的站，畫出來等於劇透。）
+
+## N｜威尼斯違規罰單（Sol 第一選擇）
+
+```
+An official municipal violation notice on aged cream paper, photographed flat on a
+counter. Venetian municipal styling: a red wax seal, an ornate printed border, a
+small blurred instant photo of a bicycle at the bottom corner, and a handwritten
+line in blue ink. Printed text reads exactly:
+
+COMUNE DI VENEZIA — NOTIZA DI VIOLAZIONE
+OFFENCE: BICYCLE OPERATION IN PROHIBITED AREA
+LOCATION: SAN MARCO
+WITNESSES: PIGEONS
+STATEMENT: REFUSED
+FINE: €200 (DISPUTED)
+
+Below, handwritten in blue ink: Suspect continued toward the bridge.
+
+The paper is slightly stained, one corner dog-eared, a coffee ring near the seal.
+Cool daylight, shallow depth of field, deadpan and utterly serious. No other
+legible text, no watermark.
+```
+
+## O｜兔子洞出入境管制站（Sol）
+
+```
+A photograph of a homemade border-control desk at the entrance of an earthen
+rabbit hole: a small wooden table, one warm lamp, a hand-carved wooden stamp, a
+bell, a ledger. On the dirt wall behind, a hand-painted sign in uppercase
+hand-lettering:
+
+ENTRY PERMIT REQUIRED
+BICYCLES DECLARED: 1
+PELICANS DECLARED: 0
+
+On the desk, a heavily over-stamped entry card with stamps overlapping each other
+illegibly. Cozy lamp light, dust, a little wooden fence. Deadpan bureaucracy, no
+other legible text, no watermark.
+```
+
+## P｜兔子洞失物招領（Sol）
+
+```
+A lost-and-found table in a small archive room, photographed from above at a
+slight angle. Laid out neatly with small gaps: a tiny top hat, a small brass key,
+a bottle with a handwritten label reading DRINK ME, an open pocket watch, a single
+long grey feather, and a small red bicycle parking tag. Warm lamp light, dark
+background. A small index card beside the items reads, in neat handwriting:
+
+Items recovered after the incident.
+Owner has not returned.
+
+No other legible text, no watermark.
+```
+
+## Q｜線人電話線：27 則未證實目擊（Sol）
+
+```
+A police-desk surface covered with evidence: dozens of small folded paper notes,
+polaroid photos, a hand-drawn map with wrong coastlines, sticky notes and paper
+clips, all overlapping. Each note has one short handwritten English line, and the
+notes are scattered in no order:
+
+Saw him near the moon.
+Definitely not a pelican.
+Red bicycle confirmed.
+My cousin says Venice.
+Please stop calling us.
+He has a hat again.
+
+In the centre, one note circled twice in red pen: RABBIT HOLE???
+Warm desk lamp, dark room, cluttered but readable. No other legible text,
+no watermark.
+```
+
+## R｜目擊者素描：三隻貓的版本（Opus）
+
+```
+A police sketch artist's drawing on slightly yellowed paper, photographed flat.
+Pencil and smudged eraser marks. The sketch shows a large, round, wide-mouthed
+creature with a huge bill riding a bicycle — it reads more like a big fish on a
+bike than a bird, drawn by someone who only saw it for two seconds at night.
+Below the sketch, a typed caption:
+
+WITNESS: THREE CATS (STRAY)
+STATEMENT: something big with a very big mouth went past
+CONFIDENCE: LOW
+
+Pencil only, no colour, official form margins. No other legible text, no watermark.
+```
+
+## S｜目擊者素描：威尼斯鴿子的版本（Opus）
+
+```
+A police sketch artist's drawing sheet that is completely blank except for a
+rubber stamp at the bottom right, pressed slightly crooked in red ink:
+
+WITNESS: PIGEONS (VENICE)
+STATEMENT: REFUSED TO TESTIFY
+SKETCH: —
+
+The rest of the page is empty. Straight-on photograph, paper texture visible,
+official form margins, a faint coffee ring. Deadpan. No other legible text,
+no watermark.
+```
+
+## T｜目擊者素描：白兔的版本，畫在懷錶錶面上（Opus）
+
+```
+A macro photograph of an open pocket watch face being used as a drawing surface:
+a frantic, extremely hurried pencil sketch of a long-beaked bird on a bicycle,
+scribbled across the clock face, with the hands of the watch crossing the drawing.
+The sketch is rough and impatient, clearly done in seconds. Scribbled beside it in
+small hurried capitals: LATE. NO TIME. Below, on the cream dial, printed brand text
+that reads: NEVER LATE. The watch lies on a dark wooden table.
+
+No other legible text, no watermark.
+```

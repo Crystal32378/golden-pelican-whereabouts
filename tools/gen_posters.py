@@ -122,7 +122,7 @@ def upload_refs(max_n=1):
 def parse_prompts():
     text = PROMPTS_MD.read_text()
     out = {}
-    for m in re.finditer(r"^## ([A-I])｜(.+?)$(.*?)(?=^## |\Z)", text, re.S | re.M):
+    for m in re.finditer(r"^## ([A-T])｜(.+?)$(.*?)(?=^## |\Z)", text, re.S | re.M):
         code = re.search(r"```(.*?)```", m.group(3), re.S)
         if code:
             out[m.group(1)] = (m.group(2).strip(), code.group(1).strip())
