@@ -21,6 +21,16 @@
   #locker { width:250px; background:var(--panel); border:1px solid var(--line); border-radius:0 12px 12px 0; padding:14px; overflow-y:auto; }
   #locker h2 { font-size:15px; color:#9FB4E0; margin:2px 0 10px; }
   .evi { background:#241D18; border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:13px; }
+  /* 證物牆：鄉民各自繳交的證物 */
+  #wall { padding:6px 16px 10px; max-width:1180px; margin:0 auto; }
+  #wall .wallTitle { font-family:Georgia,"Times New Roman",serif; color:var(--gold); font-size:19px; letter-spacing:1px; margin:10px 0 2px; }
+  #wall .wallNote { font-size:13px; color:#8E8272; margin-bottom:12px; }
+  #wallGrid { display:flex; gap:14px; overflow-x:auto; padding-bottom:10px; scroll-snap-type:x mandatory; }
+  .wcard { flex:0 0 260px; scroll-snap-align:start; background:#FFFDF4; border-radius:4px; padding:8px 8px 10px; box-shadow:0 4px 14px rgba(0,0,0,.5); transform:rotate(var(--tilt,-.6deg)); }
+  .wcard img { width:100%; display:block; border-radius:3px; }
+  .wcard .tag { font-size:11px; color:#6B5B45; margin-top:7px; line-height:1.5; }
+  .wcard .tag b { color:#3A2A20; }
+  .wcard .lang { float:right; border:1px solid #C8453A; color:#C8453A; border-radius:3px; padding:0 5px; font-size:10px; }
   .evi a { color:var(--gold); text-decoration:none; font-weight:700; }
   .evi .why { color:#8E8272; font-size:12px; margin-top:2px; }
   .evi .time { color:#9FB4E0; font-size:11px; }
@@ -102,6 +112,18 @@
     <div id="lockerList"></div>
   </aside>
 </div>
+
+<section id="wall">
+  <div class="wallTitle">🧲 證物牆 · 本室證物均由鄉民繳交</div>
+  <div class="wallNote">以下海報非本中心製作，均為各界鄉民自行搜尋、印製、繳交。格式不一、語言不一、字體不一，一概不拒收。</div>
+  <div id="wallGrid">
+    <div class="wcard" style="--tilt:-.8deg"><img src="posters/A.jpg" alt="通緝令海報"><div class="tag"><span class="lang">中</span><b>繳交者：鄉民 #001</b><br>自稱「本室元老」，聲稱這張是他用影印機印第 11 稿才成功的。前 10 稿在河濱公園被風吹走。</div></div>
+    <div class="wcard" style="--tilt:.7deg"><img src="posters/B.jpg" alt="Western wanted poster"><div class="tag"><span class="lang">EN</span><b>Contributor: villager #013</b><br>English only, claims to be from a country with no Chinese on its stamps. Provided his own engraving of the suspect.</div></div>
+    <div class="wcard" style="--tilt:-.5deg"><img src="posters/C.jpg" alt="機密檔案"><div class="tag"><span class="lang">EN/中</span><b>繳交者：鄉民 #027</b><br>自稱在「相關單位」服務過。他拒絕說明哪個單位，也拒絕說明為什麼他知道兔子洞的事。</div></div>
+    <div class="wcard" style="--tilt:.9deg"><img src="posters/D.jpg" alt="404 打印稿"><div class="tag"><span class="lang">中</span><b>繳交者：鄉民 #034</b><br>每次更新都會收到 404，他認為那是系統在暗示什麼，於是把錯誤訊息印下來當證物。</div></div>
+    <div class="wcard" style="--tilt:-1.1deg"><img src="posters/E.jpg" alt="案情時間軸"><div class="tag"><span class="lang">中</span><b>繳交者：鄉民 #052（未署名）</b><br>用紅線把 22 個節點釘在軟木板上，字跡潦草、多處重複、時間互相矛盾。本室照收不誤。</div></div>
+  </div>
+</section>
 <div id="ballot">
   <button id="nominate">📍 提名下一站</button>
   <p id="hint">按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。</p>
