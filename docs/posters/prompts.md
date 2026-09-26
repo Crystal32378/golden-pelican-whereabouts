@@ -16,6 +16,11 @@
 - 每張都要求：**除列出的文字外不得出現任何其他文字**
 - 不要水印、不要浮水印 logo。**不做視覺引流**——引流靠作品本身
 - 「鵜鶘」藝術字：**視為瑕疵，不再使用**（實測走樣成亂碼，且觀感怪異）
+- **主角規則（硬性）**：每張畫面裡都要有**鵜鶘或紅色單車**，哪怕只是剪影、
+  倒影、遠景、插畫，或別人畫的樣子。這是整組的視覺主軸；沒有它的海報
+  會顯得抽象、沒有主角。
+  → 優先用「照片裡真實出現的鵜鶘／單車」，其次是「物件上的插畫或剪影」，
+    再其次是「玻璃反射裡的模糊影子」。
 - **質感原則（重要）**：粗糙的手寫感要**從照片本身的紙張與光線自然帶出**，
   不要靠「請寫得潦草一點」這種指令。實測證實：主體是照片時手感最好
   （RA-01 資料夾封面、RB-01 雨夜街頭），主體是「表格上的手寫字」時
@@ -113,8 +118,9 @@ no website.
 ```
 A photograph taken from above on a wet wooden bench in a ferry terminal at
 dusk, as if by someone who found something and photographed it where it lay. On
-the bench: an open paper bag, a striped wool hat, and a folded sheet of paper
-with handwriting on it. Rain has started to soak the corner of the paper. The
+the bench: an open paper bag, a striped wool hat, a small red bicycle lying on
+its side with one wheel still turning, and a folded sheet of paper with
+handwriting on it. Rain has started to soak the corner of the paper. The
 bench slats are wet and reflective, the harbour out of focus behind.
 
 The handwriting on the folded paper is small, cramped, hurried, the way people
@@ -172,7 +178,9 @@ single overhead light in an otherwise dim room. The bag is flat, creased shut,
 its paper tie wrapped twice. A white label is taped to the front, and someone
 has written on it by hand in thick black marker, the writing large and
 unhurried. A pair of cotton gloves rests beside it, and a paper evidence seal
-sticker is half peeled at one corner of the bag. The steel table has old
+sticker is half peeled at one corner of the bag. Tucked under the string
+tie, showing, is the item itself: a striped wool hat, and a small red bicycle
+no longer than a finger. The steel table has old
 scratches and one coffee ring.
 
 The handwriting on the label reads:
@@ -198,7 +206,9 @@ from slightly to the left so the board is seen at an angle. Red string runs
 between pins in a tangled path across the map, the string slack in some places
 and taut in others. There are far too many pins. Small numbered labels are
 written in ballpoint beside the pins, the numbers crowded and overlapping. A
-magnifying glass lies on the board, its handle worn. The cork is pale and dusty,
+magnifying glass lies on the board, its handle worn. Struck through one corner
+of the map, the head of a long-beaked bird and the front wheel of a small red
+bicycle, marked on the map itself in the same ballpoint. The cork is pale and dusty,
 the map edges curling.
 
 Handwritten in ballpoint at the top of the map, in a hurried hand:
@@ -224,6 +234,8 @@ a faint blue ribbon mark down the centre. The typewriter itself is old, chipped
 black enamel, photographed only as a dark shape at the edges of the frame. The
 sheet is lit from one side by a desk lamp, the right side falling into shadow.
 A pair of reading glasses sits on the machine, one lens catching the light.
+Half under the sheet, pressed flat for years, a small pencil sketch of a
+long-beaked bird in a top hat on a bicycle.
 
 The typed text, the ribbon slightly uneven as old typewriters are, reads:
 
@@ -251,7 +263,8 @@ A photograph of a hand-drawn sketch on torn notebook paper, the paper creased
 and damp at one corner, lying on a wet pavement. It has been left out in the
 weather: the pencil is smudged, one corner of the paper is curling, rain has
 bled the graphite. Beside the sketch, a pair of cat paws printed in dust on the
-pavement, as if the cat stood there. The photograph is taken from directly
+pavement, as if the cat stood there, and a single bicycle tyre track cutting
+across the paw prints. The photograph is taken from directly
 above, phone camera, the pavement filling the frame.
 
 The sketch is done in rough pencil, the way someone draws a thing they only saw
@@ -298,7 +311,7 @@ A photograph taken at night, looking down at a concrete kerb where someone has
 written in chalk. The chalk is old and smeared, half of it already scuffed
 away by feet, and the writing runs off the end of the kerb so the last word is
 incomplete. A bicycle is lying on its side in the road beside it, and someone
-has also drawn a small circle on the pavement where a wheel came to rest. The
+has also drawn a small circle on the pavement where a wheel came to rest, pressed into the chalk dust. The
 streetlight is overhead, the chalk bright in the middle and shadowed at the
 edges. Night, damp asphalt, the glow of a phone light at the edge of frame.
 
