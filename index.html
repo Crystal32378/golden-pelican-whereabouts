@@ -311,27 +311,27 @@ function buildSound(kind) {
     s.connect(f); f.connect(ng); ng.connect(g); s.start(); s.stop(c.currentTime + len + 0.1); nodes.push(s);
   };
   switch (kind) {
-    case 'island':  bed('brown','lowpass',500,0,0.5,0.08); vol(0.10); every(1800,0.7,()=>glide(c,g,1500,880,0.07,0.35)); break;   // 海鷗
-    case 'yard':    bed('brown','lowpass',260,0,0.6); vol(0.09); every(2800,0.7,()=>glide(c,g,2050,2750,0.05,0.22)); every(5200,0.35,()=>env(c,g,520,0.05,{len:0.12,sweep:0.6})); break; // 哨聲＋球
+    case 'island':  bed('brown','lowpass',500,0,0.5,0.08); vol(0.10); every(1300,0.8,()=>glide(c,g,1500,880,0.075,0.35)); break;   // 海鷗
+    case 'yard':    bed('brown','lowpass',240,0,0.5); bed('brown','bandpass',950,0.7,0.22); vol(0.09); every(2800,0.7,()=>glide(c,g,2050,2750,0.05,0.22)); every(5200,0.35,()=>env(c,g,520,0.05,{len:0.12,sweep:0.6})); break; // 哨聲＋球
     case 'market':  bed('brown','bandpass',520,0.8,0.9,0.4); vol(0.10); every(700,0.45,()=>env(c,g,900+R()*700,0.06,{len:0.3})); every(3000,0.3,()=>burst(3200,0.05,1.2)); break; // 叮噹＋鑊聲
     case 'city':    bed('brown','lowpass',300,0,0.7); vol(0.10); every(4500,0.6,()=>glide(c,g,220,120,0.07,1.2)); every(9000,0.25,()=>env(c,g,440,0.04,{len:0.45})); break; // 車流＋喇叭
-    case 'temple':  bed('brown','lowpass',300,0,0.4); vol(0.06); every(4500,0.75,()=>bell(c,g,660,0.07,2.6)); break;                // 風鈴／寺廟鐘
+    case 'temple':  bed('white','bandpass',3400,0.6,0.1); vol(0.06); every(4500,0.75,()=>bell(c,g,660,0.07,2.6)); every(1900,0.35,()=>env(c,g,2700,0.02,{len:0.7})); break;                // 風鈴／寺廟鐘
     case 'moon':    bed('brown','lowpass',340,0,0.4); vol(0.05); every(3000,0.6,()=>burst(1800,0.07,0.14)); every(2600,0.5,()=>burst(5000,0.012,0.08)); break; // 太空人的靜
-    case 'polar':   bed('brown','lowpass',420,0,0.6,0.06); vol(0.16); every(1400,0.55,()=>env(c,g,2600,0.075,{len:0.05,sweep:1.25})); break; // 冰裂
+    case 'polar':   bed('brown','lowpass',420,0,0.6,0.06); vol(0.16); every(1000,0.7,()=>env(c,g,2600,0.08,{len:0.05,sweep:1.25})); break; // 冰裂
     case 'jungle':  bed('white','highpass',700,0,0.35); vol(0.07); every(450,0.55,()=>env(c,g,4200,0.04,{len:0.04})); every(5000,0.35,()=>glide(c,g,180,115,0.04,0.26)); break; // 蟲＋蛙
-    case 'sky':     bed('white','bandpass',600,0.5,0.5,0.05); vol(0.07); every(3500,0.5,()=>glide(c,g,1800,1200,0.05,0.3)); break;
-    case 'paris':   bed('brown','lowpass',300,0,0.7); vol(0.09); every(6000,0.7,()=>[523,659,784].forEach((f,i)=>setTimeout(()=>env(c,g,f,0.035,{len:0.5}),i*220))); break; // 手風琴
+    case 'sky':     bed('white','bandpass',600,0.5,0.5,0.05); vol(0.07); every(2400,0.65,()=>glide(c,g,1800,1200,0.055,0.3)); break;
+    case 'paris':   bed('brown','lowpass',340,0,0.7); vol(0.09); every(4200,0.5,()=>glide(c,g,260,140,0.06,1.4)); every(6000,0.7,()=>[523,659,784].forEach((f,i)=>setTimeout(()=>env(c,g,f,0.035,{len:0.5}),i*220))); break; // 手風琴
     case 'ocean':   bed('brown','lowpass',700,0,0.6,0.09); vol(0.20); every(5000,0.7,()=>glide(c,g,70,32,0.09,3.2)); every(1200,0.6,()=>glide(c,g,300,900,0.045,0.12)); break; // 鯨魚＋氣泡
     case 'space':   [54,81.5].forEach(f=>{const o=c.createOscillator(),ng=c.createGain();o.frequency.value=f;ng.gain.value=0.03;o.connect(ng);ng.connect(g);o.start();nodes.push(o);}); breathe(g,0.04,0.012); vol(0.5); every(5000,0.65,()=>env(c,g,1200,0.05,{len:1.0})); break; // 聲納
-    case 'room':    bed('brown','lowpass',300,0,0.5); vol(0.05); every(1000,0.9,()=>env(c,g,2000,0.018,{len:0.03})); every(9000,0.3,()=>{env(c,g,900,0.03,{len:0.12});setTimeout(()=>env(c,g,1150,0.03,{len:0.12}),150);}); break; // 時鐘＋寶寶
+    case 'room':    bed('brown','lowpass',190,0,0.45); { const fr=c.createOscillator(),fg=c.createGain(); fr.type='sine'; fr.frequency.value=60; fg.gain.value=0.05; fr.connect(fg); fg.connect(g); fr.start(); nodes.push(fr); } vol(0.06); every(1000,0.9,()=>env(c,g,2000,0.018,{len:0.03})); every(9000,0.3,()=>{env(c,g,900,0.03,{len:0.12});setTimeout(()=>env(c,g,1150,0.03,{len:0.12}),150);}); break; // 時鐘＋寶寶
     case 'wetmarket': bed('brown','bandpass',600,0.8,0.9,0.5); vol(0.11); every(1600,0.55,()=>burst(2600,0.06,1.6)); every(6500,0.35,()=>glide(c,g,480,720,0.04,0.5)); break; // 熱鍋＋叫賣
-    case 'library': bed('brown','lowpass',300,0,0.4); vol(0.045); every(3500,0.65,()=>burst(2600,0.05,0.35)); every(2000,0.5,()=>env(c,g,1900,0.012,{len:0.02})); break; // 翻書＋鐘
+    case 'library': bed('brown','lowpass',260,0,0.35); bed('white','bandpass',5400,0.4,0.05); vol(0.05); every(3500,0.65,()=>burst(2600,0.05,0.35)); every(2000,0.5,()=>env(c,g,1900,0.012,{len:0.02})); break; // 翻書＋鐘
     case 'rain':    bed('white','highpass',900,0,0.5,0.25); bed('white','lowpass',6500,0,0.28); vol(0.15); every(600,0.6,()=>env(c,g,1400,0.045,{len:0.08})); break; // 雨＋滴水
     case 'vinyl':   bed('white','lowpass',2200,0,0.1); { const h=c.createOscillator(),hg=c.createGain(); h.frequency.value=60; hg.gain.value=0.02; h.connect(hg); hg.connect(g); h.start(); nodes.push(h); } vol(0.5); every(260,0.45,()=>env(c,g,700+R()*1800,0.09,{len:0.09},'square')); break; // 唱針
-    case 'globe':   bed('brown','lowpass',260,0,0.8); vol(0.09); every(3200,0.7,()=>bell(c,g,1046,0.04,1.1)); break;                 // 八音盒
+    case 'globe':   bed('brown','lowpass',170,0,0.9); vol(0.09); every(3200,0.7,()=>bell(c,g,1046,0.04,1.1)); every(1500,0.25,()=>env(c,g,3600,0.015,{len:0.35})); break;                 // 八音盒
     case 'garden':  bed('brown','bandpass',320,1.2,0.7); bed('white','bandpass',1800,0.6,0.2,0.3); vol(0.10); every(200,0.5,()=>env(c,g,160,0.03,{len:0.09})); every(4200,0.3,()=>glide(c,g,2400,1700,0.03,0.16)); break; // 蜜蜂＋葉
     case 'lighthouse': bed('brown','lowpass',600,0,0.6,0.07); vol(0.16); every(4500,0.85,()=>bell(c,g,330,0.085,3.4)); every(9000,0.6,()=>glide(c,g,120,108,0.07,1.6)); break; // 燈塔鐘＋霧號
-    case 'venice':  bed('white','bandpass',800,0.7,0.45,0.55); vol(0.09); every(2400,0.6,()=>glide(c,g,300,220,0.06,1.0)); break;           // 水聲＋遠處人聲
+    case 'venice':  bed('white','bandpass',800,0.7,0.45,0.55); vol(0.09); every(1700,0.7,()=>glide(c,g,300,220,0.065,1.0)); break;           // 水聲＋遠處人聲
     case 'rabbit':  bed('brown','lowpass',200,0,0.9,0.05); vol(0.14); every(900,0.7,()=>glide(c,g,700,1800,0.06,0.1)); every(180,0.4,()=>env(c,g,3000,0.028,{len:0.02})); break; // 地底＋滴答
     default:        bed('brown','lowpass',340,0,0.5); vol(0.09);
   }
