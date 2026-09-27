@@ -71,9 +71,14 @@
 
 **OCR（macOS Vision）**
 ```bash
-/tmp/ocr <圖檔…>     # 每張輸出辨識文字與信心度
+# 編譯（只需一次，約 2 分鐘）
+cd ~/golden-pelican-whereabouts/tools
+swiftc -O ocr.swift -o ocr
+
+# 使用
+./ocr <圖檔…>     # 每張輸出辨識文字與信心度
 ```
-首次需 `swiftc -O ocr.swift -o ocr` 編譯，約 2 分鐘。
+原始碼在 `tools/ocr.swift`（已進版控），不必再找。
 
 **生圖（GMI Cloud / Hy Image 3.5 preview）**
 ```bash
