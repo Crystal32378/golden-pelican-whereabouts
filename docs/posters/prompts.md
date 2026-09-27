@@ -48,6 +48,7 @@ CASE FILE GP-001
 STATUS: STILL AT LARGE
 CHARGE: 24 LOCATIONS WITHOUT A PERMIT
 LAST SEEN: THE RABBIT HOLE
+NO WITNESSES CAME FORWARD
 INVESTIGATING: THE VILLAGE JEALOUSY OFFICE
 
 Along the bottom edge, small, as if written by hand in faded red ink:
@@ -164,6 +165,9 @@ CHARGE: 24 LOCATIONS, NO PERMIT
 REWARD: 200 EUROS
 
 Below that, a rubber stamp in faded red, pressed crooked, the ink patchy.
+Below the stamp the paper is blank. There is nothing written under the stamp,
+no second notice, no fine print, no extra lines of any kind. The lower third of
+the poster is empty paper, apart from age and damp.
 
 Bleached, patient, slightly forlorn. The Chinese characters are the only
 non-Latin text in the image. No other text anywhere. No watermark, no logo,
