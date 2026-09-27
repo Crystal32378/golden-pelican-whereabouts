@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Village Jealousy Office — a case file in twelve posters</title>
+<meta name="description" content="Twelve posters documenting a bird that rode a bicycle through 24 places in 24 hours. Generated with Hy Image 3.5.">
+<style>
+  :root { --ink:#2B2D33; --paper:#F4F1EA; --red:#B8322A; --dim:#7A7468; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font:16px/1.65 Georgia,"Times New Roman",serif; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px 80px; }
+  header { padding:72px 0 40px; border-bottom:1px solid #D8D2C4; }
+  .stamp { display:inline-block; border:2px solid var(--red); color:var(--red);
+    padding:6px 14px; font:700 12px/1 Georgia,serif; letter-spacing:.18em;
+    transform:rotate(-2.5deg); opacity:.8; margin-bottom:26px; }
+  h1 { font-size:clamp(30px,5.5vw,52px); line-height:1.1; margin:0 0 6px;
+    letter-spacing:-.015em; }
+  .sub { color:var(--dim); font-size:15px; margin:0 0 26px; max-width:60ch; }
+  .meta { font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  .meta b { color:var(--ink); font-weight:400; }
+
+  h2 { font:700 12px/1 Georgia,serif; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--dim); margin:56px 0 22px; padding-bottom:12px; border-bottom:1px solid #D8D2C4; }
+
+  .grid { display:grid; gap:34px 26px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); }
+  figure { margin:0; }
+  figure img { width:100%; height:auto; display:block; background:#E8E4DA;
+    border:1px solid #D0CAB8; box-shadow:3px 4px 0 rgba(43,45,51,.07); }
+  figcaption { margin-top:11px; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  figcaption b { display:block; color:var(--ink); font-weight:400; margin-bottom:2px; }
+  .cap-en { font-family:Georgia,serif; font-style:italic; color:#5A544A; }
+
+  footer { margin-top:70px; padding-top:26px; border-top:1px solid #D8D2C4;
+    font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  footer p { margin:0 0 8px; }
+  .note { background:#EDE9DE; border-left:3px solid var(--red); padding:16px 20px; margin:0 0 34px; }
+  .note p { margin:0; font-size:14.5px; line-height:1.7; color:#4A463E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="stamp">VILLAGE JEALOUSY OFFICE</div>
+  <h1>A bird rode a bicycle<br>through 24 places in 24 hours.</h1>
+  <p class="sub">Nobody has seen it since the Rabbit Hole. Three villagers, two cats and a
+  flock of pigeons have declined to comment. The Office has collected what it can.</p>
+  <p class="meta">
+    CASE FILE <b>GP-001</b> &nbsp;·&nbsp; STATUS <b>STILL AT LARGE</b> &nbsp;·&nbsp;
+    <b>12</b> POSTERS, <b>2</b> STYLES<br>
+    All images generated with <b>Hy Image 3.5 preview</b> (Tencent Hunyuan).
+  </p>
+</header>
+
+<div class="note">
+  <p>Two series styles alternate throughout. <b>A</b> is the Office itself — case files,
+  citations, evidence, a typewriter. <b>B</b> is the outside world — statements, sketches,
+  notices left where somebody found them. Every poster contains the bird or the bicycle,
+  sometimes only as a sketch, a reflection, or a wheel track.</p>
+</div>
+
+<h2>Style A — the Office</h2>
+<div class="grid" id="gridA"></div>
+
+<h2>Style B — the world outside</h2>
+<div class="grid" id="gridB"></div>
+
+<footer>
+  <p>Every poster was generated with <b>Hy Image 3.5 preview</b> and checked by OCR
+  afterwards. The Chinese characters that appear in several posters are the model's own
+  additions, left in on purpose — they are decoration, not information.</p>
+  <p>No watermark, no logo, no link. If you found this by looking for it, you were meant to.</p>
+</footer>
+
+</div>
+<script>
+const A = [
+  ['RA-01','The case file','A manila folder, tied with red string, under one lamp.'],
+  ['RA-02','The fine','A pink citation taped to a harbour wall, photographed in the rain.'],
+  ['RA-03','Wanted','Nailed to a shuttered office. The lower edge has gone soft.'],
+  ['RA-04','Evidence','A paper bag on a steel table. Do not file this properly.'],
+  ['RA-05','The map','Too many pins. Red string. Somebody counted twice.'],
+  ['RA-06','The last line','Still part-fed in the roller. The ribbon is fading.'],
+];
+const B = [
+  ['RB-01','The statement','Seen leaving the harbour. No hat. It did not look back.'],
+  ['RB-02','Lost property','Found on a wet bench at the ferry terminal.'],
+  ['RB-03','The cat version','Something big with a big mouth went past.'],
+  ['RB-04','The pigeons','Witnesses, signed. Statement left blank.'],
+  ['RB-05','Chalk','Slow down. Someone is still looking for it.'],
+  ['RB-06','Closing time','We have no hat policy for birds.'],
+];
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function fill(list, el) {
+  el.innerHTML = list.map(([id,title,line]) => `
+    <figure>
+      <img src="${id}.jpg" alt="${esc(title)}" loading="lazy">
+      <figcaption><b>${id} · ${esc(title)}</b><span class="cap-en">${esc(line)}</span></figcaption>
+    </figure>`).join('');
+}
+fill(A, document.getElementById('gridA'));
+fill(B, document.getElementById('gridB'));
+</script>
+</body>
+</html>
