@@ -35,6 +35,10 @@
   figure.hasScene a:hover img { border-color:#B8322A; box-shadow:3px 4px 0 rgba(184,50,42,.14); }
   .toScene { display:block; margin-top:6px; font-size:11px; color:#B8322A; letter-spacing:.04em; }
   figure:not(.hasScene) .toScene { display:none; }
+  .toAsk { display:block; margin-top:6px; font:11px/1.5 ui-monospace,Menlo,monospace;
+    color:#8A8276; text-decoration:none; border-bottom:1px dotted #BDB5A6; transition:color .2s,border-color .2s; }
+  .toAsk:hover { color:var(--red); border-bottom-color:rgba(184,50,42,.5); }
+  figure.hasAsk img { cursor:default; }
 
   footer { margin-top:70px; padding-top:26px; border-top:1px solid #D8D2C4;
     font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
@@ -79,7 +83,8 @@
   sometimes in the wrong script and sometimes nonsense, and they have been left exactly
   as they came out. The Office files what it receives; it does not correct it. One
   citation is also dated three years before the crime.</p>
-  <p>Where a poster names a place, you can go and stand there. Most of them do not.</p>
+  <p>Where a poster names a place, you can go and stand there. Most of them do not — so those
+  ones ask instead, and point at the map. If you can place one, the Office would like that.</p>
   <p>Related files: <a href="../" style="color:var(--red);">the sightings map</a> · <a href="../README.md">what this is</a></p>
   <p style="margin-top:18px;">No watermark, no logo, no link on the posters themselves. If you found this by looking for it, you were meant to.</p>
 </footer>
@@ -88,32 +93,36 @@
 <script>
 // 每張可選帶一個 scene：點下該證物即回到主站對應的一站
 const MAIN = 'https://crystal32378.github.io/golden-pelican/';
+const SHOP = 'https://crystal32378.github.io/golden-pelican-whereabouts/';
 const A = [
-  ['RA-01','The case file','A manila folder, tied with red string, under one lamp.'],
+  ['RA-01','The case file','A manila folder, tied with red string, under one lamp.','#ballot','we cannot place this one — help'],
   ['RA-02','The fine','A pink citation taped to a harbour wall, photographed in the rain.','venice'],
   ['RA-03','Wanted','Nailed to a shuttered office. The lower edge has gone soft.','rabbit'],
-  ['RA-04','Evidence','A paper bag on a steel table. Do not file this properly.'],
-  ['RA-05','The map','Too many pins. Red string. Somebody counted twice.'],
-  ['RA-06','The last line','Still part-fed in the roller. The ribbon is fading.'],
-  ['RA-07','Struck through','None of them would describe what they saw.'],
-  ['RA-08','It came back','A phone left off the hook. Somebody is still listening.'],
+  ['RA-04','Evidence','A paper bag on a steel table. Do not file this properly.','#ballot','the bag has no address'],
+  ['RA-05','The map','Too many pins. Red string. Somebody counted twice.','#ballot','count them yourself'],
+  ['RA-06','The last line','Still part-fed in the roller. The ribbon is fading.','#wall','filed under nothing'],
+  ['RA-07','Struck through','None of them would describe what they saw.','#ballot','nobody will say'],
+  ['RA-08','It came back','A phone left off the hook. Somebody is still listening.','#ballot','the number is withheld'],
 ];
 const B = [
   ['RB-01','The statement','Seen leaving the harbour. No hat. It did not look back.','venice'],
   ['RB-02','Lost property','Found on a wet bench at the ferry terminal.','salt'],
   ['RB-03','The cat version','Something big with a big mouth went past.','shima'],
   ['RB-04','The pigeons','Witnesses, signed. Statement left blank.','venice'],
-  ['RB-05','Chalk','Slow down. Someone is still looking for it.'],
-  ['RB-06','Closing time','We have no hat policy for birds.'],
-  ['RB-07','On the windscreen','The rain has taken the rest of it.'],
-  ['RB-08','A till receipt','Bicycle, zero. And one word written underneath.'],
+  ['RB-05','Chalk','Slow down. Someone is still looking for it.','#ballot','where would you leave a note'],
+  ['RB-06','Closing time','We have no hat policy for birds.','#wall','the clerk did not look up'],
+  ['RB-07','On the windscreen','The rain has taken the rest of it.','#ballot','which van'],
+  ['RB-08','A till receipt','Bicycle, zero. And one word written underneath.','#ballot','which laundrette'],
 ];
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 function fill(list, el) {
-  el.innerHTML = list.map(([id,title,line,scene]) => `
-    <figure${scene ? ` class="hasScene"` : ''}>
+  el.innerHTML = list.map(([id,title,line,scene,anchor,ask]) => `
+    <figure${scene ? ' class="hasScene"' : (ask ? ' class="hasAsk"' : '')}>
       <a${scene ? ` href="${MAIN}#${scene}"` : ''}><img src="${id}.jpg" alt="${esc(title)}" loading="lazy"></a>
-      <figcaption><b>${id} · ${esc(title)}</b><span class="cap-en">${esc(line)}</span>${scene ? `<span class="toScene">go to the scene →</span>` : ''}</figcaption>
+      <figcaption><b>${id} · ${esc(title)}</b><span class="cap-en">${esc(line)}</span>${
+        scene ? '<span class="toScene">go to the scene →</span>'
+        : ask ? `<a class="toAsk" href="${SHOP}${anchor}">${esc(ask)} →</a>`
+        : ''}</figcaption>
     </figure>`).join('');
 }
 fill(A, document.getElementById('gridA'));
