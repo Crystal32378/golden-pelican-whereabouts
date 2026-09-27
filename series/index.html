@@ -31,6 +31,10 @@
   figcaption { margin-top:11px; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
   figcaption b { display:block; color:var(--ink); font-weight:400; margin-bottom:2px; }
   .cap-en { font-family:Georgia,serif; font-style:italic; color:#5A544A; }
+  figure.hasScene img { cursor:pointer; }
+  figure.hasScene a:hover img { border-color:#B8322A; box-shadow:3px 4px 0 rgba(184,50,42,.14); }
+  .toScene { display:block; margin-top:6px; font-size:11px; color:#B8322A; letter-spacing:.04em; }
+  figure:not(.hasScene) .toScene { display:none; }
 
   footer { margin-top:70px; padding-top:26px; border-top:1px solid #D8D2C4;
     font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
@@ -75,15 +79,19 @@
   sometimes in the wrong script and sometimes nonsense, and they have been left exactly
   as they came out. The Office files what it receives; it does not correct it. One
   citation is also dated three years before the crime.</p>
-  <p>No watermark, no logo, no link. If you found this by looking for it, you were meant to.</p>
+  <p>Where a poster names a place, you can go and stand there. Most of them do not.</p>
+  <p>Related files: <a href="../" style="color:var(--red);">the sightings map</a> · <a href="../README.md">what this is</a></p>
+  <p style="margin-top:18px;">No watermark, no logo, no link on the posters themselves. If you found this by looking for it, you were meant to.</p>
 </footer>
 
 </div>
 <script>
+// 每張可選帶一個 scene：點下該證物即回到主站對應的一站
+const MAIN = 'https://crystal32378.github.io/golden-pelican/';
 const A = [
   ['RA-01','The case file','A manila folder, tied with red string, under one lamp.'],
-  ['RA-02','The fine','A pink citation taped to a harbour wall, photographed in the rain.'],
-  ['RA-03','Wanted','Nailed to a shuttered office. The lower edge has gone soft.'],
+  ['RA-02','The fine','A pink citation taped to a harbour wall, photographed in the rain.','venice'],
+  ['RA-03','Wanted','Nailed to a shuttered office. The lower edge has gone soft.','rabbit'],
   ['RA-04','Evidence','A paper bag on a steel table. Do not file this properly.'],
   ['RA-05','The map','Too many pins. Red string. Somebody counted twice.'],
   ['RA-06','The last line','Still part-fed in the roller. The ribbon is fading.'],
@@ -91,10 +99,10 @@ const A = [
   ['RA-08','It came back','A phone left off the hook. Somebody is still listening.'],
 ];
 const B = [
-  ['RB-01','The statement','Seen leaving the harbour. No hat. It did not look back.'],
-  ['RB-02','Lost property','Found on a wet bench at the ferry terminal.'],
-  ['RB-03','The cat version','Something big with a big mouth went past.'],
-  ['RB-04','The pigeons','Witnesses, signed. Statement left blank.'],
+  ['RB-01','The statement','Seen leaving the harbour. No hat. It did not look back.','venice'],
+  ['RB-02','Lost property','Found on a wet bench at the ferry terminal.','salt'],
+  ['RB-03','The cat version','Something big with a big mouth went past.','shima'],
+  ['RB-04','The pigeons','Witnesses, signed. Statement left blank.','venice'],
   ['RB-05','Chalk','Slow down. Someone is still looking for it.'],
   ['RB-06','Closing time','We have no hat policy for birds.'],
   ['RB-07','On the windscreen','The rain has taken the rest of it.'],
@@ -102,10 +110,10 @@ const B = [
 ];
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 function fill(list, el) {
-  el.innerHTML = list.map(([id,title,line]) => `
-    <figure>
-      <img src="${id}.jpg" alt="${esc(title)}" loading="lazy">
-      <figcaption><b>${id} · ${esc(title)}</b><span class="cap-en">${esc(line)}</span></figcaption>
+  el.innerHTML = list.map(([id,title,line,scene]) => `
+    <figure${scene ? ` class="hasScene"` : ''}>
+      <a${scene ? ` href="${MAIN}#${scene}"` : ''}><img src="${id}.jpg" alt="${esc(title)}" loading="lazy"></a>
+      <figcaption><b>${id} · ${esc(title)}</b><span class="cap-en">${esc(line)}</span>${scene ? `<span class="toScene">go to the scene →</span>` : ''}</figcaption>
     </figure>`).join('');
 }
 fill(A, document.getElementById('gridA'));

@@ -25,6 +25,8 @@
   #wall { padding:6px 16px 10px; max-width:1180px; margin:0 auto; }
   #wall .wallTitle { font-family:Georgia,"Times New Roman",serif; color:var(--gold); font-size:19px; letter-spacing:1px; margin:10px 0 2px; }
   #wall .wallNote { font-size:13px; color:#8E8272; margin-bottom:12px; }
+  #wall .wallNote a { color:#8E8272; text-decoration:none; border-bottom:1px dotted #8E8272; transition:color .2s; }
+  #wall .wallNote a:hover { color:#B8322A; border-bottom-color:rgba(184,50,42,.5); }
   #wallGrid { display:flex; gap:14px; overflow-x:auto; padding-bottom:10px; scroll-snap-type:x mandatory; }
   .wcard { flex:0 0 260px; scroll-snap-align:start; background:#FFFDF4; border-radius:4px; padding:8px 8px 10px; box-shadow:0 4px 14px rgba(0,0,0,.5); transform:rotate(var(--tilt,-.6deg)); }
   .wcard img { width:100%; display:block; border-radius:3px; }
@@ -139,6 +141,7 @@
   </div>
   <div class="wallNote" style="margin-top:6px">本案證物收集完畢（17 件）。嫌犯仍在騎車。</div>
   <div class="wallNote" style="margin-top:6px">＊本牆所有海報由 <b>Hy Image 3.5（混元）</b> 生成，非本店攝影。字跡如有訛誤，概由生成模型負責，本室不更正。</div>
+  <div class="wallNote" style="margin-top:14px"><a href="series/" style="font-size:12px; color:#B8322A; text-decoration:none; border-bottom:1px solid rgba(184,50,42,.35);">case file GP-001 →</a></div>
 </section>
 <div id="ballot">
   <button id="nominate">📍 提名下一站</button>
