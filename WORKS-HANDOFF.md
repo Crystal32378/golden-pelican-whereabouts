@@ -111,6 +111,54 @@ nude-*（三個）  talk-me-out-archive  three-body-problem
 
 ---
 
+## 各作品的「真實色票」與前台風格（2026-09-27 從原始碼抽出）
+
+**為什麼要這張表**：海報看起來都一樣，主因是我整批用同一種「昏黃桌上光」。
+但每個專案自己的 CSS 裡就有它真正的顏色，照著做就不會撞。
+
+| 作品 | 真實色票 | 前台調性 | 海報該走的色溫 |
+|---|---|---|---|
+| **truth-translator** | `#f2b84b` 琥珀 · `#e86d79` 珊瑚紅 · `#82ce7a` 綠 · `#70a7ff` 藍 · `#56606b` 灰 · 底 `#0b0c0e` | 深底 + 五色對應五種譯法 | **深色底＋五色** |
+| **walk-me-there** | `#fbbf24` 琥珀金 · `#f59e0b` · 底 `#1e293b` 深藍灰 · `#4ade80` 綠 | 暖琥珀 × 深藍灰，貓頭鷹 | **琥珀暖光**（溫暖陪伴） |
+| **talk-me-out** | `#ff3b30` 紅 · `#ffd60a` 黃 · `#ff9f0a` 橘 · `#30d158` 綠 · `#2c2c2e` 深灰 | Apple 系統色，四色 verdict | **冷白＋系統色**（不是暖黃） |
+| **cinephile-radar** | `#ff1744` 紅 · `#f3d18c`/`#e5c158`/`#c5a059` 金 · `#0c0f13` 近黑 · `#2979ff` 藍 | 黑底 + 金，電影感 | **黑金**（我原本做太淺太白） |
+| **life-blind-box** | shadcn 預設，未改 | 無專屬色 | 深夜、單一光源（成立） |
+| **three-body-game** | shadcn 預設，未改 | 無專屬色 | 深色＋星野 |
+| **reel-crew** | 前端在 `demo_app/`，無根目錄 css | agentic production | 工業／倉庫（成立） |
+| **Unseen-pain** | 中華電信提案，臨床 | 醫療資訊 | **冷白臨床**（成立） |
+| **draw-one** | 無獨立 css | 東方 oracle | **暖木＋米白**（成立） |
+| **beat-the-villain** | — | 出氣筒 | 暗紅金（成立，最搶眼） |
+
+**結論**：我這批 19 張裡 16 張暖色為主，但 truth-translator 本身是**深底五色**、
+cinephile-radar 是**黑金**、talk-me-out 是**冷白系統色** ——
+我把它們全做成暖黃，等於把三個作品自己的視覺身份抹掉了。
+
+---
+
+## 26 個 repo 對照（2026-09-27 從 GitHub API 重查）
+
+**GitHub 上實際是 26 個**，handoff 舊版寫的 27 個是錯的。
+
+**GitHub 上不存在、磁碟上也找不到**（別再找了）：
+`estate-detective` · `portfolio-doctor` · `three-body-game`（有磁碟沒 GitHub）
+· `draw-one-research` · `nude-hardening` · `talk-me-out-archive`
+· `apparel-fitting-collaboration-workspace` · `three-body-problem`
+（前三者磁碟上不存在，`three-body-game` 有磁碟但 GitHub 404）
+
+**GitHub 有、handoff 漏掉的兩個（值得做）**：
+- **`Nightingale-Walk-with-Me`** — 9/27 剛更新。「地圖說你到了，夜鶯把你送到對的門口」
+  專治最後 300 公尺（捷運出口→醫院正確入口），AI interprets / verified data decides，
+  路線是人工走過拍照的。**跟 walk-me-there 同血統但風格該完全不同：真實街景、白天、有人。**
+- **`second-eyes-agent`** — Python。「保留證據、保留不確定性、保留人類最終決定權」
+  400 張照片分流成 SHORTLIST 18 / REVIEW 7 / REMAINING 375。**資訊整理類，走冷色臨床。**
+
+**life-blind-box 狀態**：`~/Documents/Life Blind Box/repo` 的 remote 指向
+`github.com/Crystal32378/life-blind-box`，但該頁 **404**（2026-09-27 實測）。
+Crystal 說會自己公開。公開版身分是 `voice-microdrama-engine`（AMD Hackathon，
+有 Railway demo），只有 3 個場景。
+
+---
+
 ## 產圖速查
 
 ```bash
@@ -121,7 +169,17 @@ sips -s format jpeg -s formatOptions 72 -Z 1100 \
 /tmp/ocr works-posters/AB-01.jpg
 ```
 
+**生圖前先把 refs 移開**（教訓 7）：
+```bash
+mv ~/Desktop/hermes/refs ~/Desktop/hermes/refs.bak
+python3 tools/gen_posters.py TT-01 --series docs/posters/works/works.md S 3:4 &
+mv ~/Desktop/hermes/refs.bak ~/Desktop/hermes/refs   # 跑完再移回
+```
+
 - 免費期到 **2026-10-02 14:59**，之後要花錢（$0.024/張官方價）
-- 一張約 20 秒 + 輪詢
+- 一張約 20 秒 + 輪詢，**超過 30 秒要 `nohup … &` 放背景**（教訓 6）
 - 中文可以用，但避開生僻字（教訓 1）
 - 模糊用物理機制：距離、雨漬、刪除線、斜角（教訓 2）
+- **不要用「壓到穿紙的紅色液體」**去表示暴力／升級，會讀成血。
+  用「對照」「拆解」「層級」這類結構元素（2026-09-27 TT-01 教訓）
+- OCR 低於 0.5 信心度、或直排文字，都要目視確認（教訓 8、9）
