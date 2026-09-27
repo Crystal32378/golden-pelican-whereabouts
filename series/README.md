@@ -8,7 +8,9 @@ Twelve posters from the Golden Pelican case file, in two alternating styles.
 
 Every poster contains the bird or the bicycle, sometimes only as a sketch, a
 reflection, or a wheel track. The Chinese characters in several posters are the
-model's own additions, left in on purpose: decoration, not information.
+model's own additions. They are sometimes in the wrong script and sometimes nonsense,
+and they have been left exactly as they came out — the Office files what it receives
+and does not correct it.
 
 All images generated with **Hy Image 3.5 preview** (Tencent Hunyuan) and checked
 by OCR afterwards.
