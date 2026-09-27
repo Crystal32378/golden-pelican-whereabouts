@@ -355,6 +355,123 @@ text in the image. No other text anywhere. No watermark, no logo, no website.
 
 ---
 
+## RA-07｜案件卷宗 · 打字機打了一半的那張（風格 A）
+
+```
+A photograph of a sheet of paper that has been torn out of a typewriter and
+left on a desk, shot from above at a slight angle. The paper is crumpled once
+where it was gripped, then smoothed flat. A coffee ring partly crosses the
+bottom corner. Beside it lies a typewriter eraser, worn white at the edges, and
+a scrap of carbon paper curled like a ribbon. The desk surface is scratched
+wood. Late afternoon light comes in from one side and falls off quickly, so
+half the sheet is in shadow. On the desk edge, a bird-shaped pencil sharpener
+with a brass ferrule, the only bright metal in frame.
+
+The typed text reads:
+
+THE SUBJECT HAS NOW BEEN
+SEEN BY: A CAT, A FLOCK
+OF PIGEONS, A RABBIT
+
+NONE OF THEM WOULD
+DESCRIBE WHAT THEY SAW
+
+Typed hard, unevenly inked, the last line struck through with a single
+horizontal line, as if the typist changed their mind and stopped there.
+
+The long shadow across the paper, the struck-through last line, the eraser
+sitting on the evidence. The Chinese characters are the only non-Latin text in
+the image. No other text anywhere. No watermark, no logo, no website.
+```
+
+## RA-08｜案件卷宗 · 電話留言（風格 A）
+
+```
+A photograph of a legal pad, a pencil, and a portable telephone on a small
+table in a dim office at night, taken from directly above as if documenting a
+desk. On the desk, propped against the notepad, a small paper-cut figure of a
+long-beaked bird in a striped wool hat, as if it had been set down to watch
+the phone. The legal pad is a single sheet with a spiral binding at the top, ruled,
+and it is covered in writing pressed hard enough to leave grooves
+visible from the back of the paper. The pencil lies diagonally across it. The
+telephone is a corded office model, handset off the hook, its coiled cord
+looping away out of frame. A single overhead light. Everything else in the room
+is dark.
+
+The handwriting is small, cramped and hurried, written in capitals, pressed hard
+enough to leave grooves on the page. It reads:
+
+CAME BACK LAST NIGHT
+CAME BACK THE NIGHT BEFORE
+NEVER CAME BACK EMPTY
+
+Written large across the middle of the pad, underlined twice:
+
+IT CAME BACK
+
+And below that, smaller, less hurried, as if added later:
+
+it always comes back with
+something in the pouch
+
+The handset off the hook implies somebody is still listening. The Chinese
+characters are the only non-Latin text in the image. No other text anywhere.
+No watermark, no logo, no website.
+```
+
+## RB-07｜目擊現場 · 留言（風格 B）
+
+```
+A photograph of a note left on a windscreen of a parked van at a harbour, in
+rain, at night. The note is a piece of lined paper, folded twice, and the rain
+has soaked through it in a broad damp patch so that most of the handwriting has
+run into a soft blur, illegible. The van is wet all over, the note held on by
+a magnet or a dab of chewing gum. The windscreen wipers are up. The glass behind
+the note reflects a streetlight and, faintly, the shape of a bicycle leaning
+against the van beside the camera position. Everything out of focus except the
+note.
+
+The note was written in biro, pressed hard, and the words that are still
+readable in the dry centre of the paper are:
+
+SORRY. I DID NOT KNOW
+IT WAS YOURS.
+
+Everything above and below that has run. The rain has taken the rest of it.
+The Chinese characters are the only non-Latin text in the image. No other text
+anywhere. No watermark, no logo, no website.
+```
+
+## RB-08｜目擊現場 · 收據（風格 B）
+
+```
+A photograph of a long till receipt, unrolled and curling, lying on a wet
+pavement outside a laundrette at night, weighted at one end by a bottle and at
+the other by a stone. The receipt is faded and half torn, the thermal paper
+gone patchy and grey in places, and a raindrop has blotted a whole line. The
+pavement is slick, reflecting a streetlight. An open cardboard box sits on the
+pavement a little further back, out of focus, with a striped wool hat visible
+inside it.
+
+The receipt is itemised, the way a till prints it, and the legible lines read:
+
+1 x HAT, WOOL, STRIPED     9.00
+1 x BICYCLE, RED           0.00
+SERVICE CHARGE             0.00
+TOTAL                      9.00
+
+and the very bottom, which is not part of the till print, has been written on
+in biro:
+
+KEPT
+
+An impossible price for a bicycle, and one word written by hand underneath it.
+The Chinese characters are the only non-Latin text in the image. No other text
+anywhere. No watermark, no logo, no website.
+```
+
+---
+
 ## 產出後
 
 1. OCR 檢查：英文是否有漏字／拼錯、印章是否亂碼

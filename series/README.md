@@ -1,6 +1,6 @@
 # A bird rode a bicycle through 24 places in 24 hours
 
-Twelve posters from the Golden Pelican case file, in two alternating styles.
+Sixteen posters from the Golden Pelican case file, in two alternating styles.
 
 - **Style A — the Office.** Case files, citations, evidence bags, a typewriter.
 - **Style B — the world outside.** Witness statements, pencil sketches, notices
