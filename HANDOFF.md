@@ -37,7 +37,7 @@
 - 全英文資訊文字；中文「鵜鶘」裝飾字已棄用
 - 12/16 一次過關
 
-**13 張作品集海報**（`works-posters/`，見 `WORKS-HANDOFF.md`）
+**19 張作品集海報**（10 個作品，見 `WORKS-HANDOFF.md`）
 
 ---
 
@@ -118,7 +118,19 @@ python3 tools/gen_posters.py PS-01 --series docs/posters/works/works.md S 3:4
 5. **GitHub Pages 一 repo 只發布一個分支。**分店已佔用 `main`，
    系列頁改用目錄 `/series/`。
 
-6. **macOS 沒有 `timeout`。**
+6. **macOS 沒有 `timeout`。** 生圖一輪 6 張要 3 分鐘以上，
+   前景指令會被 30 秒砍掉，要 `nohup … &` 放背景再輪詢。
+
+7. **做非主站的海報時，先把 `~/Desktop/hermes/refs/` 改名。**
+   那是主站的鵜鶘參考圖，`gen_posters.py` 會自動抓 1 張當參考圖上傳，
+   結果會滲進別的作品——LB-02 重跑時桌面中央長出一台「月亮的鵜鶘單車」。
+   拿掉 refs 畫面乾淨很多。
+
+8. **OCR 讀不到直排字。** CR-01 的直排邊欄註記 OCR 全無，
+   但目視完全正確。**垂直排版不列入 OCR 驗收標準**，要目視。
+
+9. **OCR 也會誤報已正確的字。** LB-02 的「明天再抽一次」被讀成
+   「明天再抽二茨」，圖上是對的。低於 0.5 信心度的要目視再確認。
 
 ---
 

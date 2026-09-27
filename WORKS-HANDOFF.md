@@ -7,7 +7,7 @@
 
 ## 現有產出
 
-**13 張作品海報**在 `works-posters/`，7 個作品：
+**19 張作品海報**在 `works-posters/`，**10 個作品**：
 
 | 代碼 | 作品 | 風格 | OCR |
 |---|---|---|---|
@@ -24,10 +24,20 @@
 | DO-01 | draw-one | 茶桌上的籤 | ✅（刻意無文字） |
 | DO-02 | draw-one | 宣紙上唯一一筆 | ✅ 全對 |
 | RC-01 | reel-crew | 膠片庫長廊 | ✅（標籤刻意看不清） |
+| TM-01 | talk-me-out | 試衣間鏡上貼的裁決卡 | ✅ `WALK AWAY` `13` 全對 |
+| TM-02 | talk-me-out | 折成八格的五問記分紙 | ✅ 五列全中 |
+| LB-01 | life-blind-box | 玻璃罐裡的大白菜＋耳麥紅燈 | ✅ 整句全對 |
+| LB-02 | life-blind-box | 撕碎的熱感紙＋唯一完整一張 | ✅ 四行全對（畫面偏暗） |
+| CR-01 | cinephile-radar | 打勾的片單方格紙 | ✅ 直排字 OCR 讀不到，**目視全對** |
+| CR-02 | cinephile-radar | 索引卡牆＋紅框「暫譯」 | ✅ 紅框那張正確，周圍亂碼是刻意的 |
 
 **RC-02 已移出**（手寫中文變亂碼），待重做。
 
 原始 PNG：`~/Desktop/hermes/out/S-*.png`（1152×1536）
+
+**⚠️ 生圖時把 `~/Desktop/hermes/refs/` 暫時改名**，裡面是主站的鵜鶘參考圖，
+會滲進來——LB-02 第一次重跑時畫面中央出現「月亮的鵜鶘騎單車」。
+沒有 refs 時畫面乾淨很多，之後做非主站海報都該這樣跑。
 
 ---
 
@@ -47,20 +57,16 @@
 
 ---
 
-## 尚未做海報的 repo（27 個）
+## 尚未做海報的 repo
 
 有網址的（作品集頁面要連這些）：
 ```
 Flow-Switch          換掉環境的音樂
-Unseen-pain          ✅ 已做
 celestial-dev-pets   星座小動物
-cinephile-radar      電影獎片單追蹤
-estate-detective     工程活動時間線重建
 odyssey              AI 互動旅程
 pawradar             遇見你的狗狗
 portfolio-doctor     作品集可恢復性檢查
 second-eyes-agent    照片分流 agent
-talk-me-out          勸退我的朋友
 three-body-game      三體遊戲
 voice-microdrama-engine  語音微劇場引擎
 zhongyuan-festival   中元節
@@ -69,13 +75,26 @@ zhongyuan-festival   中元節
 沒網址的（需先確認是否有 demo，或純讀 README 決定要不要做海報）：
 ```
 Ginkgo  Nightingale  draw-one-research  brand-librarian
-fable-night-owl-app  life-blind-box  apparel-fitting-collaboration-workspace
+fable-night-owl-app  apparel-fitting-collaboration-workspace
 nude-*（三個）  talk-me-out-archive  three-body-problem
 ```
 
-**下一步建議**：先挑 3-5 個有網址且調性鮮明的做，湊到 10-12 個作品再做頁面。
-最想先做：`talk-me-out`（半夜勸你別這樣）、`estate-detective`（偵探）、
-`life-blind-box`、`three-body-game`。
+**各 repo 的實際路徑與網址**（家目錄底下沒有，都在 Documents 等資料夾裡）：
+
+| 作品 | 路徑 | 網址 |
+|---|---|---|
+| talk-me-out | `~/Documents/Talk Me Out of it/talk-me-out-hackathon` | github.com/Crystal32378/talk-me-out |
+| life-blind-box | `~/Documents/Life Blind Box/repo` | life-blind-box.onrender.com |
+| cinephile-radar | `~/Documents/三體遊戲/cinephile-radar` | majestic-toffee-9733c4.netlify.app |
+| three-body-game | `~/Documents/三體遊戲/three-body-game` | （無公開網址） |
+| Flow-Switch | `~/Documents/三體遊戲/Flow-Switch` | github.com/Crystal32378/Flow-Switch |
+| pawradar | `~/Documents/三體遊戲/pawradar` | github.com/Crystal32378/pawradar |
+| cinephile-radar | 同上 | 見上 |
+
+**下一步建議**：已經 10 個作品，**可以開始做作品集頁面了**。
+剩下的按「有網址且調性鮮明」挑，`three-body-game`、`zhongyuan-festival`、
+`voice-microdrama-engine` 看起來最有潛力。
+`estate-detective` 在磁碟上找不到，別再找了。
 
 ---
 

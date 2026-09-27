@@ -377,3 +377,175 @@ watermark, no logo, no website.
 ```
 
 ---
+
+## TM-01｜勸退我的朋友 · 試衣間的裁決
+
+```
+A photograph taken inside a clothing-store fitting room, shot at mirror height
+from the customer's own point of view, as if they had taken it with a phone in
+one hand. The light is a hard vertical strip of fluorescent light at the left
+edge and a warm bulb above, and the mirror is speckled with fingerprints and
+dust. A half-unpacked garment bag lies on the bench, the garment inside still on
+its hanger, not taken out.
+
+Taped to the mirror at eye level, slightly crooked, is a single thick printed
+card in the shape of a verdict slip, cream stock, one corner curling away from
+the glass. It has been slid into place under the mirror lip, as if pushed there
+by someone who is being blunt on purpose. The card is lit more brightly than
+everything around it.
+
+The card is printed with one large line at the top, in plain sans-serif capitals:
+
+WALK AWAY
+
+Below it, a score stamped in the lower right corner:
+
+13
+
+And along the bottom edge, in a smaller line:
+
+你不是想買這件　你是想有個藉口
+
+The rest of the fitting room falls off into soft focus. No other text anywhere.
+No watermark, no logo, no website.
+```
+
+## TM-02｜勸退我的朋友 · 五個問題的記分紙
+
+```
+A photograph of a folded paper scorecard lying on a wooden counter in a shop,
+shot from directly above under flat light. The card is creased into eight
+squares from being folded and unfolded many times, and the creases have gone
+soft and white. The card is a pale mint green, the kind of cheap card a cashier
+prints. Five rows are ruled on it, each row with a short question typed at the
+left and a small empty box at the right, and every box has been ticked by hand
+in blue pen. The ticks are heavy and identical, made quickly, without
+hesitation. A short stub of that same pen lies across the bottom edge of the
+card, uncapped.
+
+The five rows read, top to bottom, in small plain type:
+
+場合　你有沒有真的要去
+重複　衣櫃裡是不是已經有
+預算　這個價你會跟別人說嗎
+保養　它要洗幾次
+後悔　明年會穿嗎
+
+The top of the card has one larger hand-written line in ballpoint, underlined
+twice, pressing hard into the paper:
+
+你只是需要一個不買的理由
+
+There is no other text anywhere. No watermark, no logo, no website.
+```
+
+---
+
+## LB-01｜人生抽籤盒 · 這一局的場景
+
+```
+A photograph of a small glass jar standing on a kitchen table at night, shot
+straight on at table height. The kitchen is dark except for the light of a
+single phone propped against a salt jar on the far side of the table, throwing
+a hard blue-white glow up under the jar and leaving the rest of the room in
+shadow. Inside the glass jar, faintly lit, is one pale object: a head of napa
+cabbage, small and ordinary, sitting in a shallow inch of water. The glass is
+condensed and one droplet runs down the outside.
+
+A cheap wired earphone microphone lies on the table in front of the jar, its
+indicator light on and glowing red, plugged into nothing. Beside it is a
+scratched tin that has been used as an ashtray and is not an ashtray.
+
+On a strip of masking tape stuck to the table in front of the jar, written in
+marker in one uneven line:
+
+你是一棵即將被丟進鍋裡的大白菜
+
+The tape is torn off a roll and the ends are ragged. No other text anywhere.
+No watermark, no logo, no website.
+```
+
+## LB-02｜人生抽籤盒 · 結束就銷毀
+
+```
+A photograph of a kitchen table at night lit only by a phone flashlight lying
+flat on its side, casting hard shadows. The table surface is covered with a
+scatter of small torn slips of thermal paper, dozens of them, crumpled and
+torn into uneven pieces, as if each one had been used once and destroyed
+immediately. They drift across the grain of the wood and pile up slightly in
+the fold of the table. Most of the strips are blank or hold only a smudge of
+faded grey thermal print that cannot be read. A few show a single partial
+character before the tear.
+
+One slip lies flat and un-torn in the exact centre, and it is the only one
+still intact. On it, in faint thermal print, three short lines have survived:
+
+好結局
+壞結局
+懸念結局
+
+and below them a fourth line, cut off by the tear:
+
+明天再抽一次
+
+A hand is halfway out of frame at the bottom edge, still holding the roll of
+receipt paper it just pulled from, the paper trailing. No other text anywhere.
+No watermark, no logo, no website.
+```
+
+---
+
+## CR-01｜奧斯卡片單雷達 · 觀看進度
+
+```
+A photograph of a printed film-programme grid laid flat on a dark wooden
+table, shot from directly above under a single warm lamp. The sheet is a large
+A3 printout of a dense grid of small empty squares, roughly ten columns by
+fourteen rows, each square the same size and the same weight of line, ruled to
+the edge of the paper. Most squares are empty. About a fifth of them have a
+small hand-drawn tick in soft pencil, and the ticks cluster in the top rows and
+become sparse towards the bottom, as if the work was done from the top down and
+stopped. The paper is creased from being folded into quarters, and the top
+right corner is dog-eared and slightly torn.
+
+The grid has no column headings and no row labels — the squares are only
+squares. Along the left margin, printed vertically in small type:
+
+看過的先打勾　剩下的先不查
+
+A mechanical pencil and a stub eraser rest on the paper near the bottom right,
+sitting on top of two unticked squares. No other text anywhere. No watermark,
+no logo, no website.
+```
+
+## CR-02｜奧斯卡片單雷達 · 片名還沒有答案
+
+```
+A photograph of a wall covered in small printed index cards, shot straight on
+under flat daylight, the way a records office or a language-department notice
+board looks. The cards are uniform manila, the same size, each in its own
+slot, edge to edge across the whole wall, and there are far too many for the
+slots — a second and third layer of cards have been taped flat over the gaps,
+so the wall is uneven and some cards sit proud of the rest by a few
+millimetres.
+
+Every card is printed in the same layout with a film title in the middle. The
+titles are in different scripts and different alphabets: Latin, Cyrillic, Han
+characters, and Japanese kana. Nearly all of them have been struck through
+with a single thin diagonal line in blue pen, and beside each one a different
+second title has been written small in the margin — a different language each
+time. Some cards have three candidate titles written around the edge. The
+wall reads as an unresolved argument rather than a finished list.
+
+In the middle of the wall, one card has not been struck through. It is the
+only card with a red border, and it is pinned slightly crooked. It carries one
+title and nothing else, and the pin through it has been pushed in hard enough
+to dimple the card:
+
+暫譯
+
+A single pencil hangs on a string at the height of that card. Nothing else on
+the wall is legible. No watermark, no logo, no website.
+```
+
+---

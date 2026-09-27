@@ -3,3 +3,5 @@
 .claude/
 agent/
 skills-lock.json
+__pycache__/
+*.pyc
