@@ -122,57 +122,74 @@ anywhere. No watermark, no logo, no website.
 
 ---
 
-## TT-01｜真話翻譯機 · 原文與人話對照
+## TT-01｜真話翻譯機 · 同一句話的五種譯法
 
 ```
-A photograph of a single sheet of white printer paper on a desk, shot from
-directly above under even light. The paper has been printed on one side and
-folded once, so the top half lies slightly over the bottom. The upper half
-contains dense, formal Chinese text in a small serif face, evenly set, the way
-an official notice is printed. The lower half has been written on by hand in
-red ballpoint, much larger and much less formal, going over the fold.
+A photograph of a scruffy kitchen table at night, shot from directly above
+under a single warm desk lamp hanging low, so the light is a bright pool in the
+centre and the edges of the table fall into shadow. The table is not tidy: a
+half-empty mug, an open notebook with a pen thrown across it, a crumpled receipt
+from a convenience store, and a plate with one cold piece of toast on it, all
+pushed to the edges to clear the middle.
 
-The printed text in the upper half is legible and reads:
+Fanned out across the middle of the table are five torn slips of the same lined
+paper, all cut from one sheet, all the same width, overlapping slightly like a
+hand of playing cards. Each slip carries the same single sentence translated,
+and each is written in a completely different hand and a different mood. The
+first is small and neat and calm. The second is small and underlined twice. The
+third is written fast and slanting. The fourth is in thick marker and slightly
+joking. The fifth, at the near edge and closest to the camera, is in a red
+marker that has been pressed so hard the strokes have torn through the paper
+and dented the table underneath, and the letters are uneven and too big and
+have run past the edge of the slip. A small drop of the same red ink has splashed
+onto the table beside it.
 
-為優化整體服務品質，我們將於近期進行
-相關調整，敬請體諒並持續給予支持。
+The five slips read, from the far one to the near one:
 
-The handwritten translation in the lower half reads:
+不會過，但會拖得很有禮貌。
 
-我們要改了。
-你會不方便一點。
-但我們不會說是哪裡不方便。
+人類又在加密通訊。
 
-A red ballpoint pen lies diagonally across the fold. The contrast between the
-two hands is the whole point of the image. No other text anywhere. No
-watermark, no logo, no website.
+講很多，重點是：先別罵我。
+
+文字越厚，通常是底氣越薄。
+
+猜錯是你誤會，猜對是你懂事。
+
+The fifth slip and its splattered ink are the loudest thing in the frame. The
+red ink is the only strong colour in an otherwise warm brown and cream scene.
+No other text anywhere. No watermark, no logo, no website.
 ```
 
-## TT-02｜真話翻譯機 · 五種譯法
+## TT-02｜真話翻譯機 · 請先深呼吸
 
 ```
-A photograph of five narrow strips of paper laid out side by side on a grey
-desk, shot from directly above. The strips are cut from the same sheet and are
-the same width, like five labels or five tabs. Each strip carries one line of
-handwriting in a different style — one neat and small, one large and
-underlined, one scrawled fast, one written very small and cramped, one written
-so large it has run off the side of the strip and had to be cramped to fit. The
-desk has a ring binder hole visible in one corner.
+A photograph of a cheap plastic desk fan running on a table in a dim office at
+night, shot slightly from below and to one side, as if a person were sitting in
+the chair it is pointed at. The fan is off and the blades are perfectly still.
+The only light is the blue-white glow of a monitor off to the right, out of
+frame, and it lights the fan and one corner of the desk and leaves the rest of
+the room dark. A half-drunk cup of tea sweats on the desk, and a stack of
+papers sits at the edge of the pool of light.
 
-The five strips read, left to right:
+Propped against the base of the fan, at a slight lean as if just placed there,
+is a small folded paper card, printed, creased once down the middle. The card is
+the brightest thing in the frame and it is angled so that it faces the empty
+chair, as if it is meant to be read by whoever sits down next.
 
-說人話
+The card reads, in a plain printed face:
 
-話中有話
+貼出去之前
 
-最想讓你相信什麼
+請先深呼吸
 
-鄉民翻譯
+Below that, in a much smaller line, printed in grey:
 
-核彈翻譯
+它不會替你判斷人心。它只會拆話術。
 
-The five different hands are the entire subject. The strips are otherwise
-empty. No other text anywhere. No watermark, no logo, no website.
+The stillness of the stopped fan and the abandoned tea suggest someone who just
+got up and walked away. The card is left behind for them. No other text
+anywhere. No watermark, no logo, no website.
 ```
 
 ---

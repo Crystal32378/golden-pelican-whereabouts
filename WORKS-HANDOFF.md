@@ -15,8 +15,8 @@
 | BV-02 | beat-the-villain | 四種法器與傷害值 | ⚠️ 讀到 -1 -3 -5，漏 -2 |
 | UP-01 | unseen-pain | 診所指示牌，冷白 | ✅ 全對 |
 | UP-02 | unseen-pain | 夜間牆上的手寫字 | ✅ 全對 |
-| TT-01 | truth-translator | 公文紙 + 紅筆白話對照 | ✅ 全對（最美） |
-| TT-02 | truth-translator | 五種譯法五種筆跡 | ⚠️ 5 中 1 |
+| TT-01 | truth-translator | 凌亂廚桌上的五張複寫條，最後一張紅墨水 | ✅ 五句全對 |
+| TT-02 | truth-translator | 辦公室桌燈旁「請先深呼吸」的卡片 | ✅ 全對 |
 | PS-01 | THE-PROMPT-SANG-ITSELF | 暗房器材棚 + 五標籤 | ✅ 全對 |
 | PS-02 | THE-PROMPT-SANG-ITSELF | 五線譜上印出的字 | ✅ 全對 |
 | WC-01 | walk-me-there | 路口路牌上的真貓頭鷹 | ✅（`ONE WAY` 刻意） |
