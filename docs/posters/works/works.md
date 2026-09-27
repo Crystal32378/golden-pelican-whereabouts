@@ -301,49 +301,63 @@ No other text anywhere. No watermark, no logo, no website.
 ## DO-01｜Draw One · 抽籤
 
 ```
-A photograph of a wooden table surface in low warm light, shot from directly
-above. On the table, a single folded paper object, made of thick handmade paper
-folded into a small flat envelope shape, and left slightly open at one corner.
-Next to it, unrolled, a long strip of the same paper with printed columns
-running down it, the columns too small to read but clearly ruled. Beside that,
-a plain terracotta bowl, and a single dark ink brush resting across the rim. A
-teacup ring marks the wood. A small pool of tea has been left and is drying at
-the edge.
+A photograph of a plain off-white sheet of thick paper on a matte black surface,
+shot from directly above under soft even light with no visible lamp and almost no
+shadow. The paper is a warm off-white, the colour of uncoated book paper, with
+fine fibre flecks in it and a soft deckled edge on one side. The black surface
+under it is a very dark neutral, not a colour, and only a narrow band of it is
+visible around the paper. The whole frame is extremely spare: one sheet of
+paper, and nothing else except the paper.
 
-The folded paper object is the only thing in sharp focus. Light falls on it
-from the upper left and the fold shadows fall to the right. The whole
-arrangement is sparse and deliberate, with a lot of empty table around it, the
-way a tea table is set for one person.
+The sheet is the page of a plain book. At the top, set in a large old-style
+serif typeface with generous letter spacing, is a single line:
 
-There is no text anywhere in the image except faint ruled column marks on the
-paper strip, which are not legible. No watermark, no logo, no website.
+數位籤詩宇宙
+
+Below it, in the same serif at a much smaller size, one short line:
+
+今天想問什麼
+
+Below that, ruled across the width of the page, is a single empty ruled box, the
+kind you would write in, and the box is empty. A pencil rests on the page at an
+angle, its point touching the left edge of the empty box, as if someone had put
+it down and then thought about it for a while and not written anything yet. There
+is a faint graphite smudge beside the point, where the pencil has been held in
+place.
+
+The page is otherwise completely blank. The serif type, the near-black
+background, the paper colour and the total absence of decoration are the entire
+point. No other text anywhere. No watermark, no logo, no website.
 ```
 
-## DO-02｜Draw One · 問與答
+## DO-02｜Draw One · 抽出來
 
 ```
-A photograph of a sheet of rice paper laid on a dark lacquered desk, shot from
-directly above under a single warm lamp. The paper is a soft off-white with
-visible fibre flecks. In the centre of the sheet there is exactly one ink
-brush stroke: a single deliberate horizontal line, slightly thicker at the
-left where the brush pressed down and tapering as it was drawn to the right,
-with a small amount of ink pooling at the end. The rest of the sheet is empty.
+A photograph of a person's hand holding a single narrow slip of thick off-white
+paper, drawn halfway out of a plain dark box, shot close from slightly above at
+an angle so the hand is large in the frame. The lighting is soft and neutral,
+even and shadowless, the light of a page being read rather than a lamp on a
+desk. The skin is lit plainly and there is no dramatic shadow anywhere.
 
-A stone-paperweight shaped like a small fish rests on the top left corner of
-the sheet. A cup of ink with a stained rim sits to the right, and beside it a
-brush that is still wet. The edge of the lamp's light falls across the sheet
-and stops, leaving the lower third in shadow.
+The slip is the same uncoated off-white paper as the box, torn off a long strip,
+and the tear is clean and fibrous. The hand holds the slip between thumb and
+forefinger, relaxed, and the hand is a real working hand with slightly uneven
+nails and a bit of dry skin at the knuckle, not a posed or manicured hand. Only
+the hand and the lower part of the box are in the frame; the person's face and
+body are not visible.
 
-Above the single stroke, small and very neat, one short question is written in
-faint pencil:
+On the slip, set in a small old-style serif typeface and clearly legible, is a
+single column of printed traditional characters, evenly spaced, the way a
+numbered poem is set on a temple fortune slip. The characters are in dark ink
+on the pale paper and they are the only writing on the slip.
 
-今天要往哪裡走
+At the bottom of the frame, just visible and slightly out of focus, is the open
+box, which is plain and undecorated, with a few more slips standing upright
+inside it.
 
-Below the stroke, in the same pencil, very small:
-
-不要問第二次
-
-There is no other text anywhere. No watermark, no logo, no website.
+The slip being drawn out of the box, halfway, is the whole action of the image:
+one question asked, and one answer not yet read. No other text anywhere. No
+watermark, no logo, no website.
 ```
 
 ---

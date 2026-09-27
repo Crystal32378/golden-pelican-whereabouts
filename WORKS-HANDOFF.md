@@ -21,8 +21,8 @@
 | PS-02 | THE-PROMPT-SANG-ITSELF | 五線譜上印出的字 | ✅ 全對 |
 | WC-01 | walk-me-there | 路口路牌上的真貓頭鷹 | ✅（`ONE WAY` 刻意） |
 | WC-02 | walk-me-there | 濕地面上的手機 | ✅ `...recalculating` |
-| DO-01 | draw-one | 茶桌上的籤 | ✅（刻意無文字） |
-| DO-02 | draw-one | 宣紙上唯一一筆 | ✅ 全對 |
+| DO-01 | draw-one | **米白紙＋近黑＋襯線字，一支筆還沒寫** | ✅ `數位籤詩宇宙` 全對 |
+| DO-02 | draw-one | **真實的手把籤抽出盒子一半** | ✅ 籤上小字（刻意不必全對） |
 | RC-01 | reel-crew | 膠片庫長廊 | ✅（標籤刻意看不清） |
 | TM-01 | talk-me-out | 試衣間鏡上貼的裁決卡 | ✅ `WALK AWAY` `13` 全對 |
 | TM-02 | talk-me-out | 折成八格的五問記分紙 | ✅ 五列全中 |
@@ -126,7 +126,7 @@ nude-*（三個）  talk-me-out-archive  three-body-problem
 | **three-body-game** | shadcn 預設，未改 | 無專屬色 | 深色＋星野 |
 | **reel-crew** | 前端在 `demo_app/`，無根目錄 css | agentic production | 工業／倉庫（成立） |
 | **Unseen-pain** | 中華電信提案，臨床 | 醫療資訊 | **冷白臨床**（成立） |
-| **draw-one** | 無獨立 css | 東方 oracle | **暖木＋米白**（成立） |
+| **draw-one** | `--bg #12110f` `--accent #f4efe7` Georgia 襯線 | 數位籤詩宇宙，極簡書頁 | **米白紙＋近黑**（已重做 DO-01/02） |
 | **beat-the-villain** | — | 出氣筒 | 暗紅金（成立，最搶眼） |
 
 **結論**：我這批 19 張裡 16 張暖色為主，但 truth-translator 本身是**深底五色**、
@@ -152,10 +152,9 @@ cinephile-radar 是**黑金**、talk-me-out 是**冷白系統色** ——
 - **`second-eyes-agent`** — Python。「保留證據、保留不確定性、保留人類最終決定權」
   400 張照片分流成 SHORTLIST 18 / REVIEW 7 / REMAINING 375。**資訊整理類，走冷色臨床。**
 
-**life-blind-box 狀態**：`~/Documents/Life Blind Box/repo` 的 remote 指向
-`github.com/Crystal32378/life-blind-box`，但該頁 **404**（2026-09-27 實測）。
-Crystal 說會自己公開。公開版身分是 `voice-microdrama-engine`（AMD Hackathon，
-有 Railway demo），只有 3 個場景。
+**life-blind-box 狀態**：**已公開**（2026-09-28 實測 200，`private: false`）。
+GitHub Pages 還沒開（`crystal32378.github.io/life-blind-box/` 仍 404），
+但 repo 可連，作品集頁面連 GitHub 即可。另有公開版 `voice-microdrama-engine`。
 
 ---
 
