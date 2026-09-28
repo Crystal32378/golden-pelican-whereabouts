@@ -8,19 +8,32 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <style>
 
-  :root { --ink:#F4EBD2; --gold:#E8B860; --red:#C8453A; --bg:#14100C; --panel:#1A1410; --line:#4A3A30; }
+  :root { --ink:#EDE4CE; --gold:#C9A04A; --red:#A8382E; --bg:#191410; --panel:#1F1813; --line:#463528; }
   * { box-sizing: border-box; }
-  body { margin:0; font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; background:var(--bg); color:var(--ink); }
+  /* 紙紋：跟系列頁同一組參數，深底用 screen 疊，避免整頁變髒 */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.035'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+    mix-blend-mode:screen; }
+  header, #wrap, #wall, #ballot, footer { position:relative; z-index:1; }
+  #map, .leaflet-pane, .leaflet-top, .leaflet-bottom { z-index:2; }
+  .leaflet-control-container .leaflet-top.leaflet-right { z-index:3; }
+  body { margin:0; font-family:Georgia,"Noto Serif TC","Songti TC",serif; background:var(--bg); color:var(--ink);
+    letter-spacing:.01em; }
   header { padding:22px 22px 10px; text-align:center; }
-  h1 { margin:0 0 6px; font-size:26px; color:var(--gold); letter-spacing:1px; }
-  .motto { color:#C9A8FF; font-style:italic; font-size:14px; margin:4px 0 0; }
-  .wanted { max-width:640px; margin:14px auto 6px; border:3px double #C9A04A; background:var(--panel); padding:12px 18px; font-size:14px; line-height:1.8; }
+  h1 { margin:0 0 6px; font-size:27px; color:var(--gold); letter-spacing:.14em;
+    font-weight:400; text-transform:uppercase; }
+  .motto { color:#B49AD8; font-style:italic; font-size:14.5px; margin:6px 0 0; letter-spacing:.02em; }
+  .wanted { max-width:640px; margin:16px auto 8px; border:1px solid var(--gold);
+    box-shadow:inset 0 0 0 3px var(--bg), inset 0 0 0 4px rgba(201,160,74,.45);
+    background:#1D1712; padding:16px 20px; font-size:14.5px; line-height:1.9; }
   .wanted b { color:#E0592A; letter-spacing:2px; }
   #wrap { display:flex; gap:0; height:62vh; min-height:420px; padding:12px 16px; }
-  #map { flex:1; border-radius:12px 0 0 12px; border:1px solid var(--line); border-right:none; z-index:1; }
-  #locker { width:250px; background:var(--panel); border:1px solid var(--line); border-radius:0 12px 12px 0; padding:14px; overflow-y:auto; }
+  #map { flex:1; border-radius:0; border:1px solid var(--line); border-right:none; z-index:1; }
+  #locker { width:250px; background:var(--panel); border:1px solid var(--line); border-radius:0; padding:14px; overflow-y:auto; }
   #locker h2 { font-size:15px; color:#9FB4E0; margin:2px 0 10px; }
-  .evi { background:#241D18; border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:13px; }
+  .evi { background:#241D18; border:1px solid var(--line); border-radius:0; padding:8px 10px; margin-bottom:8px; font-size:13px; }
   /* 證物牆：鄉民各自繳交的證物 */
   #wall { padding:6px 16px 10px; max-width:1180px; margin:0 auto; }
   #wall .wallTitle { font-family:Georgia,"Times New Roman",serif; color:var(--gold); font-size:19px; letter-spacing:1px; margin:10px 0 2px; }
@@ -39,7 +52,7 @@
   .pin { background:var(--red); color:#fff; border:2px solid #fff; border-radius:50% 50% 50% 0; transform:rotate(-45deg); width:22px; height:22px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,.5); }
   .pin span { display:block; transform:rotate(45deg); font-size:11px; line-height:20px; }
   .pin.prop { background:#E8702E; }
-  .leaflet-popup-content-wrapper { background:var(--panel); color:var(--ink); border:1px solid var(--gold); border-radius:10px; }
+  .leaflet-popup-content-wrapper { background:var(--panel); color:var(--ink); border:1px solid var(--gold); border-radius:0; }
   .leaflet-popup-tip { background:var(--panel); }
   .card h3 { margin:0 0 4px; color:var(--gold); font-size:16px; }
   .card .time { font-size:12px; color:#9FB4E0; }
@@ -53,8 +66,8 @@
   .clusterIcon::after { content:' 起目擊'; font-size:10px; font-weight:400; }
   body.en .clusterIcon::after { content:' sightings'; }
   header { position:relative; }
-  #langBtn { position:absolute; top:16px; right:18px; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:999px; padding:5px 14px; font-size:13px; cursor:pointer; }
-  #muteBtn { position:absolute; top:16px; right:104px; background:var(--panel); color:#C9A04A; border:1px solid #4A3A30; border-radius:999px; padding:5px 12px; font-size:13px; cursor:pointer; }
+  #langBtn { position:absolute; top:16px; right:18px; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:0; padding:5px 14px; font-size:13px; cursor:pointer; }
+  #muteBtn { position:absolute; top:16px; right:104px; background:var(--panel); color:#C9A04A; border:1px solid #4A3A30; border-radius:0; padding:5px 12px; font-size:13px; cursor:pointer; }
   .snd { display:block; width:100%; margin:0 0 6px; background:#2F4A6E; color:#fff; border:none; border-radius:4px; padding:5px 8px; font-size:12px; cursor:pointer; }
   .snd:hover { background:#3A5A85; }
   .snd.playing { background:#E0592A; }
@@ -76,8 +89,8 @@
     h1 { font-size:20px; }
     .wanted { margin:12px 12px 4px; padding:10px 12px; font-size:13px; }
     #wrap { flex-direction:column; height:auto; padding:10px 12px; }
-    #map { width:100%; min-width:0; height:52vh; min-height:300px; border-radius:12px; border-right:1px solid var(--line); }
-    #locker { width:100%; min-width:0; border-radius:12px; padding:12px 0 4px; }
+    #map { width:100%; min-width:0; height:52vh; min-height:300px; border-radius:0; border-right:1px solid var(--line); }
+    #locker { width:100%; min-width:0; border-radius:0; padding:12px 0 4px; }
     #lockerList { display:flex; flex-direction:row; align-items:flex-start; gap:10px; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; padding-bottom:6px; }
     .evi { flex:0 0 220px; width:220px; scroll-snap-align:start; margin-bottom:4px; }
     #teaser { margin:0 12px 24px; }
@@ -86,7 +99,7 @@
   .postcard .stamp { position:absolute; top:-7px; right:-7px; background:#FFFDF4; border:1px dashed #C8453A; border-radius:4px; width:40px; height:30px; text-align:center; font-size:19px; line-height:28px; transform:rotate(8deg); }
   .postcard .pm { font-family:"Kaiti TC","STKaiti",cursive; color:#3A2A20; font-size:12px; padding:3px 2px 4px; }
   #ballot { padding:10px 16px 26px; text-align:center; }
-  #nominate { background:var(--gold); color:#241D18; border:none; font-size:16px; font-weight:700; padding:12px 26px; border-radius:999px; cursor:pointer; }
+  #nominate { background:var(--gold); color:#241D18; border:none; font-size:16px; font-weight:700; padding:12px 26px; border-radius:0; cursor:pointer; }
   #nominate.armed { background:var(--red); color:#fff; }
   #hint { font-size:13px; color:#8E8272; margin-top:8px; }
   .vote { margin-top:6px; background:#2F5F4A; color:#fff; border:none; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:13px; }
@@ -103,8 +116,8 @@
     <b>WANTED｜黃金鵜鶘</b><br>
     <span id="wCharges">罪名：未經許可環遊 21 個地點、在威尼斯違規騎單車</span><br>
     <span id="wLooks">特徵：剪紙質感、紅色單車、每站換帽子</span>　｜　<span id="wLast">最後目擊：威尼斯（鴿子拒絕作證）</span>
-    <p id="explainer">其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 24 個場景，每一站由不同的 AI 點菜——來看看犯罪現場</p>
-    <span id="wCount" class="count">官方紀錄：23 地點。鄉民堅稱有第 24 站。</span>
+    <p id="explainer">其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 26 個場景，每一站由不同的 AI 點菜——來看看犯罪現場</p>
+    <span id="wCount" class="count">官方紀錄：25 地點。鄉民堅稱有第 26 站。</span>
     <a id="enterBtn" href="https://crystal32378.github.io/golden-pelican/#moon" target="_blank">進入本月球現場 →</a>
   </div>
 </header>
@@ -183,7 +196,8 @@ const SIGHTINGS = [
   ['homecoming','回家','Homecoming',23.62,119.70,'09/23 23:27','同一座島，但是晚上。燈塔亮著，朋友在門口等。',"Same island, but at night. The lighthouse is on. Friends are waiting at the door."],
   ['venice','威尼斯','Venice',45.4371,12.3326,'09/24 13:39','GPT Sol 點的菜。本島禁止騎單車，屬違規，鴿子拒絕作證。','Ordered by GPT Sol. Cycling is banned on the islands — a violation. The pigeons declined to testify.'],
   ['salt','天空之鏡','Salar de Uyuni',-20.1338,-67.4891,'09/27 00:40','Astra 點的菜。整片鹽湖是鏡子，天在上面也在下面，地平線消失。遠處有單腳站的紅鶴。地面太光滑，單車輪印留不下來——所以沒有目擊報告，只有照片。','Ordered by Astra. The whole salt flat is a mirror: the sky above and below, horizon gone. Flamingos stand on one leg out in the distance. The ground is too slick to hold tyre tracks — hence no sighting report, only a photograph.'],
-  ['shima','島波海道','Shimanami Kaido',34.3477,133.1044,'09/27 00:40','Fable 點的菜。檸檬與橘子園之間的海岸公路，白色吊橋一座接一座。喉囊裡塞著一張摺好的地圖。海堤上有一隻貓，目擊了全程，但拒絕提供任何細節。','Ordered by Fable. A coast road between the lemon and orange terraces, white suspension bridges one after another. A folded map in the pouch. A cat on the seawall witnessed the whole thing and declined to give any detail.'],
+  ['bagan','蒲甘','Bagan',21.1700,94.8600,'09/28 14:42','Crystal 點的菜。緬甸的蒲甘，日出時分：先亮的是金頂，再是幾百座磚紅色的佛塔一座一座染上金。晨霧從灰藍轉成蜜桃色。鵜鶘把一串茉莉花掛在把手上。','Ordered by Crystal. Bagan at sunrise: the gold tips first, then several hundred brick-red stupas taking the light one by one. The mist between them turns from grey-blue to peach. A string of jasmine on the handlebars.'],
+  ['screen','牠的電腦','His Computer',null,null,'09/28 14:21','DeepSeek 4.1 Flash 點的菜。一張白紙上，機房的黑色機櫃在鵜鶘騎到面前才一台一台印出來，沒畫到的地方只剩鉛筆線。螢幕最下面一行「下一站：」一直打不完。','Ordered by DeepSeek 4.1 Flash. On a blank sheet, the server cabinets are printed one by one only as the pelican reaches them; the rest is still pencil. The last line of the screen keeps typing: NEXT:'],
 ];
 
 const map = L.map('map', { worldCopyJump:true }).setView([25.05, 121.0], 3);
@@ -196,7 +210,7 @@ const STR = {
     hint:'按下去之後，在地圖上點一個位置，幫鵜鶘報名——我家巷口也可以。提名只存在你自己的瀏覽器裡，這是你的偵查筆記本。',
     foot:'目擊時間皆為真實 git commit 時間戳（golden-pelican repo）｜分店與本店各自獨立營業 🍣',
     votes:v=>`本站提名 ${v} 票（存在你的瀏覽器）`, voteBtn:'投這裡一票', prompt:'這裡是哪裡？（我家巷口也可以）',
-    charges:'罪名：未經許可環遊 24 個地點、在威尼斯違規騎單車、在地下失聯', count:'官方紀錄：23 地點。鄉民堅稱有第 24 站。', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
+    charges:'罪名：未經許可環遊 26 個地點、在威尼斯違規騎單車、在地下失聯', count:'官方紀錄：25 地點。鄉民堅稱有第 26 站。', looks:'特徵：剪紙質感、紅色單車、每站換帽子', last:'最後目擊：兔子洞（目擊者：無）', photo:n=>`${n} 現場照片`,
     explain:'其實這是一個 3D 世界：一隻鵜鶘騎單車穿過 24 個場景，每一站由不同的 AI 點菜——來看看犯罪現場', enter:'進入本月球現場 →',
     teaserStamp:'提名中', teaserNone:'還沒有人提名，你就是第一個。', teaserTie:'本案陷入票數僵局。',
     soundPlay:'🎧 聆聽現場', soundStop:'🔇 停止聆聽', muted:'🔇 靜音', unmuted:'🔊 恢復聲音', sndNote:'🔊 現場音：', sndTech:'（技術：瀏覽器即時合成，無音檔）',
@@ -241,21 +255,23 @@ function renderSightings() {
 const SOUND_MAP = { island:'island', school:'yard', market:'market', circle:'city', kyoto:'temple', moon:'moon', polar:'polar',
   jungle:'jungle', sky:'sky', paris:'paris', ocean:'ocean', space:'space', home:'room', wetmarket:'wetmarket', library:'library',
   rain:'rain', vinyl:'vinyl', globe:'globe', garden:'garden', homecoming:'lighthouse', venice:'venice', rabbit:'rabbit',
-  salt:'salt', shima:'shima' };
+  salt:'salt', shima:'shima', bagan:'bagan', screen:'screen' };
 // 明信片上會寫出「你該聽到什麼」——提示決定體驗
 const SOUND_LABEL = { island:'海鷗與遠浪', yard:'哨聲與球的彈跳', market:'人聲、叮噹與鑊聲', city:'車流與遠處的喇叭',
   temple:'風鈴（寺廟鐘）', moon:'宇航服的摩擦與無線電的靜', polar:'風與冰層的碎裂', jungle:'蟲鳴與蛙', sky:'高空的風與遠處的鳥',
   paris:'遠處的手風琴', ocean:'鯨魚的滑翔與氣泡', space:'幾乎聽不到的無人機嗡鳴與聲納', home:'冰箱、時鐘與遠處的寶寶',
   wetmarket:'熱鍋與叫賣', room:'冰箱、時鐘與遠處的寶寶', library:'翻書聲與極慢的鐘', rain:'雨與滴水', vinyl:'唱針的雜訊與電流聲', globe:'八音盒',
   garden:'蜜蜂與葉子', lighthouse:'燈塔鐘與遠處的霧號', venice:'水拍岸邊與遠處的人聲', rabbit:'地底的隆隆、迴響的水滴與懷錶滴答',
-  salt:'鹽殼的碎裂、遠處一聲鳥、還有自己的輪胎', shima:'海風、浪拍橋墩、很遠的一聲渡輪汽笛' };
+  salt:'鹽殼的碎裂、遠處一聲鳥、還有自己的輪胎', shima:'海風、浪拍橋墩、很遠的一聲渡輪汽笛',
+  bagan:'夜裡的寺塔、很遠的狗吠、起風時鈴鐸', screen:'風扇、硬碟、以及一直打不完的那一行' };
 const SOUND_LABEL_EN = { island:'gull cries and far surf', yard:'a whistle and a bouncing ball', market:'voices, chimes and a sizzling wok',
   city:'traffic and a distant horn', temple:'a wind chime (temple bell)', moon:'a spacesuit creak and radio silence', polar:'wind and ice cracking',
   jungle:'insects and a frog', sky:'high wind and a far bird', paris:'a distant accordion', ocean:'a whale gliding and bubbles',
   space:'barely-heard engine hum and a sonar ping', home:'a fridge, a clock and a far-off baby', wetmarket:'a hot pan and a vendor call', room:'a fridge, a clock and a far-off baby',
   library:'page turns and a very slow clock', rain:'rain and dripping', vinyl:'stylus noise and mains hum', globe:'a music box',
   garden:'bees and leaves', lighthouse:'the lighthouse bell and a far foghorn', venice:'water lapping and distant voices', rabbit:'underground rumble, echoing drips and a ticking watch',
-  salt:'salt crust cracking, one far-off bird, and your own tyres', shima:'sea wind, water against bridge piers, a ferry horn far off' };
+  salt:'salt crust cracking, one far-off bird, and your own tyres', shima:'sea wind, water against bridge piers, a ferry horn far off',
+  bagan:'temple bells at night, a dog somewhere off, wind through the stupas', screen:'fans, hard disks, and a line that never finishes typing' };
 let AC = null, current = null, playing = null;
 const muted = localStorage.getItem('gpw-muted') === '1';
 
@@ -345,6 +361,8 @@ function buildSound(kind) {
     case 'venice':  bed('white','bandpass',800,0.7,0.45,0.55); vol(0.09); every(1700,0.7,()=>glide(c,g,300,220,0.065,1.0)); break;           // 水聲＋遠處人聲
     case 'rabbit':  bed('brown','lowpass',200,0,0.9,0.05); vol(0.14); every(900,0.7,()=>glide(c,g,700,1800,0.06,0.1)); every(180,0.4,()=>env(c,g,3000,0.028,{len:0.02})); break; // 地底＋滴答
     case 'salt':    bed('white','lowpass',900,0,0.16); bed('brown','lowpass',180,0,0.3,0.05); vol(0.14); every(2400,0.55,()=>burst(1500+R()*900,0.05,0.14)); every(1500,0.5,()=>env(c,g,240,0.02,{len:0.05})); every(1000,0.85,()=>env(c,g,90+R()*40,0.03,{len:0.1,sweep:0.55})); every(7000,0.3,()=>glide(c,g,1900,1200,0.05,0.28)); break; // 鹽殼＋自己的輪胎＋遠處一聲鳥
+    case 'bagan':   bed('brown','lowpass',420,0,0.5,0.05); bed('white','bandpass',2200,0.5,0.06,0.25); vol(0.11); every(5200,0.6,()=>bell(c,g,294,0.05,2.8)); every(1300,0.35,()=>env(c,g,520,0.02,{len:0.5})); every(8000,0.3,()=>glide(c,g,150,105,0.08,2.2)); break; // 寺塔鈴鐸＋夜風
+    case 'screen':  bed('brown','lowpass',240,0,0.5,0.06); bed('white','bandpass',1200,0.7,0.1,0.4); vol(0.09); every(190,0.7,()=>env(c,g,2600+R()*600,0.012,{len:0.012})); every(2100,0.5,()=>env(c,g,900,0.03,{len:0.06})); break; // 風扇＋硬碟＋鍵盤
     case 'shima':   bed('brown','bandpass',520,0.6,0.6,0.45); bed('white','bandpass',1500,0.5,0.12,0.3); vol(0.12); every(3000,0.5,()=>glide(c,g,280,210,0.06,1.2)); every(11000,0.45,()=>{env(c,g,165,0.05,{len:0.9,sweep:0.35});setTimeout(()=>env(c,g,132,0.045,{len:1.2,sweep:0.3}),260);}); every(6200,0.3,()=>burst(2900,0.03,0.5)); break; // 海風＋橋墩＋渡輪汽笛
     default:        bed('brown','lowpass',340,0,0.5); vol(0.09);
   }
