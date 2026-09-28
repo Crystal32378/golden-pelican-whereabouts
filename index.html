@@ -4,18 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Golden Pelican's Whereabouts｜鵜鶘踩點地圖</title>
+<!-- 配色：米紙底，與主站、系列頁同一組質地 -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <style>
 
-  :root { --ink:#EDE4CE; --gold:#C9A04A; --red:#A8382E; --bg:#191410; --panel:#1F1813; --line:#463528; }
+  :root { --ink:#2B2D33; --gold:#A8873C; --red:#A8382E; --bg:#F4F1EA; --panel:#EDE8DC; --line:#CFC7B4; }
   * { box-sizing: border-box; }
   /* 紙紋：跟系列頁同一組參數，深底用 screen 疊，避免整頁變髒 */
   body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.035'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
-    mix-blend-mode:screen; }
+    mix-blend-mode:multiply; }
   header, #wrap, #wall, #ballot, footer { position:relative; z-index:1; }
   #map, .leaflet-pane, .leaflet-top, .leaflet-bottom { z-index:2; }
   .leaflet-control-container .leaflet-top.leaflet-right { z-index:3; }
@@ -26,14 +27,14 @@
     font-weight:400; text-transform:uppercase; }
   .motto { color:#B49AD8; font-style:italic; font-size:14.5px; margin:6px 0 0; letter-spacing:.02em; }
   .wanted { max-width:640px; margin:16px auto 8px; border:1px solid var(--gold);
-    box-shadow:inset 0 0 0 3px var(--bg), inset 0 0 0 4px rgba(201,160,74,.45);
-    background:#1D1712; padding:16px 20px; font-size:14.5px; line-height:1.9; }
+    box-shadow:inset 0 0 0 3px var(--bg), inset 0 0 0 4px rgba(168,135,60,.5);
+    background:#FFFDF6; padding:16px 20px; font-size:14.5px; line-height:1.9; }
   .wanted b { color:#E0592A; letter-spacing:2px; }
   #wrap { display:flex; gap:0; height:62vh; min-height:420px; padding:12px 16px; }
   #map { flex:1; border-radius:0; border:1px solid var(--line); border-right:none; z-index:1; }
   #locker { width:250px; background:var(--panel); border:1px solid var(--line); border-radius:0; padding:14px; overflow-y:auto; }
   #locker h2 { font-size:15px; color:#9FB4E0; margin:2px 0 10px; }
-  .evi { background:#241D18; border:1px solid var(--line); border-radius:0; padding:8px 10px; margin-bottom:8px; font-size:13px; }
+  .evi { background:#E4DED0; border:1px solid var(--line); border-radius:0; padding:8px 10px; margin-bottom:8px; font-size:13px; }
   /* 證物牆：鄉民各自繳交的證物 */
   #wall { padding:6px 16px 10px; max-width:1180px; margin:0 auto; }
   #wall .wallTitle { font-family:Georgia,"Times New Roman",serif; color:var(--gold); font-size:19px; letter-spacing:1px; margin:10px 0 2px; }
@@ -45,6 +46,16 @@
   .wcard img { width:100%; display:block; border-radius:3px; }
   .wcard .tag { font-size:11px; color:#6B5B45; margin-top:7px; line-height:1.5; }
   .wcard .tag b { color:#3A2A20; }
+  /* 卷宗續卡：放在證物牆捲軸末端，不是證物本身，所以用虛線框 */
+  .wcard.next { flex:0 0 260px; scroll-snap-align:end; background:transparent;
+    border:1px dashed var(--line); box-shadow:none; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; text-align:center; padding:16px; }
+  .wcard.next .n { font:400 30px/1 Georgia,serif; color:var(--line); margin-bottom:6px; }
+  .wcard.next .l { font:13px/1.5 -apple-system,"PingFang TC",sans-serif; color:var(--dim); }
+  .wcard.next .l b { display:block; font-size:14px; color:var(--gold); margin-bottom:4px;
+    font-family:Georgia,"Noto Serif TC",serif; }
+  .wcard.next:hover { border-color:var(--gold); }
+  .wcard.next:hover .n { color:var(--gold); }
   .wcard .lang { float:right; border:1px solid #C8453A; color:#C8453A; border-radius:3px; padding:0 5px; font-size:10px; }
   .evi a { color:var(--gold); text-decoration:none; font-weight:700; }
   .evi .why { color:#8E8272; font-size:12px; margin-top:2px; }
@@ -68,7 +79,7 @@
   header { position:relative; }
   #langBtn { position:absolute; top:16px; right:18px; background:var(--panel); color:var(--gold); border:1px solid var(--gold); border-radius:0; padding:5px 14px; font-size:13px; cursor:pointer; }
   #muteBtn { position:absolute; top:16px; right:104px; background:var(--panel); color:#C9A04A; border:1px solid #4A3A30; border-radius:0; padding:5px 12px; font-size:13px; cursor:pointer; }
-  .snd { display:block; width:100%; margin:0 0 6px; background:#2F4A6E; color:#fff; border:none; border-radius:4px; padding:5px 8px; font-size:12px; cursor:pointer; }
+  .snd { display:block; width:100%; margin:0 0 6px; background:#3A5A82; color:#F4F1EA; border:none; border-radius:4px; padding:5px 8px; font-size:12px; cursor:pointer; }
   .snd:hover { background:#3A5A85; }
   .snd.playing { background:#E0592A; }
   .sndLabel { font-size:11px; line-height:1.5; color:#6B5B45; padding:0 2px 4px; }
@@ -81,8 +92,8 @@
   #teaser .teaserStamp { position:absolute; top:10px; right:14px; border:2px solid #C8453A; color:#C8453A; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; transform:rotate(6deg); opacity:.85; }
   #teaser .teaserTitle { font-family:Georgia,"Times New Roman",serif; font-size:22px; letter-spacing:2px; }
   #teaser .teaserNote { font-size:13px; margin-top:6px; color:#5A4632; }
-  #teaser .teaserNote button { margin-top:8px; background:#2F5F4A; color:#fff; border:none; border-radius:5px; padding:5px 12px; font-size:12px; cursor:pointer; }
-  #teaser.unsealed { background:#1A1410; color:var(--gold); border-color:var(--gold); }
+  #teaser .teaserNote button { margin-top:8px; background:#3F7359; color:#F4F1EA; border:none; border-radius:5px; padding:5px 12px; font-size:12px; cursor:pointer; }
+  #teaser.unsealed { background:#E4DCC8; color:#6B5518; border-color:var(--gold); }
   #teaser.unsealed .teaserNote { color:#C9B896; }
   #teaser.unsealed .teaserStamp { border-color:var(--gold); color:var(--gold); }
   @media (max-width: 700px) {
@@ -99,10 +110,10 @@
   .postcard .stamp { position:absolute; top:-7px; right:-7px; background:#FFFDF4; border:1px dashed #C8453A; border-radius:4px; width:40px; height:30px; text-align:center; font-size:19px; line-height:28px; transform:rotate(8deg); }
   .postcard .pm { font-family:"Kaiti TC","STKaiti",cursive; color:#3A2A20; font-size:12px; padding:3px 2px 4px; }
   #ballot { padding:10px 16px 26px; text-align:center; }
-  #nominate { background:var(--gold); color:#241D18; border:none; font-size:16px; font-weight:700; padding:12px 26px; border-radius:0; cursor:pointer; }
+  #nominate { background:#8C6D24; color:#FFFDF6; border:none; font-size:16px; font-weight:700; padding:12px 26px; border-radius:0; cursor:pointer; }
   #nominate.armed { background:var(--red); color:#fff; }
   #hint { font-size:13px; color:#8E8272; margin-top:8px; }
-  .vote { margin-top:6px; background:#2F5F4A; color:#fff; border:none; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:13px; }
+  .vote { margin-top:6px; background:#3F7359; color:#F4F1EA; border:none; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:13px; }
   footer { text-align:center; color:#5E5648; font-size:12px; padding:0 0 18px; }
 </style>
 </head>
@@ -151,10 +162,10 @@
     <div class="wcard" style="--tilt:.6deg"><img src="posters/V.jpg" alt="鴿子拒絕作證（空畫框）"><div class="tag"><span class="lang">EN</span><b>繳交者：威尼斯鴿子代表</b><br>附一張空畫框與一枚印章。鄉民 #103 附註：框內什麼都沒有——這是重點。</div></div>
     <div class="wcard" style="--tilt:-.3deg"><img src="posters/T.jpg" alt="懷錶上的手畫像"><div class="tag"><span class="lang">EN</span><b>繳交者：白兔</b><br>趕時間，所以直接畫在錶上。錶面自己印的 NEVER LATE 與手寫的 LATE. NO TIME. 互相矛盾，本室認為兩句都對。</div></div>
     <div class="wcard" style="--tilt:-.2deg"><img src="posters/U.jpg" alt="嫌犯自白書"><div class="tag"><span class="lang">中</span><b>繳交者：嫌犯本人</b><br>全案唯一一句供詞。簽名欄空白，只蓋了一枚濕的蹼印。牠從頭到尾只說了這一句，而且是真的。</div></div>
+    <a class="wcard next" href="series/" style="--tilt:0deg"><span class="n">→</span><span class="l"><b>case file GP-001</b>完整卷宗・16 張<br>鎮公所另製</span></a>
   </div>
   <div class="wallNote" style="margin-top:6px">本案證物收集完畢（17 件）。嫌犯仍在騎車。</div>
   <div class="wallNote" style="margin-top:6px">＊本牆所有海報由 <b>Hy Image 3.5（混元）</b> 生成，非本店攝影。字跡如有訛誤，概由生成模型負責，本室不更正。</div>
-  <div class="wallNote" style="margin-top:14px"><a href="series/" style="font-size:12px; color:#B8322A; text-decoration:none; border-bottom:1px solid rgba(184,50,42,.35);">case file GP-001 →</a></div>
 </section>
 <div id="ballot">
   <button id="nominate">📍 提名下一站</button>
