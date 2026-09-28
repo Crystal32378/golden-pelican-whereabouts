@@ -8,8 +8,15 @@
 <style>
   :root { --ink:#2B2D33; --paper:#F4F1EA; --red:#B8322A; --dim:#7A7468; }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--paper); color:var(--ink);
+  body { margin:0; color:var(--ink); background:var(--paper);
     font:16px/1.65 Georgia,"Times New Roman",serif; }
+  /* 紙紋：纖維噪點 + 大尺度斑點，兩層疊在米紙上 */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply; }
+  .wrap { position:relative; z-index:1; }
   .wrap { max-width:1080px; margin:0 auto; padding:0 24px 80px; }
   header { padding:72px 0 40px; border-bottom:1px solid #D8D2C4; }
   .stamp { display:inline-block; border:2px solid var(--red); color:var(--red);
@@ -26,10 +33,18 @@
 
   .grid { display:grid; gap:34px 26px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); }
   figure { margin:0; }
+  /* 沖印出來的照片：先鑲一圈泛黃白邊，再給硬邊陰影與輕微暖色 */
   figure img { width:100%; height:auto; display:block; background:#E8E4DA;
-    border:1px solid #D0CAB8; box-shadow:3px 4px 0 rgba(43,45,51,.07); }
+    border:1px solid #D6CFBB;
+    box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.17), inset 0 0 4px rgba(90,74,50,.2);
+    filter:saturate(.94) contrast(1.02) sepia(.06); }
+  /* 邊緣磨損：四邊各一條極淡的暗角，用偽元素壓在照片上 */
+  figure { position:relative; }
+
   figcaption { margin-top:11px; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
-  figcaption b { display:block; color:var(--ink); font-weight:400; margin-bottom:2px; }
+  figcaption b { display:block; color:var(--ink); font-weight:400; margin-bottom:3px;
+    letter-spacing:.06em; text-transform:uppercase; font-size:11.5px; }
   .cap-en { font-family:Georgia,serif; font-style:italic; color:#5A544A; }
   figure.hasScene img { cursor:pointer; }
   figure.hasScene a:hover img { border-color:#B8322A; box-shadow:3px 4px 0 rgba(184,50,42,.14); }
