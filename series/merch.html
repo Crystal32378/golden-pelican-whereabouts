@@ -61,9 +61,6 @@
      彼此不知道對方存在 —— 故意不共用同一個 SVG。歪的、膠帶、歪章是刻意的。 */
   .goods { display:grid; gap:28px 24px;
     grid-template-columns:repeat(auto-fill,minmax(236px,1fr)); }
-  /* 第二批有橫式（紙景）與方形（雪花球）商品，格線要靠上對齊，
-     否則同一列會被最高的那張拉開，卡片底部留出大片空白 */
-  .goods.start { align-items:start; }
   .item { position:relative; margin:0; padding:14px 15px 13px;
     background:#FBF9F3; border:1px solid #DED7C5;
     box-shadow:1px 2px 0 rgba(43,45,51,.05); }
@@ -192,7 +189,7 @@
   is the thing this page is not for. A bird drawn slightly wrong by somebody who saw it once
   is evidence. A bird reproduced exactly, from a document, is a print run.</p>
 </div>
-<div class="goods start" id="goods2"></div>
+<div class="goods" id="goods2"></div>
 <div class="shopnote">
   <p><b>Same terms as the first four.</b> You pay first, then it is made. Each maker needs a
   minimum before the workshop will start, and if that minimum is not reached in
@@ -263,7 +260,7 @@ const GOODS2 = [
     line:'米色帆布上一枚圓章，紅線繡的邊。裡面一隻鵜鶘站在紅色單車上。字沿著圓周縫：THE GOLDEN PELICAN · STILL AT LARGE。右下角有一根線沒藏進布裡。',
     price:'$9', moq:100, paid:74, flag:'EMBROIDERED TO ORDER' },
   { id:'MK-14', img:'MK-14', name:'Desk diorama', by:'紙景師 · 一個房間 一個晚上',
-    line:'一個紙箱挖成的兔子洞入口，裡面有木柵欄、一張桌子、一盞小燈。牆上釘著牌子：ENTRY PERMIT REQUIRED，下面寫 BICYCLES DECLARED: 1、PELICANS DECLARED: 0。桌子旁邊停著那輛車。',
+    line:'一個紙箱挖成的兔子洞入口，裡面有木柵欄、一張桌子、一盞小燈。牆上釘著牌子：ENTRY PERMIT REQUIRED，下面寫 BICYCLES DECLARED: 1、PELICANS DECLARED: 0。桌子旁邊停著那輛車，只露出半個車輪。',
     price:'$95', moq:1, paid:1, flag:'BUILT AFTER YOU PAY' },
   { id:'MK-15', img:'MK-15', name:'Field notebook', by:'文具行 · 另一個人',
     line:'灰色硬皮筆記本。封面貼了一張照片：一隻戴綠色小帽的鵜鶘騎在車上，旁邊有人用原子筆寫 I saw him twice，畫了箭頭指著鳥。照片貼歪了，邊緣翹起來。裡面大部分是空的。',
