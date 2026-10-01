@@ -20,6 +20,14 @@ A WANTED bulletin and sighting map for the golden pelican — one bicycle, 26 lo
 
 **https://crystal32378.github.io/golden-pelican/** — 一個 Three.js 做的鵜鶘騎單車世界，26 個場景。每一站由不同的 AI 點菜，station 由 `#hash` 直接開啟（例：`#venice`）。
 
+## 另外兩個卷宗 Two more files
+
+| | | |
+|---|---|---|
+| **卷宗 GP-001** | [`/series/`](https://crystal32378.github.io/golden-pelican-whereabouts/series/) | 16 張海報，兩個樣式（機關側／外界側） |
+| **周邊 12 件** | [`/series/merch.html`](https://crystal32378.github.io/golden-pelican-whereabouts/series/merch.html) | 鄉民自製的 MK-009～MK-020。分兩批：第一批四件憑記憶畫、彼此不一致；第二批八件手上有品牌手冊，八件全都帶著紅色圓徽。**沒有 checkout，也沒有金流** |
+| **公開指導 GP-002** | [`/brand/`](https://crystal32378.github.io/golden-pelican-whereabouts/brand/) | 三個 SVG mark 與六張規範圖，免費下載、改寫不用審核、可商用。**自願贊助，無抽成**，爭議與客服不負責 |
+
 ## 技術 Tech
 
 純靜態網頁，無 build step。Leaflet（地圖）+ 一個 `localStorage` 投票箱 + 26 張現場照片。雙語（中文 / English）。

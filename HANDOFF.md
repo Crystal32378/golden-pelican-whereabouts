@@ -147,3 +147,36 @@ python3 tools/gen_posters.py PS-01 --series docs/posters/works/works.md S 3:4
 
 1. **X 發文投稿**（硬期限 5 天）
 2. 作品集頁面與更多作品海報（無期限）
+
+---
+
+## 金流：test mode 已接好（2026-10-01）
+
+`brand/index.html` 的贊助按鈕接到 Dodo Payments **test mode**，流程可完整跑完但**不動真錢**。
+金額 US$2（checkout 顯示約 NT$65）。
+
+**要轉成真的收款，改兩個地方：**
+
+1. 完成 Dodo 的 KYC（台灣在支援名單內，用台灣身分證件即可，個人戶也可以）
+2. 改 `brand/index.html` 裡的：
+
+```js
+const PAY = {
+  mode: 'live',                    // 'test' → 'live'
+  url: 'https://checkout.dodopayments.com/buy/<live 的 pdt_ 或 pl_ 連結>',
+};
+```
+
+其餘不動。**注意：真的收錢之後就不是純敘事了** —— 頁面第 5 條寫著「不負責爭議、不做客服」，
+那會變成一項實質承諾。要維持那個設定，就得真的自己承擔，或把第 5 條改掉。
+
+## 為什麼沒有 2% 抽成
+
+原本設計是「賣了就給 2%」。2026-10-01 放棄，理由記在 `brand/spec.md` 第八節：
+真實收入幾乎是零、抽成與「沒有權力的機關」這個母題矛盾、
+而且 payment link 金額固定（動態計算需要伺服器，做不到）。
+
+## 分支
+
+只剩 `main`。`series` 分支已於 2026-10-01 刪除（其 commit 28238a9 已在 main 歷史中，
+刪除不遺失任何東西）。

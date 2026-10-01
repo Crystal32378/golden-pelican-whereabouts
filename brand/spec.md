@@ -104,27 +104,57 @@
 
 ## 七、檔案位置
 
+檔案現在在 repo 裡，並且已經公開：
+
 ```
-~/Desktop/GP-brand-system/
-├── brand.md       6 個 prompt（BR-01/02/03/05/07/08）
-├── spec.md        本檔
-├── BR-01.png/.jpg 標誌總表（Office 側）
-├── BR-02.png/.jpg 印章規範表（Office 側）
-├── BR-03.png/.jpg 公文紙（Office 側）
-├── BR-05.png/.jpg 卷宗與證物袋標籤（Office 側）
-├── BR-07.png/.jpg 圓徽布章（外界側）
-├── superseded/    舊版（BR-01/05/08 ，含中文進 mark 的那一版）
-原始檔另存於 ~/Desktop/hermes/out/BR-BR-*.png（他們管線的慣例位置）
+golden-pelican-whereabouts/
+├── brand/
+│   ├── index.html          公開頁面 GP-002（條款、下載、贊助按鈕）
+│   ├── brand.md            6 個 prompt（BR-01/02/03/05/07/08）
+│   ├── spec.md             本檔
+│   ├── BR-0*.png/.jpg      六張規範圖（png 為原尺寸，jpg 為 web 版）
+│   └── svg/
+│       ├── build_marks.py      參數化產生器（改參數四個檔案同時重生）
+│       ├── mark-primary.svg        紅色版
+│       ├── mark-primary-1colour.svg 單色近黑
+│       ├── mark-primary-reversed.svg 反白
+│       └── preview.html         驗收頁（最小尺寸、單色、反白、深底）
+└── tools/gen_posters.py    批次生成（--series 參數化系列）
 ```
+
+原始檔另存於 `~/Desktop/GP-brand-system/`（同一批圖的 png）與
+`~/Desktop/hermes/out/BR-BR-*.png`（生成管線的慣例輸出位置）。
 
 全部 1152×1536（3:4）。web 版 `.jpg` 為 72 quality / 長邊 1100。
 
-**重跑指令**（refs 要先移開，見 HANDOFF 教訓 7）：
+> ⚠️ `mark-spot.svg` 已於 2026-09-29 移除（見第四節），**不要再列回檔案清單**。
 
-```bash
-mv ~/Desktop/hermes/refs ~/Desktop/hermes/_refs_off
-cd ~/golden-pelican-whereabouts
-nohup python3 tools/gen_posters.py BR-01 BR-03 \
-  --series ~/Desktop/GP-brand-system/brand.md BR 3:4 > /tmp/br.log 2>&1 &
-mv ~/Desktop/hermes/_refs_off ~/Desktop/hermes/refs   # 跑完還原
-```
+## 八、公開與授權（2026-10-01 定案，線上生效中）
+
+`brand/index.html` 是文號 **GP-002** 的公開頁面，五條規則：
+
+| # | 規則 | 內容 |
+|---|---|---|
+| 1 | 免費下載 | 所有檔案自由取用，無 licence key、無登記 |
+| 2 | 改寫不用審核 | 任意拉伸、旋轉、加漸層；Office 不審查，也不通知 |
+| 3 | 可商用 | 任何平台，印刷／刺繡／印刷／模壓／摺紙 |
+| 4 | **自願贊助** | 無抽成、無版稅、無任何安排。付多少與否都不影響任何事 |
+| 5 | 不負責任 | 商品、爭議、客戶服務一概不責，也不回信 |
+
+### 為什麼放棄 2% 抽成
+
+原本設計是「賣了就給 2%，作為維持頁面在線的費用」。**2026-10-01 改為自願贊助**，理由：
+
+1. **真實收入幾乎是零。** 抽成成立的前提是先有人賣你的 mark —— 那需要會做商品、
+   會經營店舖、願意為了幾塊錢佣金做這件事的人。這種人極少。
+2. **抽成與人設矛盾。** 整個作品的母題是「一個沒有權力的機關，做著沒有權力的事」。
+   收抽成讓這個機關看起來在收租，正好是它一直在反對的那種版本。
+3. **技術上也做不到。** Dodo 的 payment link 金額固定（實測帶 `amount` 參數無效），
+   動態計算必須走 checkout session，需要伺服器。純靜態頁面做不到與做不到是同一件事，
+   與其做一個會動但收不到錢的計算機，不如固定價碼誠實標示。
+
+### 金流現況
+
+贊助按鈕接到 Dodo **test mode**，流程可完整跑完但不動真錢。
+金額 US$2（約 NT$65）。**要轉 live**：`brand/index.html` 裡的 `PAY.mode` 改成 `'live'`、
+`PAY.url` 換成 live 連結，其餘不動 —— 另外需要先完成平台的 KYC。
