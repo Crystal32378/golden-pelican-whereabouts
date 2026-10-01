@@ -44,6 +44,32 @@
     background:#EDE9DE; padding:1px 5px; color:#6E675B; }
   a { color:var(--red); }
 
+  /* ── Pay the 2% ───────────────────────────────────────────────
+     測試模式：按下去會真的開 Dodo 的付款頁、真的能跑完流程，
+     但交易全部是模擬的，不會扣任何真錢。 */
+  .desk { background:#FBF9F3; border:1px solid #DED7C5; padding:22px 24px 20px;
+    box-shadow:1px 2px 0 rgba(43,45,51,.05); margin:0 0 12px; }
+  .desk h3 { margin:0 0 4px; font:700 12px/1 Georgia,serif; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--dim); }
+  .desk .lead { margin:0 0 18px; font-size:14.5px; line-height:1.7; color:#4A463E; }
+  .row { display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end; }
+  .fld { display:flex; flex-direction:column; gap:5px; }
+  .fld label { font:700 10px/1 ui-monospace,Menlo,monospace; letter-spacing:.14em;
+    text-transform:uppercase; color:#8A8276; }
+  .fld input { font:15px/1.2 ui-monospace,Menlo,monospace; color:var(--ink);
+    background:#fff; border:1px solid #D6CFBB; padding:9px 11px; width:150px; }
+  .fld input:focus { outline:2px solid var(--red); outline-offset:-1px; }
+  .go { font:700 11px/1 Georgia,serif; letter-spacing:.16em; text-transform:uppercase;
+    background:var(--red); color:#FBF9F3; border:none; padding:12px 22px; cursor:pointer;
+    transition:background .2s; }
+  .go:hover { background:#9E2A23; }
+  .go:disabled { background:#C9C2B4; cursor:not-allowed; }
+  .say { margin:16px 0 0; font:12px/1.65 ui-monospace,Menlo,monospace; color:#7A7468; }
+  .say b { color:var(--red); font-weight:400; }
+  .testtag { display:inline-block; border:1.5px dashed var(--red); color:var(--red);
+    padding:2px 8px; font:700 9.5px/1.4 Georgia,serif; letter-spacing:.16em;
+    transform:rotate(-2deg); margin-left:8px; vertical-align:2px; }
+
   /* ── Mark ──────────────────────────────────────────────────────
      三個 SVG 在白紙上；六張規範圖用跟 series/ 同一種沖印照片質感，
      兩種來源在同一頁上，看得出哪個是本來的、哪個是拍下來的。 */
@@ -147,6 +173,42 @@ questions about sizes, will not supply you with a higher-resolution file you did
 and will not take any part in a dispute between you and anyone else. It has already given away
 the only thing it has. <b>This page is the whole of what it is offering.</b></p>
 
+
+<h2>Paying the two percent<span class="testtag">TEST MODE &mdash; NO REAL MONEY</span></h2>
+<p class="sub" style="margin-bottom:20px;">If you are selling something with the mark on it, this
+is where the two percent goes. <b>This form is wired to a test-mode payment page.</b> The checkout
+opens, the flow runs, the webhook fires &mdash; and not one cent of it is real. Set it live later
+and nothing on this page has to change.</p>
+
+<div class="desk">
+  <h3>Contribution</h3>
+  <p class="lead">Enter what you sold it for. Two percent is suggested. Nobody is going to check
+  your arithmetic and the Office has no way to check it even if it wanted to.</p>
+  <div class="row">
+    <div class="fld">
+      <label for="amt">You took</label>
+      <input id="amt" type="text" inputmode="decimal" value="100.00" autocomplete="off">
+    </div>
+    <div class="fld">
+      <label for="cur">Currency</label>
+      <input id="cur" type="text" value="USD" maxlength="3" autocomplete="off">
+    </div>
+    <button class="go" id="go">Pay two percent</button>
+  </div>
+  <p class="say" id="say">Two percent of <b>100.00 USD</b> is <b>2.00 USD</b>. Nothing has been
+  charged.</p>
+</div>
+
+<div class="note">
+  <p><b>Why there is a form and no address.</b> The Office does not keep a ledger, does not issue
+  receipts, and has no record of who paid what. If you need one for your own bookkeeping, keep it
+  yourself &mdash; the two percent is a courtesy to a page that is online, not a purchase with a
+  counterparty.</p>
+  <p><b>Why the test tag.</b> Nobody is being defrauded. The checkout below is a sandbox. Press it,
+  fill in the test card, watch the machine behave exactly as it will when it is real, and nobody
+  loses anything. <b>What is real on this page is everything except the payment.</b></p>
+</div>
+
 <footer>
   <p>Related files: <a href="../series/">the sightings map</a> &middot;
     <a href="../series/merch.html">twelve pieces of merchandise</a> &middot;
@@ -191,6 +253,67 @@ document.getElementById('sheets').innerHTML = SHEETS.map(s => `
       <span class="cap">${esc(s.line)}</span>
       <a class="dl" href="${s.id}.png" download>download the full size</a></figcaption>
   </figure>`).join('');
+</script>
+
+<script>
+// ── 付 2% ──────────────────────────────────────────────────────
+// 測試模式。Dodo 的 payment link 在 test 環境下走 test.dodopayments.com，
+// 交易是模擬的：不扣真錢、不匯出、webhook 照樣打。
+//
+// 要換成 live：把 MODE 改成 'live'、換掉 payment link ID，其餘不動。
+const PAY = {
+  mode: 'test',                                   // 'test' | 'live'
+  // 測試用的 payment link（可用 credit 跑，金額固定由 link 決定時這裡只當跳板）
+  linkId: 'REPLACE_WITH_YOUR_TEST_PAYMENT_LINK_ID',
+  rate: 0.02,
+};
+
+const amtEl = document.getElementById('amt');
+const curEl = document.getElementById('cur');
+const sayEl = document.getElementById('say');
+const goEl  = document.getElementById('go');
+
+function money(n) { return n.toFixed(2); }
+
+function refresh() {
+  const amt = parseFloat(String(amtEl.value).replace(/[^0-9.]/g, ''));
+  const cur = (curEl.value || 'USD').toUpperCase().trim().slice(0,3);
+  const ok = isFinite(amt) && amt > 0;
+  goEl.disabled = !ok;
+  if (!ok) { sayEl.textContent = 'Type a number larger than zero.'; return; }
+  const fee = amt * PAY.rate;
+  sayEl.innerHTML = 'Two percent of <b>' + money(amt) + ' ' + esc(cur) +
+    '</b> is <b>' + money(fee) + ' ' + esc(cur) +
+    '</b>. Nothing has been charged.';
+}
+
+
+goEl.addEventListener('click', () => {
+  const amt = parseFloat(String(amtEl.value).replace(/[^0-9.]/g, ''));
+  if (!isFinite(amt) || amt <= 0) return;
+  const fee = Math.round(amt * PAY.rate * 100) / 100;
+
+  if (PAY.linkId === 'REPLACE_WITH_YOUR_TEST_PAYMENT_LINK_ID') {
+    sayEl.innerHTML = '<b>No payment link yet.</b> The Office has not issued one. ' +
+      'Everything else on this page works; this button is waiting on a test-mode link ID. ' +
+      'Nothing was charged.';
+    return;
+  }
+  const base = PAY.mode === 'live'
+    ? 'https://checkout.dodopayments.com'
+    : 'https://checkout.dodopayments.com';   // test 與 live 同一個 checkout 網址，靠 link 本身區分
+  const url = base + '/payment_links/' + PAY.linkId +
+    '?payment_link_id=' + PAY.linkId +
+    '&client_reference_id=gp002-' + encodeURIComponent(fee.toFixed(2)) +
+    '&quantity=1';
+  sayEl.innerHTML = 'Opening the test checkout for <b>' + money(fee) + ' ' +
+    esc(curEl.value.toUpperCase().trim()) + '</b>. No real money moves in test mode.';
+  window.open(url, '_blank', 'noopener');
+});
+
+amtEl.addEventListener('input', refresh);
+curEl.addEventListener('input', refresh);
+refresh();
 </script>
 </body>
 </html>
