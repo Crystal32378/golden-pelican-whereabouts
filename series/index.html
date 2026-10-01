@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Village Jealousy Office — a case file in sixteen posters</title>
-<meta name="description" content="Twelve posters documenting a bird that rode a bicycle through 24 places in 24 hours. Generated with Hy Image 3.5.">
+<title>The Village Jealousy Office &mdash; a case file in sixteen posters</title>
+<meta name="description" content="Sixteen case-file posters in two styles, documenting a bird that rode a bicycle through 24 places in 24 hours. Twelve pieces of unauthorised merchandise are filed separately. Generated with Hy Image 3.5.">
 <style>
   :root { --ink:#2B2D33; --paper:#F4F1EA; --red:#B8322A; --dim:#7A7468; }
   * { box-sizing:border-box; }
@@ -27,6 +27,20 @@
   .sub { color:var(--dim); font-size:15px; margin:0 0 26px; max-width:60ch; }
   .meta { font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
   .meta b { color:var(--ink); font-weight:400; }
+
+  /* ── 分頁籤 ─────────────────────────────────────────────────────
+     海報頁與周邊頁共用這段，只差 .on 標目前所在頁。
+     純 anchor 不用 JS：兩頁各自都能被直接連結、被重新整理、被預覽。 */
+  .tabs { display:flex; gap:0; margin:0 0 -1px; }
+  .tabs a { display:inline-block; padding:9px 17px; border:1px solid #D8D2C4;
+    border-bottom:none; border-radius:3px 3px 0 0; margin-right:-1px;
+    background:#EAE5D9; color:#8A8276; text-decoration:none;
+    font:700 10.5px/1 Georgia,serif; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .2s,color .2s; }
+  .tabs a:hover { background:#F2EEE4; color:var(--ink); }
+  .tabs a.on { background:transparent; color:var(--ink);
+    box-shadow:inset 0 2px 0 var(--red); }
+  .tabs a .n { color:var(--red); }
 
   h2 { font:700 12px/1 Georgia,serif; letter-spacing:.2em; text-transform:uppercase;
     color:var(--dim); margin:56px 0 22px; padding-bottom:12px; border-bottom:1px solid #D8D2C4; }
@@ -56,6 +70,57 @@
   figure.hasAsk img { cursor:pointer; }
   figure.hasAsk a:hover img { border-color:#8A8276; box-shadow:3px 4px 0 rgba(138,130,118,.14); }
 
+  /* ── Merchandise ───────────────────────────────────────────────
+     機關沒有任何權力賣東西，它還是賣了。四件分屬四個不同的人，
+     彼此不知道對方存在 —— 故意不共用同一個 SVG。歪的、膠帶、歪章是刻意的。 */
+  .goods { display:grid; gap:28px 24px;
+    grid-template-columns:repeat(auto-fill,minmax(236px,1fr)); }
+  /* 第二批有橫式（紙景）與方形（雪花球）商品，格線要靠上對齊，
+     否則同一列會被最高的那張拉開，卡片底部留出大片空白 */
+  .goods.start { align-items:start; }
+  .item { position:relative; margin:0; padding:14px 15px 13px;
+    background:#FBF9F3; border:1px solid #DED7C5;
+    box-shadow:1px 2px 0 rgba(43,45,51,.05); }
+  .item:nth-child(3n) { transform:rotate(.45deg); }
+  .item:nth-child(4n) { transform:rotate(-.55deg); }
+  .item:nth-child(5n) { transform:rotate(.3deg) translateY(3px); }
+  .tape { position:absolute; top:-9px; left:50%; width:62px; height:18px;
+    transform:translateX(-50%) rotate(-2deg); z-index:2;
+    background:rgba(233,227,209,.9); border:1px solid rgba(216,207,180,.95);
+    box-shadow:0 1px 2px rgba(43,45,51,.07); }
+  .flag { position:absolute; top:9px; right:9px; z-index:2;
+    border:1.5px solid var(--red); color:var(--red); background:rgba(244,241,234,.92);
+    padding:3px 7px; font:700 9.5px/1 Georgia,serif; letter-spacing:.14em;
+    transform:rotate(-3deg); }
+  /* 商品照：沖印出來的手機照片，歪、有雜訊、沒有置中對齊 */
+  .shot { display:block; width:100%; height:auto; background:#E8E4DA;
+    border:1px solid #D6CFBB;
+    box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.15), inset 0 0 4px rgba(90,74,50,.18);
+    filter:saturate(.93) contrast(1.03) sepia(.07); }
+  .item h3 { font-size:16.5px; line-height:1.25; margin:13px 0 4px;
+    letter-spacing:-.005em; }
+  /* 「誰做的」——鄉民版最重要的一行 */
+  .by { margin:0 0 7px; font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+    color:#A79E8D; letter-spacing:.02em; }
+  .by b { color:var(--red); font-weight:400; }
+  .line { font:italic 13.5px/1.55 Georgia,serif; color:#5A544A; margin:0 0 11px; }
+  .price { margin:0 0 7px; display:flex; align-items:baseline; gap:8px;
+    font:600 17px/1 Georgia,serif; }
+  .price em { font:11px/1.4 ui-monospace,Menlo,monospace; font-style:normal;
+    color:#9A9184; }
+  /* 預購條：先付款才開工 */
+  .moq { display:flex; align-items:center; gap:9px; font:10px/1.4
+    ui-monospace,SFMono-Regular,Menlo,monospace; color:#8A8276; letter-spacing:.04em; }
+  .bar { flex:1; height:4px; background:#E4DECF; position:relative; overflow:hidden; }
+  .bar i { position:absolute; inset:0 auto 0 0; display:block; background:#B8322A; }
+  .mono { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em;
+    background:#EDE9DE; padding:1px 5px; color:#6E675B; }
+  .shopnote { background:#EDE9DE; border-left:3px solid var(--red);
+    padding:16px 20px; margin:30px 0 0; }
+  .shopnote p { margin:0 0 8px; font-size:14.5px; line-height:1.7; color:#4A463E; }
+  .shopnote p:last-child { margin:0; }
+
   footer { margin-top:70px; padding-top:26px; border-top:1px solid #D8D2C4;
     font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
   footer p { margin:0 0 8px; }
@@ -77,6 +142,10 @@
     <b>16</b> POSTERS, <b>2</b> STYLES<br>
     All images generated with <b>Hy Image 3.5 preview</b> (Tencent Hunyuan).
   </p>
+  <nav class="tabs">
+    <a href="./" class="on">the sixteen posters</a>
+    <a href="merch.html">merchandise &middot; <span class="n">12</span></a>
+  </nav>
 </header>
 
 <div class="note">
@@ -101,7 +170,7 @@
   citation is also dated three years before the crime.</p>
   <p>Where a poster names a place, you can go and stand there. Most of them do not — so those
   ones ask instead, and point at the map. If you can place one, the Office would like that.</p>
-  <p>Related files: <a href="../" style="color:var(--red);">the sightings map</a> · <a href="../README.md">what this is</a></p>
+  <p>Related files: <a href="merch.html" style="color:var(--red);">twelve pieces of merchandise</a> · <a href="../" style="color:var(--red);">the sightings map</a> · <a href="../README.md">what this is</a></p>
   <p style="margin-top:18px;">No watermark, no logo, no link on the posters themselves. If you found this by looking for it, you were meant to.</p>
 </footer>
 

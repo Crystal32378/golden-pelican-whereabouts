@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Things people made because of the bird &mdash; twelve pieces, no authorisation</title>
+<meta name="description" content="Twelve pieces of unauthorised merchandise made by twelve people who saw a bird: four in the first batch from memory, eight in the second from the brand manual. Made after you pay. Generated with Hy Image 3.5.">
+<style>
+  :root { --ink:#2B2D33; --paper:#F4F1EA; --red:#B8322A; --dim:#7A7468; }
+  * { box-sizing:border-box; }
+  body { margin:0; color:var(--ink); background:var(--paper);
+    font:16px/1.65 Georgia,"Times New Roman",serif; }
+  /* 紙紋：纖維噪點 + 大尺度斑點，兩層疊在米紙上 */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply; }
+  .wrap { position:relative; z-index:1; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px 80px; }
+  header { padding:72px 0 40px; border-bottom:1px solid #D8D2C4; }
+  .stamp { display:inline-block; border:2px solid var(--red); color:var(--red);
+    padding:6px 14px; font:700 12px/1 Georgia,serif; letter-spacing:.18em;
+    transform:rotate(-2.5deg); opacity:.8; margin-bottom:26px; }
+  h1 { font-size:clamp(30px,5.5vw,52px); line-height:1.1; margin:0 0 6px;
+    letter-spacing:-.015em; }
+  .sub { color:var(--dim); font-size:15px; margin:0 0 26px; max-width:60ch; }
+  .meta { font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  .meta b { color:var(--ink); font-weight:400; }
+
+  h2 { font:700 12px/1 Georgia,serif; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--dim); margin:56px 0 22px; padding-bottom:12px; border-bottom:1px solid #D8D2C4; }
+
+  .grid { display:grid; gap:34px 26px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); }
+  figure { margin:0; }
+  /* 沖印出來的照片：先鑲一圈泛黃白邊，再給硬邊陰影與輕微暖色 */
+  figure img { width:100%; height:auto; display:block; background:#E8E4DA;
+    border:1px solid #D6CFBB;
+    box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.17), inset 0 0 4px rgba(90,74,50,.2);
+    filter:saturate(.94) contrast(1.02) sepia(.06); }
+  /* 邊緣磨損：四邊各一條極淡的暗角，用偽元素壓在照片上 */
+  figure { position:relative; }
+
+  figcaption { margin-top:11px; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  figcaption b { display:block; color:var(--ink); font-weight:400; margin-bottom:3px;
+    letter-spacing:.06em; text-transform:uppercase; font-size:11.5px; }
+  .cap-en { font-family:Georgia,serif; font-style:italic; color:#5A544A; }
+  figure.hasScene img { cursor:pointer; }
+  figure.hasScene a:hover img { border-color:#B8322A; box-shadow:3px 4px 0 rgba(184,50,42,.14); }
+  .toScene { display:block; margin-top:6px; font-size:11px; color:#B8322A; letter-spacing:.04em; }
+  figure:not(.hasScene) .toScene { display:none; }
+  .toAsk { display:block; margin-top:6px; font:11px/1.5 ui-monospace,Menlo,monospace;
+    color:#8A8276; text-decoration:none; border-bottom:1px dotted #BDB5A6; transition:color .2s,border-color .2s; }
+  .toAsk:hover { color:var(--red); border-bottom-color:rgba(184,50,42,.5); }
+  figure.hasAsk img { cursor:pointer; }
+  figure.hasAsk a:hover img { border-color:#8A8276; box-shadow:3px 4px 0 rgba(138,130,118,.14); }
+
+  /* ── Merchandise ───────────────────────────────────────────────
+     機關沒有任何權力賣東西，它還是賣了。四件分屬四個不同的人，
+     彼此不知道對方存在 —— 故意不共用同一個 SVG。歪的、膠帶、歪章是刻意的。 */
+  .goods { display:grid; gap:28px 24px;
+    grid-template-columns:repeat(auto-fill,minmax(236px,1fr)); }
+  /* 第二批有橫式（紙景）與方形（雪花球）商品，格線要靠上對齊，
+     否則同一列會被最高的那張拉開，卡片底部留出大片空白 */
+  .goods.start { align-items:start; }
+  .item { position:relative; margin:0; padding:14px 15px 13px;
+    background:#FBF9F3; border:1px solid #DED7C5;
+    box-shadow:1px 2px 0 rgba(43,45,51,.05); }
+  .item:nth-child(3n) { transform:rotate(.45deg); }
+  .item:nth-child(4n) { transform:rotate(-.55deg); }
+  .item:nth-child(5n) { transform:rotate(.3deg) translateY(3px); }
+  .tape { position:absolute; top:-9px; left:50%; width:62px; height:18px;
+    transform:translateX(-50%) rotate(-2deg); z-index:2;
+    background:rgba(233,227,209,.9); border:1px solid rgba(216,207,180,.95);
+    box-shadow:0 1px 2px rgba(43,45,51,.07); }
+  .flag { position:absolute; top:9px; right:9px; z-index:2;
+    border:1.5px solid var(--red); color:var(--red); background:rgba(244,241,234,.92);
+    padding:3px 7px; font:700 9.5px/1 Georgia,serif; letter-spacing:.14em;
+    transform:rotate(-3deg); }
+  /* 商品照：沖印出來的手機照片，歪、有雜訊、沒有置中對齊 */
+  .shot { display:block; width:100%; height:auto; background:#E8E4DA;
+    border:1px solid #D6CFBB;
+    box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.15), inset 0 0 4px rgba(90,74,50,.18);
+    filter:saturate(.93) contrast(1.03) sepia(.07); }
+  .item h3 { font-size:16.5px; line-height:1.25; margin:13px 0 4px;
+    letter-spacing:-.005em; }
+  /* 「誰做的」——鄉民版最重要的一行 */
+  .by { margin:0 0 7px; font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+    color:#A79E8D; letter-spacing:.02em; }
+  .by b { color:var(--red); font-weight:400; }
+  .line { font:italic 13.5px/1.55 Georgia,serif; color:#5A544A; margin:0 0 11px; }
+  .price { margin:0 0 7px; display:flex; align-items:baseline; gap:8px;
+    font:600 17px/1 Georgia,serif; }
+  .price em { font:11px/1.4 ui-monospace,Menlo,monospace; font-style:normal;
+    color:#9A9184; }
+  /* 預購條：先付款才開工 */
+  .moq { display:flex; align-items:center; gap:9px; font:10px/1.4
+    ui-monospace,SFMono-Regular,Menlo,monospace; color:#8A8276; letter-spacing:.04em; }
+  .bar { flex:1; height:4px; background:#E4DECF; position:relative; overflow:hidden; }
+  .bar i { position:absolute; inset:0 auto 0 0; display:block; background:#B8322A; }
+  .mono { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em;
+    background:#EDE9DE; padding:1px 5px; color:#6E675B; }
+  .shopnote { background:#EDE9DE; border-left:3px solid var(--red);
+    padding:16px 20px; margin:30px 0 0; }
+  .shopnote p { margin:0 0 8px; font-size:14.5px; line-height:1.7; color:#4A463E; }
+  .shopnote p:last-child { margin:0; }
+
+  footer { margin-top:70px; padding-top:26px; border-top:1px solid #D8D2C4;
+    font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  footer p { margin:0 0 8px; }
+  .note { background:#EDE9DE; border-left:3px solid var(--red); padding:16px 20px; margin:0 0 34px; }
+  .note p { margin:0; font-size:14.5px; line-height:1.7; color:#4A463E; }
+
+  /* ── 分頁籤 ─────────────────────────────────────────────────────
+     海報頁與周邊頁共用這段，只差 .on 標目前所在頁。
+     純 anchor 不用 JS：兩頁各自都能被直接連結、被重新整理、被預覽。 */
+  .tabs { display:flex; gap:0; margin:0 0 -1px; }
+  .tabs a { display:inline-block; padding:9px 17px; border:1px solid #D8D2C4;
+    border-bottom:none; border-radius:3px 3px 0 0; margin-right:-1px;
+    background:#EAE5D9; color:#8A8276; text-decoration:none;
+    font:700 10.5px/1 Georgia,serif; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .2s,color .2s; }
+  .tabs a:hover { background:#F2EEE4; color:var(--ink); }
+  .tabs a.on { background:transparent; color:var(--ink);
+    box-shadow:inset 0 2px 0 var(--red); }
+  .tabs a .n { color:var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="stamp">VILLAGE JEALOUSY OFFICE</div>
+  <h1>Things people made<br>because of the bird.</h1>
+  <p class="sub">Twelve pieces, made by twelve people who are not the Office. Four of them saw
+  the bird, or a photograph of it. Eight of them had the brand manual.
+  <b>Not one of them was asked.</b></p>
+  <p class="meta">
+    EXHIBIT <b>MK-009 &ndash; MK-020</b> &nbsp;&middot;&nbsp; UNAUTHORISED <b>IN BOTH BATCHES</b> &nbsp;&middot;&nbsp; <b>NO</b> CHECKOUT<br>
+    Case file <b>GP-001</b>. Every image here was generated with
+    <b>Hy Image 3.5 preview</b> (Tencent Hunyuan).
+  </p>
+  <nav class="tabs">
+    <a href="./">&#9664; the sixteen posters</a>
+    <a href="merch.html" class="on">merchandise &middot; <span class="n">12</span></a>
+  </nav>
+</header>
+
+<h2>First batch &mdash; four people, four workshops</h2>
+<div class="note">
+  <p>Nobody authorised these. Four people saw the bird, or saw a photograph of it, and each
+  of them went to a different workshop and asked for something. They did not know about
+  each other. <b>The Office did not commission a single one of them.</b></p>
+  <p>You will notice they do not agree. None of them carries <b>the mark the Office actually
+  uses</b> &mdash; the same red roundel you see on the main site and the posters. All four were
+  drawn from memory, from a photograph, or from nothing but the story, and they have come
+  out slightly different, which is correct. The woven label has six spokes and the bird is
+  crooked; the 3D print has a beak that is too long; the sketchbook has a photograph of the
+  actual places pasted on by hand. Nobody checked. All four are red, all four are old cloth
+  or old paper or old plastic, and all four are about a case number.</p>
+  <p><b>This is deliberate.</b> Everyone has seen it; everyone draws it slightly differently.
+  The version where all four match is the version where somebody is in charge, and
+  somebody being in charge is the opposite of this page.</p>
+</div>
+<div class="goods" id="goods"></div>
+<div class="shopnote">
+  <p><b>How most of it is sold</b> &mdash; you pay first, then it is made. Each maker needs a
+  minimum order before the workshop will start, so a single label is not a purchase, it is a
+  contribution toward <span class="mono">MOQ 200 BY THE METRE</span>. When the minimum is
+  reached the maker runs the batch; if it is not reached in <span class="mono">60 DAYS</span>
+  the money is returned and nobody loses anything but an afternoon.</p>
+  <p><b>One of them is not a batch.</b> The 3D-printed pelican is made after you pay and
+  shipped on its own, so its minimum is <span class="mono">MOQ 1</span> &mdash; one bird, one
+  spool of filament, no waiting for anybody else to agree.</p>
+  <p><b>None of them has the mark.</b> The roundel the Office uses everywhere else is not on
+  any of these. The bird on all four was drawn by somebody who had only seen it once.</p>
+</div>
+
+<h2>Second batch &mdash; made after the mark got out</h2>
+<div class="note">
+  <p>Eight more, and these are different. <b>All eight carry the mark.</b> Somebody had been
+  circulating the brand manual &mdash; the roundel, the rules, the six specimen sheets &mdash; and by
+  the time this batch was made it was in circulation. The first four drew the bird from memory
+  and got the spokes wrong; these were working from the file.</p>
+  <p><b>Two of them duplicate earlier work.</b> There is now a second notebook with a
+  photograph glued to the front, and a second set of postcards. Two cities, two makers, no
+  correspondence between them. The Office has checked; neither has heard of the other, and
+  both are correct. It has decided not to merge them.</p>
+  <p>They are not better. They are <b>more consistent</b>, which is a different thing, and it
+  is the thing this page is not for. A bird drawn slightly wrong by somebody who saw it once
+  is evidence. A bird reproduced exactly, from a document, is a print run.</p>
+</div>
+<div class="goods start" id="goods2"></div>
+<div class="shopnote">
+  <p><b>Same terms as the first four.</b> You pay first, then it is made. Each maker needs a
+  minimum before the workshop will start, and if that minimum is not reached in
+  <span class="mono">60 DAYS</span> the money is returned and nobody loses anything but an
+  afternoon.</p>
+  <p><b>Two of these have no minimum worth the name.</b> The desk diorama is
+  <span class="mono">MOQ 1</span> &mdash; built after you pay, shipped on its own. The snow globe is
+  <span class="mono">MOQ 12</span>, because that is how many blanks the man in the shop had.</p>
+  <p><b>Priced in US dollars</b> throughout, on both batches, as quoted by the makers. The
+  Office does not convert and does not take a cut, which is stated here only because people
+  keep asking where the money goes.</p>
+  <p><b>There is no checkout on this page.</b> Nothing here can be bought. The prices are the
+  prices the workshops quoted, and the progress bars are the Office's honest count of who has
+  put money in &mdash; but no money moves, because the Office has no authority to move it.
+  This is a case file, not a shop.</p>
+</div>
+
+<footer>
+  <p>Related files: <a href="index.html">the sixteen posters</a> &middot;
+  <a href="../">the sightings map</a> &middot; <a href="../README.md">what this is</a></p>
+  <p>These twelve have never been posted, packed, or shipped. The Office has no authority to
+  do that either.</p>
+  <p style="margin-top:18px;">No watermark, no logo, no link on any of them. If you found this
+  page by looking, you were meant to.</p>
+</footer>
+
+</div>
+<script>const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const GOODS = [
+  { id:'MK-09', img:'MK-09', name:'Woven label', by:'織標廠 · 別人的工廠',
+    line:'織在布標上：一個輪子，一隻騎上去的鳥。輪子只有六根輻條，鳥有點歪。邊緣的線有兩根脫出來，有人本來要拆，改變主意了。',
+    price:'$9.99', moq:200, paid:143, flag:'BY THE METRE' },
+  { id:'MK-10', img:'MK-10', name:'3D printed pelican', by:'客製 · 一個房間 一台機',
+    line:'六公分，紅色塑膠。整隻有層紋，一隻腳在腳踝脫開過又被黏回去。旁邊有卡尺、一條塑膠線頭和一塊刮下來的廢料。鳥嘴畫太長。',
+    price:'$49', moq:1, paid:1, flag:'PRINTED AFTER YOU PAY' },
+  { id:'MK-11', img:'MK-11', name:'Sketchbook', by:'文具行 · 貼了一張照片的人',
+    line:'灰色紙板封面，螺旋裝訂被人開合過很多次，鬆掉的橡筋圈在旁邊。封面貼了一張小小的場景照——就是主站那種紙雕畫風——貼歪了，膠在角上泛黃。還有人拿原子筆把鳥圈起來寫了兩行字。',
+    price:'$11', moq:40, paid:22, flag:'COVER PASTED BY HAND' },
+  { id:'MK-12', img:'MK-12', name:'Postcard set', by:'印刷所 · 拿主站的圖去印的',
+    line:'六張。每一張正面都是主站那個紙雕風的場景：海邊、書庫、還有別的。背面大多空白，其中一張蓋了 GP-001。角落有咖啡漬、捲曲跟折痕。',
+    price:'$9', moq:60, paid:37, flag:'PRINTED FROM THE REAL PLACES' },
+];
+// 兩批商品共用同一個模板。第二批只是多一個「made from the manual」的 flag 欄位，
+// 不另寫一份渲染函式 —— 兩批長得不一樣才是錯的。
+function renderGoods(list, el) {
+  el.innerHTML = list.map(g => {
+    const pct = Math.min(100, Math.round(g.paid / g.moq * 100));
+    return `<article class="item">
+    <span class="tape"></span>${g.flag ? `<span class="flag">${esc(g.flag)}</span>` : ''}
+    <img class="shot" src="${g.img}.jpg" alt="${esc(g.name)}, made by somebody who saw the bird" loading="lazy">
+    <h3>${esc(g.id)} · ${esc(g.name)}</h3>
+    <p class="by">made by <b>${esc(g.by)}</b></p>
+    <p class="line">${esc(g.line)}</p>
+    <p class="price">${esc(g.price)} <em>paid first, made after</em></p>
+    <div class="moq"><span>${g.paid}/${g.moq}</span>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      <span>${pct >= 100 ? 'starts' : pct >= 70 ? 'close' : pct >= 30 ? 'open' : 'barely'}</span></div>
+  </article>`; }).join('');
+}
+renderGoods(GOODS, document.getElementById('goods'));
+
+// ── 第二批 ──────────────────────────────────────────────────────
+// 八件，全都帶著紅色圓徽：這一批的人手上有那份品牌手冊。
+// 兩件跟第一批撞期（一個筆記本、一組明信片），刻意保留 —— 見上方說明。
+// MOQ 刻意不齊：兩個 barely、一個 starts、兩個 close，避免八條一樣的進度條。
+const GOODS2 = [
+  { id:'MK-13', img:'MK-13', name:'Embroidered patch', by:'布章店 · 邊緣縫得不齊',
+    line:'米色帆布上一枚圓章，紅線繡的邊。裡面一隻鵜鶘站在紅色單車上。字沿著圓周縫：THE GOLDEN PELICAN · STILL AT LARGE。右下角有一根線沒藏進布裡。',
+    price:'$9', moq:100, paid:74, flag:'EMBROIDERED TO ORDER' },
+  { id:'MK-14', img:'MK-14', name:'Desk diorama', by:'紙景師 · 一個房間 一個晚上',
+    line:'一個紙箱挖成的兔子洞入口，裡面有木柵欄、一張桌子、一盞小燈。牆上釘著牌子：ENTRY PERMIT REQUIRED，下面寫 BICYCLES DECLARED: 1、PELICANS DECLARED: 0。桌子旁邊停著那輛車。',
+    price:'$95', moq:1, paid:1, flag:'BUILT AFTER YOU PAY' },
+  { id:'MK-15', img:'MK-15', name:'Field notebook', by:'文具行 · 另一個人',
+    line:'灰色硬皮筆記本。封面貼了一張照片：一隻戴綠色小帽的鵜鶘騎在車上，旁邊有人用原子筆寫 I saw him twice，畫了箭頭指著鳥。照片貼歪了，邊緣翹起來。裡面大部分是空的。',
+    price:'$11', moq:50, paid:41, flag:'A SECOND NOTEBOOK' },
+  { id:'MK-16', img:'MK-16', name:'Postcards', by:'印刷所 · 同一個人第二次去',
+    line:'一疊明信片攤在木桌上，陽光曬得有一邊發白。畫的是鳥在不同的地方：海邊、書庫前面、還有屋簷下。其中一張是空白的，只在角上蓋了 GP-001。',
+    price:'$9', moq:60, paid:38, flag:'A SECOND SET' },
+  { id:'MK-17', img:'MK-17', name:'Canvas tote', by:'帆布行 · 收攤前決定印一批',
+    line:'米色帆布袋，紅色單線印一隻站在車上的鵜鶘，輪子只有三根輻條。袋角印著 GP-001，字很小，要湊近才看得到。袋底有一塊洗不掉的黃漬。',
+    price:'$16', moq:80, paid:22, flag:'SCREENED, NOT LICENSED' },
+  { id:'MK-18', img:'MK-18', name:'Snow globe', by:'水晶店 · 老闆說還有十二個燈座',
+    line:'玻璃球裡一座白色小屋，屋頂上停著紅色單車，一隻鵜鶘站在旁邊。金色的碎屑在裡面下雪。底座的銘牌是空白的，沒有刻字。搖一下，雪會重新下。',
+    price:'$38', moq:12, paid:5, flag:'TWELVE LEFT' },
+  { id:'MK-19', img:'MK-19', name:'Paper pelican, flat-packed', by:'摺紙 · 桌上那一隻先做了',
+    line:'一隻紙摺的鵜鶘站在筆記本上，黃色的嘴很長。它踩著的那頁寫 IT CAME BACK，底下用紅筆塗掉了一整段，塗得很用力。旁邊有一台插著線的舊話機和一枝鉛筆。',
+    price:'$14', moq:50, paid:29, flag:'FLAT, YOU FOLD IT' },
+  { id:'MK-20', img:'MK-20', name:'Cap', by:'帽店 · 隔壁是洗衣店',
+    line:'黑色帆布帽，掛在白磚牆上。帽頭用紅線繡 STILL AT LARGE，繡線不太平，字母大小不一。內側有一個洗到看不見的標籤。帽舌有點塌。',
+    price:'$32', moq:30, paid:8, flag:'THE MARK IS ON THIS ONE' },
+];
+renderGoods(GOODS2, document.getElementById('goods2'));
+</script>
+</body>
+</html>
