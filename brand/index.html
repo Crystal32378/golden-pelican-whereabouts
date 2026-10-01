@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to draw the bird yourself &mdash; a public instruction from the Office</title>
+<meta name="description" content="The Village Jealousy Office publishes its marks, stamps and letterhead for anybody to use. Download free, modify without approval, sell commercially. Two percent to the Office if you do. Disputes and customer service are not the Office's problem.">
+<style>
+  :root { --ink:#2B2D33; --paper:#F4F1EA; --red:#B8322A; --dim:#7A7468; }
+  * { box-sizing:border-box; }
+  body { margin:0; color:var(--ink); background:var(--paper);
+    font:16px/1.65 Georgia,"Times New Roman",serif; }
+  /* 紙紋：與 series/ 同一組質地 */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply; }
+  .wrap { position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 24px 80px; }
+  header { padding:56px 0 40px; border-bottom:1px solid #D8D2C4; }
+  .stamp { display:inline-block; border:2px solid var(--red); color:var(--red);
+    padding:6px 14px; font:700 12px/1 Georgia,serif; letter-spacing:.18em;
+    transform:rotate(-2.5deg); opacity:.8; margin-bottom:26px; }
+  h1 { font-size:clamp(28px,5vw,46px); line-height:1.1; margin:0 0 6px; letter-spacing:-.015em; }
+  .sub { color:var(--dim); font-size:15px; margin:0 0 26px; max-width:62ch; }
+  .meta { font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  .meta b { color:var(--ink); font-weight:400; }
+  nav.tabs { display:flex; gap:0; margin:0 0 -1px; }
+  nav.tabs a { display:inline-block; padding:9px 17px; border:1px solid #D8D2C4;
+    border-bottom:none; border-radius:3px 3px 0 0; margin-right:-1px;
+    background:#EAE5D9; color:#8A8276; text-decoration:none;
+    font:700 10.5px/1 Georgia,serif; letter-spacing:.18em; text-transform:uppercase;
+    transition:background .2s,color .2s; }
+  nav.tabs a:hover { background:#F2EEE4; color:var(--ink); }
+  nav.tabs a.on { background:transparent; color:var(--ink); box-shadow:inset 0 2px 0 var(--red); }
+  nav.tabs a .n { color:var(--red); }
+  h2 { font:700 12px/1 Georgia,serif; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--dim); margin:56px 0 22px; padding-bottom:12px; border-bottom:1px solid #D8D2C4; }
+  h3 { font-size:17px; margin:30px 0 8px; }
+  .note { background:#EDE9DE; border-left:3px solid var(--red); padding:16px 20px; margin:0 0 30px; }
+  .note p { margin:0; font-size:14.5px; line-height:1.7; color:#4A463E; }
+  .note p + p { margin-top:12px; }
+  .mono { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em;
+    background:#EDE9DE; padding:1px 5px; color:#6E675B; }
+  a { color:var(--red); }
+
+  /* ── Mark ──────────────────────────────────────────────────────
+     三個 SVG 在白紙上；六張規範圖用跟 series/ 同一種沖印照片質感，
+     兩種來源在同一頁上，看得出哪個是本來的、哪個是拍下來的。 */
+  .grid { display:grid; gap:34px 26px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); }
+  figure { margin:0; }
+  .mk img { display:block; width:100%; height:auto; background:#fff;
+    border:1px solid #D6CFBB; padding:16px; }
+  /* 規範圖是照片：泛黃白邊、硬邊陰影、輕微暖色 */
+  #sheets .mk img { padding:0; background:#E8E4DA;
+    box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.17), inset 0 0 4px rgba(90,74,50,.2);
+    filter:saturate(.94) contrast(1.02) sepia(.06); }
+  #sheets .mk a:hover img { border-color:var(--red); box-shadow:3px 4px 0 rgba(184,50,42,.14); }
+  figcaption { margin-top:11px; font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  figcaption b { display:block; color:var(--ink); font-weight:400; margin-bottom:3px;
+    letter-spacing:.06em; text-transform:uppercase; font-size:11.5px; }
+  .cap { display:block; font-family:Georgia,serif; font-style:italic; color:#5A544A; }
+  .dl { display:inline-block; margin-top:7px; font-size:11px; color:var(--red);
+    letter-spacing:.04em; text-decoration:none; border-bottom:1px dotted rgba(184,50,42,.5); }
+  .dl:hover { border-bottom-style:solid; }
+  footer { margin-top:70px; padding-top:26px; border-top:1px solid #D8D2C4;
+    font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  footer p { margin:0 0 8px; }
+  footer a { text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="stamp">VILLAGE JEALOUSY OFFICE</div>
+  <h1>How to draw the bird yourself.</h1>
+  <p class="sub">The Office has a mark. It would rather you had it than looked at it and got it
+  wrong. Everything on this page is yours: take it, change it, put it on something, sell it.
+  <b>Nobody has to send us anything.</b></p>
+  <p class="meta">
+    CIRCULAR <b>GP-002</b> &nbsp;&middot;&nbsp; STATUS <b>OPEN TO EVERYBODY</b> &nbsp;&middot;&nbsp;
+    <b>NO</b> APPROVAL REQUIRED<br>
+    Issued by the Office for reasons the Office has declined to explain.
+  </p>
+  <nav class="tabs">
+    <a href="../series/">&#9664; the sightings map</a>
+    <a href="../series/">the sixteen posters</a>
+    <a href="index.html" class="on">how to draw it</a>
+  </nav>
+</header>
+
+<div class="note">
+  <p><b>The terms, in full, because they are short.</b></p>
+  <p><b>1. Download it free.</b> Every file on this page is free to take. No licence key, no
+  registration, no permission slip. If you can see it, it is yours.</p>
+  <p><b>2. Change whatever you like.</b> You do not need to ask, and you do not need to tell
+  us. Stretch it, tilt it, add a gradient, put it on a bicycle, put it on a bicycle and then
+  put the bicycle on a <em>tote bag</em>. Our own sheet shows you what not to do, and you are
+  welcome to do all of it. <b>The Office will not review your version.</b> Not because it is
+  rude, but because the Office is not able to, and has never claimed to be.</p>
+  <p><b>3. Sell it.</b> Commercially. On any platform. Printed, embroidered, screen-printed,
+  moulded in plastic at six centimetres, folded out of paper and sold flat in an envelope.</p>
+  <p><b>4. If you sell, send two percent.</b> Not a licence fee. Not a royalty. <b>Two percent
+  of what you take, for keeping this page online.</b> That is the entire arrangement and the
+  Office has no other arrangement.</p>
+  <p><b>5. The Office takes no responsibility for anything.</b> Not for the product, not for
+  how it turns out, not for a dispute with a customer, not for a shop that takes your money
+  and gives you nothing. <b>It will also not answer your emails about any of this.</b> There is
+  no customer service here. There is a bird that is still at large.</p>
+</div>
+
+<h2>The marks</h2>
+<p class="sub" style="margin-bottom:24px;">Three versions, all in SVG, all locked to the same
+geometry. Red for most things, one colour where you only get one, reversed where the background
+is already red. <b>No size grades.</b> Use whatever size it lands at.</p>
+
+<div class="grid" id="marks"></div>
+
+<h2>The specimen sheets</h2>
+<p class="sub" style="margin-bottom:24px;">Six sheets the Office keeps on its own desk. They
+are photographs of the marks in use &mdash; on paper, on cloth, on a jersey, on a bidon. They
+are reference, not instruction. <b>You do not have to reproduce these.</b> That is rather the
+point of them.</p>
+
+<div class="grid" id="sheets"></div>
+
+<h2>Two things the Office would like you to know</h2>
+
+<div class="note">
+  <p><b>The mark is a picture and nothing else.</b> There is no text inside the circle &mdash;
+  no Latin letters, no characters of any alphabet, ever. Not because Latin is the proper
+  language for a bird, but because we tried it with the other one and it kept getting the
+  name wrong. The word appeared as four different wrong birds in one afternoon. A mark gets
+  copied a hundred times and the mistake gets copied a hundred times with it.</p>
+  <p><b>The bird has no pouch.</b> It has a beak like a thorn and a body that is more
+  convincing than a real pelican's. Two realistic versions were made and both were thrown
+  away. A mark does not need to be a good drawing of the thing. It needs to be a good drawing
+  of <em>this</em> thing.</p>
+</div>
+
+<h2>What the Office will not do</h2>
+<p class="sub" style="margin-bottom:0;">For completeness, and so that nobody is surprised
+later. The Office will not approve your version, will not police the colours, will not answer
+questions about sizes, will not supply you with a higher-resolution file you did not ask for,
+and will not take any part in a dispute between you and anyone else. It has already given away
+the only thing it has. <b>This page is the whole of what it is offering.</b></p>
+
+<footer>
+  <p>Related files: <a href="../series/">the sightings map</a> &middot;
+    <a href="../series/merch.html">twelve pieces of merchandise</a> &middot;
+    <a href="../README.md">what this is</a></p>
+  <p>Nothing on this page requires permission. Nothing on this page is watched. Nothing on
+  this page is reviewed. The bird is still at large and the Office remains, on the record,
+  unable to confirm whether there is one of it or several.</p>
+</footer>
+
+</div>
+<script>
+// 三個 SVG mark：直接 <img> 引用，不內嵌 —— 檔案就是下載來源，
+// 頁面上看到的就是你按右鍵能存到的，不會有「頁面版」跟「檔案版」不一致。
+const MARKS = [
+  { file:'svg/mark-primary.svg',           name:'Primary',        use:'紅色版。一般印刷、布章、網頁都用這個。',           dl:'svg/mark-primary.svg' },
+  { file:'svg/mark-primary-1colour.svg',   name:'One colour',     use:'單一油墨。只有一種顏色可用的時候用這個。',       dl:'svg/mark-primary-1colour.svg' },
+  { file:'svg/mark-primary-reversed.svg',  name:'Reversed',       use:'反白版。背景本身是紅色的時候用這個。',           dl:'svg/mark-primary-reversed.svg' },
+];
+
+const SHEETS = [
+  { id:'BR-01', name:'Mark sheet',    side:'Office',  line:'六格標誌總表：全彩、單色、反白、最小尺寸、lockup、以及一個用得很差的反例。' },
+  { id:'BR-02', name:'Stamp sheet',   side:'Office',  line:'六顆橡皮章與它們蓋出來的樣子。墨色不均，其中一顆印糊了。' },
+  { id:'BR-03', name:'Letterhead',    side:'Office',  line:'公文紙。機關的聲音，襯線體，下面壓一條紅線。' },
+  { id:'BR-05', name:'Labels',        side:'Office',  line:'卷宗標籤與證物袋。其中一張被撕過再用膠帶修好。' },
+  { id:'BR-07', name:'Patch',         side:'Outside', line:'圓徽布章，縫在一件舊外套的袖子上。有一根線沒藏進布裡。' },
+  { id:'BR-08', name:'Jersey & bidon',side:'Outside', line:'車衣與水壺。水壺上是手寫的 WATER, MOSTLY。' },
+];
+
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+document.getElementById('marks').innerHTML = MARKS.map(m => `
+  <figure class="mk">
+    <img src="${m.file}" alt="The Golden Pelican mark, ${esc(m.name)} version" loading="lazy">
+    <figcaption><b>${esc(m.name)}</b><span class="cap">${esc(m.use)}</span>
+      <a class="dl" href="${m.dl}" download>download ${m.dl.split('/').pop()}</a></figcaption>
+  </figure>`).join('');
+
+document.getElementById('sheets').innerHTML = SHEETS.map(s => `
+  <figure class="mk">
+    <a href="${s.id}.png" download><img src="${s.id}.jpg" alt="${esc(s.name)}, ${esc(s.side)} side" loading="lazy"></a>
+    <figcaption><b>${s.id} &middot; ${esc(s.name)}</b>
+      <span class="cap">${esc(s.line)}</span>
+      <a class="dl" href="${s.id}.png" download>download the full size</a></figcaption>
+  </figure>`).join('');
+</script>
+</body>
+</html>
