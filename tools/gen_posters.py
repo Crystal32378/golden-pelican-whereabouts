@@ -40,10 +40,22 @@ def series_args():
     md = Path(rest[0]) if rest else Path(__file__).resolve().parent.parent / "docs" / "posters" / "reddit.md"
     prefix = rest[1] if len(rest) > 1 else "R"
     ratio = rest[2] if len(rest) > 2 else "2:3"
-    for v in a[:i]:
-        if v != "all":
-            a = [v] + a[:i]
-    return {"md": md, "prefix": prefix, "ratio": ratio, "which": [x for x in a if x != "all"] or ["all"]}
+    # --series 之後的旗標與其值不屬於代碼清單，先去掉（--refs N 要帶幾張參考圖）
+    tail, kept = [], []
+    skip = False
+    for x in rest[3:]:
+        if skip:
+            tail.append(x); skip = False; continue
+        if x.startswith("--"):
+            tail.append(x); skip = True; continue
+        kept.append(x)
+    nrefs = 1
+    for k, t in enumerate(tail):
+        if t == "--refs":
+            nrefs = int(tail[k + 1])
+    codes = [v for v in a[:i] if v != "all"] + kept
+    return {"md": md, "prefix": prefix, "ratio": ratio, "nrefs": nrefs,
+            "which": codes or ["all"]}
 
 
 def parse_prompts(md_path=None):
@@ -191,7 +203,7 @@ def main():
             want = list(variants.keys())
         ratio = series["ratio"]
         outdir = OUT
-        refs = upload_refs(1)
+        refs = upload_refs(series.get("nrefs", 1))
         print(f"系列模式：{series['md'].name}  前綴={series['prefix']}  比例={ratio}  → {outdir}")
         print(f"輸出到 {outdir}；參考圖 {len(refs)} 張")
         for letter in want:
