@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蓋章遊戲｜黃金鵜鶘打卡處</title>
+<!-- 配色與紙紋：跟主站、系列頁同一組質地，沒有 build step -->
+<style>
+  :root { --ink:#2B2D33; --gold:#A8873C; --red:#A8382E; --bg:#F4F1EA; --panel:#EDE8DC; --line:#CFC7B4; --dim:#7A7468; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.65 Georgia,"Noto Serif TC","Songti TC",serif; letter-spacing:.01em; }
+  /* 紙紋：兩層纖維噪點，與主站 index.html 同一組參數 */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none; mix-blend-mode:multiply;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E"); }
+  header, #tabs, main, footer { position:relative; z-index:1; }
+  header { padding:24px 16px 12px; text-align:center; }
+  h1 { margin:0 0 4px; font-size:23px; font-weight:400; letter-spacing:.14em; color:var(--gold); text-transform:uppercase; }
+  .motto { margin:0; color:#B49AD8; font-style:italic; font-size:14px; }
+  .back { display:inline-block; margin-top:8px; font-size:13px; color:var(--dim); }
+
+  /* ── 分頁：三個玩法共用，只差 .on ── */
+  #tabs { display:flex; gap:0; justify-content:center; margin:14px auto 0; padding:0 12px; }
+  #tabs button { padding:9px 17px; border:1px solid var(--line); border-bottom:none; margin-right:-1px; margin-left:-1px;
+    background:#EAE5D9; color:#8A8276; border-radius:3px 3px 0 0; cursor:pointer;
+    font:700 10.5px/1 Georgia,serif; letter-spacing:.18em; text-transform:uppercase; transition:background .2s,color .2s; }
+  #tabs button:hover { background:#F2EEE4; color:var(--ink); }
+  #tabs button.on { background:transparent; color:var(--ink); box-shadow:inset 0 2px 0 var(--red); }
+
+  main { max-width:1000px; margin:0 auto; padding:0 16px 70px; }
+  .panel { display:none; border:1px solid var(--line); border-top:none; background:rgba(255,253,246,.5); padding:18px; }
+  .panel.on { display:block; }
+  .lead { margin:0 0 16px; font-size:14px; color:var(--dim); text-align:center; }
+  @keyframes flash { 0%,100% { background:var(--gold); } 40% { background:var(--red); } }
+  /* ── 蓋章：規則一行都沒有，只有 24 秒 ── */
+  #hud { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+  .hudBox { background:var(--panel); border:1px solid var(--line); padding:8px 14px; text-align:center; min-width:96px; }
+  .hudBox b { display:block; font-size:26px; line-height:1.1; color:var(--red); font-family:ui-monospace,Menlo,monospace; }
+  .hudBox span { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim); }
+  #clockWrap { flex:1; height:16px; background:var(--panel); border:1px solid var(--line); position:relative; }
+  #clockBar { position:absolute; inset:0; width:100%; background:var(--red); transform-origin:left; }
+  #clockWrap.low #clockBar { background:#D9534F; animation:pulse .5s infinite alternate; }
+  @keyframes pulse { to { opacity:.45; } }
+
+  /* 棋盤＝一格一張沖印出來的證物照。照片處理直接沿用系列頁 figure img 那組參數：
+     鑲一圈泛黃白邊 → 硬邊陰影 → 內陰影 → 輕微褪色。這是這個系列的辨識度所在。 */
+  #board { display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:14px 12px; }
+  .hole { position:relative; aspect-ratio:3/4; cursor:pointer; overflow:visible;
+    background:#E8E4DA; border:1px solid #D6CFBB;
+    box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.17), inset 0 0 4px rgba(90,74,50,.2);
+    filter:saturate(.94) contrast(1.02) sepia(.06);
+    transition:transform .15s, box-shadow .15s; }
+  .hole:hover { transform:translateY(-2px); box-shadow:3px 5px 0 rgba(43,45,51,.11), 0 0 0 1px rgba(255,253,244,.5), inset 0 0 30px rgba(90,74,50,.17); }
+  .hole .shot { width:100%; height:100%; object-fit:cover; display:block; background:#E8E4DA; }
+  .hole .lab { position:absolute; bottom:0; left:0; right:0; text-align:center; font-size:10px;
+    color:#5E5648; background:rgba(244,241,234,.82); padding:1px 0; letter-spacing:.04em; }
+  /* 鳥從照片裡探出來：滿版照片 + 頭部剪影往上頂 */
+  .hole .bird { position:absolute; left:50%; bottom:14%; font-size:38px; opacity:0;
+    transform:translateX(-50%) scale(.4); pointer-events:none; filter:drop-shadow(0 2px 3px rgba(43,45,51,.35)); }
+  .hole.up { z-index:3; }
+  .hole.up .bird { opacity:1; animation:pop .34s cubic-bezier(.2,1.6,.4,1) forwards; }
+  @keyframes pop { to { transform:translateX(-50%) scale(1); } }
+  .hole.up .shot { filter:brightness(1.12) saturate(1.05); }
+  .hole .pigeon { position:absolute; left:50%; bottom:16%; font-size:28px; opacity:0;
+    transform:translateX(-50%); pointer-events:none; filter:drop-shadow(0 2px 3px rgba(43,45,51,.3)); }
+  .hole.pg .pigeon { opacity:.95; }
+  /* 站名貼在照片上緣，像明信片上的郵戳 */
+  .where { position:absolute; top:0; left:0; right:0; text-align:center; font-size:12px; font-weight:700;
+    color:var(--ink); background:rgba(255,253,246,.92); border-bottom:1px solid #D6CFBB; padding:1px 0; }
+  /* 紅印蓋下來：從 oversized 砸到剛好 */
+  .stampmark { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    pointer-events:none; z-index:4; }
+  .stampmark i { display:block; width:70%; height:56%; border:3px solid var(--red); border-radius:50%;
+    color:var(--red); font:700 10px/1.1 Georgia,serif; text-align:center;
+    display:flex; align-items:center; justify-content:center; padding:4px; opacity:.78;
+    transform:rotate(-16deg) scale(2.4); animation:thud .34s cubic-bezier(.3,-0.4,.5,1.4) forwards; }
+  @keyframes thud { to { transform:rotate(-16deg) scale(1); } }
+  /* 蓋過的格子：照片褪成灰調，紅印留下——像已經入卷宗的證物照 */
+  .hole.done .shot { filter:grayscale(.45) brightness(.94) contrast(1.02) sepia(.1); }
+  .hole.done::after { content:"✓"; position:absolute; top:2px; right:4px; color:var(--red);
+    font-size:13px; opacity:.85; text-shadow:0 0 3px rgba(255,253,246,.9); z-index:5; }
+  #startBtn { display:block; margin:18px auto 0; background:var(--gold); color:#FFFDF6; border:none;
+    font:700 15px/1 Georgia,serif; letter-spacing:.16em; text-transform:uppercase; padding:14px 34px; cursor:pointer; }
+  #startBtn:hover { background:#96742B; }
+  .flash { animation:flash .4s; }
+  /* ── 抽帽：抽到的帽子戴在「那個場景的鳥」上。舞台是一張現場明信片，不是空白底 ── */
+  #hatStage { position:relative; width:260px; margin:14px auto 4px; }
+  #hatStage .plate { position:relative; width:100%; aspect-ratio:3/4; overflow:hidden;
+    background:#E8E4DA; border:1px solid #D6CFBB;
+    box-shadow:3px 4px 0 rgba(43,45,51,.1), 0 0 0 1px rgba(255,253,244,.5),
+      inset 0 0 30px rgba(90,74,50,.17);
+    filter:saturate(.94) contrast(1.02) sepia(.06); }
+  #hatStage .plate img { width:100%; height:100%; object-fit:cover; display:block; }
+  /* 沒有明信片的站（潮間帶）退回米紙底，不是空白框 */
+  #hatStage .plate img.gone { display:none; }
+  #hatStage .plate::after { content:""; position:absolute; inset:0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E"); }
+  #hatStage .plate .cap { position:absolute; left:0; right:0; bottom:0; font-size:11px;
+    color:#5E5648; background:rgba(244,241,234,.85); padding:2px 0; text-align:center; }
+  /* 抽到的就是「那隻戴著裝備的鳥」整隻，不是單獨一頂帽子。
+     圖是 1:1 全身，所以舞台與圖鑑都直接整張放，不裁不疊。 */
+  .gearWrap { width:260px; margin:0 auto; position:relative; }
+  .gearWrap img.gear { width:100%; height:auto; display:block;
+    filter:saturate(.94) contrast(1.02) sepia(.06) drop-shadow(0 3px 5px rgba(43,45,51,.18)); }
+  .gearWrap .cap { display:block; text-align:center; font-size:12px; color:#5E5648;
+    background:rgba(244,241,234,.8); margin-top:-22px; padding:2px 0; }
+  .dexcell .gear { width:100%; height:100%; object-fit:cover; display:block;
+    filter:saturate(.94) contrast(1.02) sepia(.06); }
+  #hatStage.bust .plate { animation:spin .5s; }
+  @keyframes spin { 0% { transform:rotate(0) scale(1); } 50% { transform:rotate(180deg) scale(1.06); } 100% { transform:rotate(360deg) scale(1); } }
+  #hatName { font-size:17px; margin-top:10px; min-height:26px; }
+  #hatName small { color:var(--dim); font-size:13px; }
+  #pull { display:block; margin:14px auto 0; background:var(--red); color:#fff; border:none; cursor:pointer;
+    font:700 15px/1 Georgia,serif; letter-spacing:.16em; text-transform:uppercase; padding:14px 34px; }
+  #coins { text-align:center; font:13px ui-monospace,Menlo,monospace; color:var(--dim); margin-top:10px; }
+  /* 圖鑑：抽到的站顯示那一站的頭部配備圖，沒抽到的還是空白證物卡 */
+  #dex { display:grid; grid-template-columns:repeat(auto-fill,minmax(66px,1fr)); gap:8px; margin-top:18px; }
+  .dexcell { position:relative; aspect-ratio:1; overflow:hidden; background:#E4DED0;
+    border:1px solid #D6CFBB; display:flex; align-items:center; justify-content:center;
+    box-shadow:1px 2px 0 rgba(43,45,51,.07); }
+  .dexcell .gear { width:100%; height:100%; object-fit:cover; display:block;
+    filter:saturate(.9) contrast(1.02) sepia(.08); }
+  .dexcell .q { font-size:22px; color:#BCB3A0; }
+  .dexcell .hatTag { position:absolute; top:0; left:0; right:0; text-align:center; font-size:9px;
+    color:#5E5648; background:rgba(244,241,234,.86); z-index:2; }
+  .dexcell .n { position:absolute; bottom:0; right:2px; font:9px ui-monospace,Menlo,monospace;
+    color:var(--dim); background:rgba(244,241,234,.8); padding:0 2px; z-index:2; }
+  .dexcell.locked { background:#E4DED0; }
+  #hatName { text-align:center; }
+
+  /* ── 翻牌：純記憶，規則不用教 ── */
+  #pairGrid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; max-width:520px; margin:0 auto; }
+  .card { aspect-ratio:3/4; position:relative; cursor:pointer; perspective:800px; background:none; border:none; padding:0; }
+  .card .inner { position:absolute; inset:0; transition:transform .4s; transform-style:preserve-3d; }
+  .card.up .inner, .card.got .inner { transform:rotateY(180deg); }
+  .card .face { position:absolute; inset:0; backface-visibility:hidden; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .card .back { background:#E4DED0; font-size:26px; color:#BCB3A0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='0.05'/%3E%3C/svg%3E");
+    box-shadow:inset 0 0 22px rgba(90,74,50,.16); }
+  .card .back::after { content:"GP-001"; position:absolute; bottom:6px; right:8px;
+    font:700 8px/1 Georgia,serif; letter-spacing:.14em; color:#BDB4A0; }
+  .card .front { transform:rotateY(180deg); background:#FFFDF6; padding:3px; }
+  .card .front img { width:100%; height:100%; object-fit:cover;
+    filter:saturate(.94) contrast(1.02) sepia(.06); }
+  .card.got { cursor:default; }
+  .card.got .front { box-shadow:inset 0 0 0 3px var(--red); }
+
+  /* ── 生日版（10/24）。平日版完全不受影響，只多掛一個 body.bday ── */
+  body.bday { background:#F7F0E4; }
+  body.bday h1 { color:var(--red); }
+  #bday { display:none; }
+  body.bday #bday { display:block; text-align:center; padding:12px 0 2px;
+    font:700 12px/1.7 Georgia,serif; letter-spacing:.16em; color:var(--red); }
+  #bday .cd { display:block; font:700 21px/1.2 ui-monospace,Menlo,monospace; color:var(--gold); letter-spacing:.04em; }
+  body.bday .stampmark i { box-shadow:0 0 0 3px rgba(255,220,120,.55), 0 0 18px rgba(255,190,80,.5); }
+  body.bday .hole.done { box-shadow:2px 3px 0 rgba(43,45,51,.09), 0 0 14px rgba(255,200,90,.35); }
+  @media (max-width:600px) {
+    h1 { font-size:19px; }
+    #board { grid-template-columns:repeat(auto-fill,minmax(70px,1fr)); gap:8px; }
+    .hudBox { min-width:70px; padding:6px 8px; }
+    .hudBox b { font-size:21px; }
+    #pairGrid { grid-template-columns:repeat(4,1fr); gap:7px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🐦 蓋章遊戲</h1>
+  <p class="motto">不用讀字、不用答對、按下去就有東西發生。</p>
+  <a class="back" href="../">← 回到地圖</a>
+</header>
+
+<div id="tabs">
+  <button class="on" data-tab="stamp">① 蓋章</button>
+  <button data-tab="gear">② 頭部物件</button>
+  <button data-tab="pair">③ 翻牌</button>
+</div>
+
+<div id="bday">HAPPY BIRTHDAY · 10/24 · 鵜鶘騎單車的生日<span class="cd" id="cd"></span></div>
+
+<main>
+  <section class="panel on" id="p-stamp">
+    <p class="lead">鳥會從某個地方探頭。碰到了就蓋章。24 秒，跟牠的 24 小時一樣。</p>
+    <div id="hud">
+      <div class="hudBox"><b id="score">0</b><span>蓋章</span></div>
+      <div id="clockWrap"><div id="clockBar"></div></div>
+      <div class="hudBox"><b id="combo">0</b><span>連續</span></div>
+    </div>
+    <div id="board"></div>
+    <button id="startBtn">開始 24 秒</button>
+  </section>
+
+  <section class="panel" id="p-gear">
+    <p class="lead">HEADWEAR &amp; OTHER QUESTIONABLE DECISIONS — 嫌犯於不同地點所使用之頭部物件。<br>抽到哪一站，牠就戴那一站頭上那個東西。牠從來不換表情。</p>
+    <div id="hatStage">
+      <div class="gearWrap"><img class="gear" src="gear/EQ-EQ-01.png" alt="登月"><span class="cap">還沒抽</span></div>
+    </div>
+    <div id="hatName">還沒抽。上面那隻現在什麼都沒戴。</div>
+    <button id="pull">🎲 抽一個地方</button>
+    <div id="coins">代幣 0</div>
+    <div id="dex"></div>
+  </section>
+
+  <section class="panel" id="p-pair">
+    <p class="lead">翻兩張。同一件事會成對出現。</p>
+    <div id="pairGrid"></div>
+    <p id="pairMsg" style="text-align:center;color:var(--dim);font-size:14px"></p>
+  </section>
+</main>
+
+<footer style="text-align:center;color:#5E5648;font-size:12px;padding-bottom:20px">
+  純靜態網頁，無 build step。音效由瀏覽器即時合成，沒有音檔。
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// 26 站。名字與座標沿用主站 STOPS / 地圖 SIGHTINGS，
+// 地圖沒列的三站（潮間帶、兔子洞、島波海道）用主站的合理落點補上。
+// 只有 id / 名 / 座標 —— 蓋章遊戲不需要文案，因為沒有人要讀。
+// ─────────────────────────────────────────────────────────────
+const STOPS = [
+  ['island','小島',23.57,119.62],       ['school','操場',25.036,121.565],
+  ['market','夜市',25.051,121.577],     ['circle','圓環',25.0537,121.5149],
+  ['kyoto','銀閣寺',35.027,135.798],    ['moon','登月',null,null],
+  ['polar','極地',-75.25,0],            ['jungle','雨林',-3.47,-62.37],
+  ['sky','雲海',23.51,120.80],          ['paris','凱旋門',48.8738,2.295],
+  ['ocean','深海',null,null],           ['space','宇宙',null,null],
+  ['home','家',null,null],              ['wetmarket','菜市場',25.042,121.531],
+  ['library','書海',null,null],         ['rain','雨天',null,null],
+  ['vinyl','黑膠',null,null],            ['globe','雪花球',null,null],
+  ['garden','植物園',25.0315,121.5105], ['tide','潮間帶',23.567,120.10],
+  ['rabbit','兔子洞',null,null],        ['venice','威尼斯',45.4371,12.3326],
+  ['shima','島波海道',34.30,133.10],    ['salt','天空之鏡',-20.1338,-67.4891],
+  ['bagan','蒲甘',21.17,94.86],         ['screen','牠的電腦',null,null],
+  ['homecoming','回家',23.62,119.70],
+];
+// 註：主站 STOPS 是 26 站不含蒲甘，地圖 SIGHTINGS 有蒲甘。這裡保留 27 站，
+// GEAR 同樣 27 筆，與 STOPS 一一對應——寧可多一站，不要對不上。
+
+// ── 開關：平日版 = false。10/24 當天改成 true 就切到生日版（只換視覺，邏輯不動） ──
+const BIRTHDAY = false;
+const BDAY = '2026-10-24T00:00:00';
+
+// ── 每站頭上戴什麼。這是設定檔，不是隨機收集品：
+//    抽到登月站一定戴太空頭盔，因為牠就是穿那個下來的。
+//    gear: emoji fallback（圖沒生出來前用）｜img: 生出來的頭部圖檔名
+const GEAR = [
+  { k:'strawhat',  n:'草帽', img:'STRAWHAT' },        { k:'sweatband', n:'白色運動頭帶', img:'SWEATBAND' },
+  { k:'beanie',    n:'毛帽', img:'BEANIE' },        { k:'helmet',    n:'頭盔', img:'HELMET' },
+  { k:'monkcap',   n:'僧侶帽', img:'MONKCAP' },      { k:'moon',      n:'太空頭盔＋氣瓶', img:'EQ-EQ-01' },
+  { k:'earflap',   n:'毛帽＋耳罩', img:'EARFLAP' },  { k:'jungle',    n:'探險家軟木帽', img:'EQ-EQ-02' },
+  { k:'aviator',   n:'飛行員頭盔', img:'AVIATOR' },  { k:'beret',     n:'畫家帽', img:'BERET' },
+  { k:'deepsea',   n:'氧氣面罩＋全罩頭盔', img:'EQ-EQ-03' },
+  { k:'space',     n:'圓球面罩太空頭盔', img:'EQ-EQ-04' },
+  { k:'paperbag',  n:'紙袋', img:'PAPERBAG' },        { k:'brimmed',   n:'毛帽', img:'BRIMMED' },
+  { k:'cap2',      n:'鴨舌帽', img:'CAP2' },          { k:'raihat',    n:'滴水的帽子', img:'RAIHAT' },
+  { k:'headphone', n:'耳機', img:'HEADPHONE' },        { k:'snowglobe', n:'玻璃球', img:'SNOWGLOBE' },
+  { k:'greenery',  n:'花冠', img:'GREENERY' },        { k:'lifebuoy',  n:'救生帽', img:'LIFEBUOY' },
+  { k:'headlamp',  n:'頭燈', img:'EQ-EQ-05' },
+  { k:'mask',      n:'威尼斯面具', img:'EQ-EQ-06' },
+  { k:'sailor',    n:'漁夫帽', img:'SAILOR' },      { k:'headscarf', n:'頭巾', img:'HEADSCARF' },
+  { k:'monkcap2',  n:'僧帽', img:'MONKCAP2' },        { k:'headphone2',n:'耳機', img:'HEADPHONE2' },
+  { k:'beanie2',   n:'歪戴的毛帽', img:'BEANIE2' },
+];
+
+// ── 生日開關。10/24 當天把 BIRTHDAY 改成 true（或當天自動判定）就切換。
+//    平日版不受任何影響：只是 body 上多一個 class 而已。
+(function applyBirthday() {
+  const today = new Date();
+  const bday = new Date(BDAY);
+  const on = BIRTHDAY || today >= bday;
+  if (on) document.body.classList.add('bday');
+  const cd = document.getElementById('cd');
+  if (!cd) return;
+  const tick = () => {
+    const ms = bday - new Date();
+    if (ms <= 0) { cd.textContent = '今天就是。'; return; }
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24,
+          m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
+    cd.textContent = `還有 ${d} 天 ${h} 小時 ${m} 分 ${s} 秒`;
+  };
+  tick();
+  if (!on) setInterval(tick, 1000);
+})();
+
+let AC = null;
+const actx = () => { if (!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if (AC.state === 'suspended') AC.resume(); return AC; };
+function tone(freq, peak, len, type, sweep) {
+  const c = actx(), o = c.createOscillator(), g = c.createGain();
+  o.type = type || 'sine';
+  o.frequency.setValueAtTime(freq, c.currentTime);
+  if (sweep) o.frequency.exponentialRampToValueAtTime(freq * sweep, c.currentTime + len);
+  g.gain.setValueAtTime(0.0001, c.currentTime);
+  g.gain.exponentialRampToValueAtTime(peak, c.currentTime + 0.008);
+  g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + len);
+  o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + len + 0.05);
+}
+function noise(peak, len, freq, q) {            // 蓋章的紙摩擦／鴿子振翅
+  const c = actx(), n = Math.floor(c.sampleRate * len), b = c.createBuffer(1, n, c.sampleRate), d = b.getChannelData(0);
+  for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n);
+  const s = c.createBufferSource(); s.buffer = b;
+  const f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q || 1;
+  const g = c.createGain(); g.gain.value = peak;
+  s.connect(f); f.connect(g); g.connect(c.destination); s.start();
+}
+const SFX = {
+  stamp()  { noise(0.30, 0.07, 1600, 0.7); tone(180, 0.22, 0.10, 'sine', 0.45); },   // 砰
+  combo(n) { tone(440 * Math.pow(1.0595, Math.min(n, 12) * 2), 0.13, 0.13, 'triangle'); },
+  pigeon() { noise(0.16, 0.22, 900, 0.4); tone(1250, 0.07, 0.16, 'sine', 0.6); },   // 振翅＋咕咕
+  pop()    { tone(620, 0.10, 0.07, 'triangle', 1.6); },
+  pull()   { tone(300, 0.14, 0.34, 'sine', 2.4); noise(0.10, 0.3, 2400, 2); },
+  rare()   { [0,4,7,12].forEach((s,i) => setTimeout(() => tone(523.25*Math.pow(1.0595,s), 0.12, 0.22, 'triangle'), i*70)); },
+  flip()   { noise(0.10, 0.05, 3000, 1.5); },
+  match()  { [0,7,12].forEach((s,i) => setTimeout(() => tone(659.25*Math.pow(1.0595,s), 0.14, 0.26, 'sine'), i*55)); },
+  over()   { [0,-2,-5,-9].forEach((s,i) => setTimeout(() => tone(392*Math.pow(1.0595,s), 0.13, 0.4, 'triangle'), i*120)); },
+};
+
+// ── 蓋章：24 秒，鳥隨機探頭。碰到就蓋章，鴿子不扣分（只是有吐槽） ──
+const ROUND = 24, PIGEON_CHANCE = 0.16;
+const PIGEON_SAYS = [
+  '鴿子：又是我。', '鴿子：我有權保持沉默。', '鴿子：這是第幾次了。',
+  '鴿子：法國分部已經提出抗議。', '鴿子：我只是路過，真的。', '鴿子：鳥在哪。鳥不在這。',
+];
+const board = document.getElementById('board');
+// 每格底下就是那個場景的現場照（postcards/）。有照片的站，格子本身就是一張證物照，
+// 鳥從照片裡探頭；沒有照片的那站（潮間帶）退回米紙底，行為完全一樣。
+const shotFor = id => `../postcards/${id}.png`;
+const holes = STOPS.map((s, i) => {
+  const d = document.createElement('div');
+  d.className = 'hole';
+  d.innerHTML = `<img class="shot" src="${shotFor(s[0])}" alt="${s[1]}" loading="lazy" ` +
+                `onerror="this.remove()">` +
+                `<span class="where">${s[1]}</span><span class="bird">🐦</span>` +
+                `<span class="pigeon">🕊️</span><span class="lab">${i + 1}</span>`;
+  d.addEventListener('click', () => hit(i));
+  board.appendChild(d);
+  return d;
+});
+let score = 0, combo = 0, best = +(localStorage.getItem('gpf-best') || 0), timer = null, t0 = 0, up = -1, playing = false;
+
+function popUp() {
+  if (up >= 0) { holes[up].classList.remove('up', 'pg'); holes[up].classList.remove('got'); }
+  up = Math.floor(Math.random() * STOPS.length);
+  const h = holes[up];
+  h.querySelector('.bird').textContent = '🐦';
+  h.classList.remove('pg');
+  h.classList.add('up');
+  SFX.pop();
+}
+function hit(i) {
+  if (!playing) return;
+  const h = holes[i];
+  if (i !== up) {                       // 打空：只有音效，連續中斷（唯一的「懲罰」）
+    if (h.classList.contains('pg')) { SFX.pigeon(); h.querySelector('.pigeon').textContent = PIGEON_SAYS[Math.floor(Math.random()*PIGEON_SAYS.length)]; }
+    else tone(150, 0.10, 0.08, 'sine', 0.7);
+    combo = 0; document.getElementById('combo').textContent = 0;
+    return;
+  }
+  h.classList.remove('up');
+  if (h.classList.contains('pg')) {     // 蓋到鴿子：不扣分，只吐槽然後飛走
+    SFX.pigeon();
+    h.querySelector('.pigeon').textContent = PIGEON_SAYS[Math.floor(Math.random()*PIGEON_SAYS.length)];
+    h.classList.add('got');
+    combo = 0;
+  } else {
+    const m = document.createElement('div');
+    m.className = 'stampmark';
+    m.innerHTML = `<i>蓋章<br>${STOPS[i][1]}</i>`;
+    h.appendChild(m);
+    if (h.dataset.hit) { m.remove(); }   // 同一格重複蓋：允許，但不重複計分
+    else { h.dataset.hit = '1'; h.classList.add('done'); score++; combo++;
+           SFX.stamp(); if (combo > 1) SFX.combo(combo);
+           document.getElementById('score').textContent = score; }
+    h.classList.add('got');
+    addCoin(1);
+  }
+  document.getElementById('combo').textContent = combo;
+  up = -1;
+  setTimeout(popUp, 120);
+}
+function start() {
+  score = combo = 0; playing = true;
+  document.getElementById('score').textContent = '0';
+  document.getElementById('combo').textContent = '0';
+  holes.forEach(h => { h.classList.remove('up','pg','got','done'); h.dataset.hit = ''; h.querySelector('.stampmark')?.remove(); });
+  const btn = document.getElementById('startBtn');
+  btn.textContent = '蓋章中…'; btn.classList.add('flash');
+  t0 = Date.now();
+  const bar = document.getElementById('clockBar'), wrap = document.getElementById('clockWrap');
+  wrap.classList.remove('low');
+  clearInterval(timer);
+  timer = setInterval(() => {
+    const left = Math.max(0, ROUND - (Date.now() - t0) / 1000);
+    bar.style.transform = `scaleX(${left / ROUND})`;
+    if (left < 6) wrap.classList.add('low');
+    if (left <= 0) end();
+  }, 100);
+  popUp();
+  timer._loop = setInterval(() => { if (playing && up < 0) popUp(); }, 500);   // 漏掉的頭會補上
+}
+function end() {
+  playing = false;
+  clearInterval(timer); clearInterval(timer._loop);
+  holes.forEach(h => h.classList.remove('up', 'pg'));
+  up = -1;
+  const btn = document.getElementById('startBtn');
+  btn.classList.remove('flash');
+  if (score > best) { best = score; localStorage.setItem('gpf-best', best); }
+  SFX.over();
+  addCoin(3);                            // 就算 0 分也有 3 幣，永遠不會被擋住
+  btn.textContent = `再蓋一次（最高 ${best}）`;
+}
+document.getElementById('startBtn').addEventListener('click', start);
+// ── 頭部配備：抽到哪站就戴哪站的東西。收集的是「鵜鶘在 27 個地方都戴過什麼」，
+//    不是抽到重複品 —— 這正是遊戲要給 10/24 生日的生日禮物清單。
+let coins = +(localStorage.getItem('gpf-coin') || 0);
+let owned = JSON.parse(localStorage.getItem('gpf-hat') || '[]');
+let wearing = null;
+
+function addCoin(n) {
+  coins += n; localStorage.setItem('gpf-coin', coins);
+  document.getElementById('coins').textContent = `代幣 ${coins}`;
+}
+const gearFace = (i, cls) => `<img class="${cls}" src="gear/${GEAR[i].img}.png" alt="${GEAR[i].n}" loading="lazy">`;
+const dex = document.getElementById('dex');
+function renderDex() {
+  dex.innerHTML = STOPS.map((s, i) => {
+    const has = owned.includes(i);
+    return `<div class="dexcell${has ? '' : ' locked'}" title="${s[1]}｜${GEAR[i].n}">` +
+      (has ? gearFace(i, 'gear') : `<span class="q">?</span>`) +
+      `<span class="hatTag">${s[1]}</span><span class="n">${i + 1}</span></div>`;
+  }).join('');
+  document.getElementById('coins').textContent = `代幣 ${coins}　·　頭部物件 ${owned.length} / ${STOPS.length}`;
+}
+function drawHat() {
+  SFX.pull();
+  const stage = document.getElementById('hatStage');
+  stage.classList.add('bust');
+  setTimeout(() => {
+    stage.classList.remove('bust');
+    // 還沒抽到的站優先——收集要有東西可追，集滿了才退回隨機重複
+    const missing = STOPS.map((_, i) => i).filter(i => !owned.includes(i));
+    const i = missing.length ? missing[Math.floor(Math.random() * missing.length)]
+                              : Math.floor(Math.random() * STOPS.length);
+    const isNew = !owned.includes(i);
+    if (isNew) owned.push(i);
+    localStorage.setItem('gpf-hat', JSON.stringify(owned));
+    wearing = i;
+    // 舞台就是「那隻鳥戴著牠在這一站戴的東西」整隻。
+    // 不疊在明信片上——那隻鳥自己就是完整的角色，比疊圖好看得多。
+    stage.innerHTML = `<div class="gearWrap">${gearFace(i, 'gear')}` +
+      `<span class="cap">${STOPS[i][1]}</span></div>`;
+    document.getElementById('hatName').innerHTML = `${STOPS[i][1]}　${GEAR[i].n}` +
+      (isNew ? (GEAR[i].img ? '　<small>重大發現</small>' : '　<small>新的</small>')
+             : '　<small>這一站收集過了</small>');
+    if (isNew) { GEAR[i].img ? SFX.rare() : SFX.match(); }
+    renderDex();
+  }, 500);
+}
+document.getElementById('pull').addEventListener('click', () => {
+  if (coins < 1) {                       // 幣不夠就免費送一點，永遠不鎖死
+    addCoin(2);
+    document.getElementById('hatName').innerHTML = '<small>代幣不夠，辦公室先墊 2 枚。</small>';
+  }
+  addCoin(-1);
+  drawHat();
+});
+renderDex();
+
+// ── 翻牌：8 對真配對。配對那一刻的樂趣是「原來這兩件事是同一件」 ──
+// A 側＝機關（案卷、傳票、證物）；B 側＝外界（目擊、留言、隨手拍）
+const PAIRS = [
+  ['RA-01','RB-01','同一件事：一份卷宗，一份證詞','RA-01','RB-01'],
+  ['RA-02','RB-06','都在講「規定」：一張罰單，一條帽政策','RA-02','RB-06'],
+  ['RA-03','RB-04','都在講「誰看見了」：通緝令，簽名的鴿子','RA-03','RB-04'],
+  ['RA-04','RB-02','同一件東西流出去：紙袋，長椅上','RA-04','RB-02'],
+  ['RA-05','RB-08','同一本帳：紅線地圖，零元收據','RA-05','RB-08'],
+  ['RA-06','RB-07','同一句話被弄糊了：色帶，雨刷','RA-06','RB-07'],
+  ['RA-07','RB-03','同一個空白：沒人願意描述，貓的版本','RA-07','RB-03'],
+  ['RA-08','RB-05','同一種還在等：有人接電話，有人留粉筆字','RA-08','RB-05'],
+];
+const grid = document.getElementById('pairGrid');
+let flipped = [], got = 0, busy = false;
+function buildPairs() {
+  const deck = [];
+  PAIRS.forEach((p, i) => { deck.push({ k:i, f:`../series/${p[3]}.jpg`, t:p[2] }); deck.push({ k:i, f:`../series/${p[4]}.jpg`, t:p[2] }); });
+  deck.sort(() => Math.random() - 0.5);
+  grid.innerHTML = ''; flipped = []; got = 0; busy = false;
+  document.getElementById('pairMsg').textContent = '';
+  deck.forEach(d => {
+    const b = document.createElement('button');
+    b.className = 'card';
+    b.innerHTML = `<div class="inner"><div class="face back">🐦</div>` +
+      `<div class="face front"><img src="${d.f}" alt=""></div></div>`;
+    b.addEventListener('click', () => flip(b, d));
+    grid.appendChild(b);
+  });
+}
+function flip(b, d) {
+  if (busy || b.classList.contains('up') || b.classList.contains('got')) return;
+  b.classList.add('up'); SFX.flip();
+  flipped.push({ b, k:d.k });
+  if (flipped.length < 2) return;
+  const [a, c] = flipped;
+  if (a.k === c.k && a.b !== c.b) {                    // 配對成功
+    SFX.match();
+    [a.b, c.b].forEach(x => { x.classList.add('got'); x.classList.remove('up'); });
+    flipped = [];
+    if (++got === PAIRS.length) {
+      document.getElementById('pairMsg').innerHTML = `八件都對上了。<br><small>辦公室蓋章結案——但那隻鳥還是在兔子洞裡。</small>`;
+      addCoin(5);
+    } else {
+      document.getElementById('pairMsg').textContent = `對了 ${got} / ${PAIRS.length}。`;
+    }
+  } else if (a.b !== c.b) {                           // 沒對上，翻回去，什麼事都沒發生
+    busy = true;
+    setTimeout(() => { a.b.classList.remove('up'); c.b.classList.remove('up'); flipped = []; busy = false; }, 700);
+  }
+}
+buildPairs();
+
+// ── 分頁切換（動不了腦的東西不該要求你找按鈕） ──
+document.querySelectorAll('#tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    document.getElementById('p-' + btn.dataset.tab).classList.add('on');
+  });
+});
+</script>
+</body>
+</html>
