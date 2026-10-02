@@ -116,20 +116,28 @@
   #hatName small { color:var(--dim); font-size:13px; }
 
   /* ── 設定檔版：圖鑑在上（全部可看），點一格就在下面放大那一站。沒有抽籤、沒有解鎖 ── */
-  #dex.wide { grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:12px; margin:0 0 20px; }
-  .dexcell.wide { aspect-ratio:3/4; cursor:pointer; transition:transform .15s, box-shadow .15s; }
+  /* gear/*.png 全部是 320×320 正方（10/2 逐檔驗過），所以格子必須是 1:1。
+     用 object-fit:cover 配 3:4 會切掉頭頂和下巴 —— 站名標籤改放到圖下方，不疊圖上。 */
+  #dex.wide { grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:14px 12px; margin:0 0 20px; }
+  .dexcell.wide { aspect-ratio:1; cursor:pointer; transition:transform .15s, box-shadow .15s;
+    display:block; overflow:visible; }
+  .dexcell.wide .gear { width:100%; height:auto; aspect-ratio:1; object-fit:contain; }
   .dexcell.wide:hover { transform:translateY(-2px);
     box-shadow:2px 4px 0 rgba(43,45,51,.12), 0 0 0 2px var(--red); }
   .dexcell.wide.on { box-shadow:0 0 0 3px var(--red), 0 0 12px rgba(168,56,46,.25); }
-  .dexcell.wide .hatTag { font-size:10.5px; padding:2px 0; }
-  .dexcell.wide .n { font-size:10px; }
+  /* 站名移到圖下方：疊在上緣會遮住頭頂 */
+  .dexcell.wide .hatTag { position:static; display:block; font-size:10.5px; text-align:center;
+    color:#5E5648; background:none; padding:3px 0 0; }
+  .dexcell.wide .n { bottom:auto; top:2px; right:3px; font-size:10px;
+    background:rgba(244,241,234,.8); border-radius:2px; }
   /* 放大台：固定在圖鑑下方，點哪一站就顯示哪一站。sticky 讓捲到下面也還看得到 */
   #stageWrap { position:sticky; bottom:10px; background:rgba(244,241,234,.94);
     border:1px solid var(--line); padding:16px 12px 12px; text-align:center;
     box-shadow:0 -2px 10px rgba(43,45,51,.07); }
   #stageWrap #hatStage .gearWrap { width:190px; }
   #stageWrap #hatName { margin-top:8px; }
-  /* 圖鑑：27 站全部公開顯示，不再有 locked／? 的狀態 */
+  /* 圖鑑：27 站全部公開顯示，不再有 locked／? 的狀態。
+     底層 .dexcell 原本給玩法 1 的舊樣式用；.wide 版本在下面覆蓋成 1:1 不裁切。 */
   #dex { display:grid; grid-template-columns:repeat(auto-fill,minmax(66px,1fr)); gap:8px; margin-top:18px; }
   .dexcell { position:relative; aspect-ratio:1; overflow:hidden; background:#E4DED0;
     border:1px solid #D6CFBB; display:flex; align-items:center; justify-content:center;
