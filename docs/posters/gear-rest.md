@@ -4,7 +4,7 @@
 
 ## 其餘 21 站（GEAR 表用）
 
-參考圖同樣 `refs/1-ref-pelican.png`。1:1。
+參考圖：實際抓到的是 `refs/0-ref-full.png`（全身，排序第一），非頭部特寫。1:1。
 ## GG-STRAWHAT｜草帽
 
 ```
