@@ -643,9 +643,9 @@ buildPairs();
 // 給一張明信片（不給站名），從頭飾裡猜「牠戴這個時站在哪一站」。
 // 配對是固定的，不是隨機的：登月站就是太空頭盔，因為牠就是穿那個下來的。
 // 素材現成：STOPS 27 站 ↔ GEAR 27 筆 ↔ postcards/ 26 張（潮間帶無圖，剔除後可玩 26 站）。
-// 每站 4 個選項（含 1 個正確）＝ 每題 25% 命中。
-// 結束後蓋章、集滿列證物清單。不碰任何金流。
-const TRACE_N = 26, TRACE_OPTS = 4;
+// 每站 3 個選項（含 1 個正確）＝ 每題 33% 命中。原本 4 選項＝25%，模擬下來要玩 13.9 輪
+// （361 題）才集滿，對人類來說太久了。3 選項降到 6 輪左右，而且 3 張圖比 4 張好認。
+const TRACE_N = 8, TRACE_OPTS = 3;
 const trEl = id => document.getElementById(id);
 // 可玩站 = 有明信片的站。潮間帶沒有 postcards/tide.png，必須剔除，
 // 否則會出一道永遠猜錯、而且圖片是破圖的題。
@@ -736,22 +736,29 @@ function trAnswer(i, btn) {
 }
 function trEnd() {
   const done = trCleared.length;
+  const win = trCleared.length >= trWin;
   trEl('trMsg').innerHTML = `<strong>${trScore} points</strong>　·　Collected <strong>${done} / ${trPool.length}</strong>　` +
-    `<small>It has already left.</small>`;
+    `<small>${win ? 'Case closed. The certificate is below.' : 'It has already left.'}</small>`;
   trEl('trStart').textContent = 'Look again';
   trEl('trStart').style.display = '';
-  if (done >= trPool.length) trCert();
+  if (win) trCert();
 }
+// 集滿的門檻：26 站全對要 361 題（模擬值），人類根本走不到那裡，獎勵等於不存在。
+// 改成「一半」就給證書——大多數人玩兩三轮就能拿到，少數人會為了全滿繼續玩，兩種人都有事做。
+const trWin = Math.ceil(trPool.length / 2);
 // 集滿：蓋一個假造的結案章。純前端，沒有任何商業行為。
 function trCert() {
   if (document.getElementById('trCert')) return;
   const d = document.createElement('div');
   d.id = 'trCert';
+  const all = trCleared.length >= trPool.length;
   d.innerHTML = `<div class="certInner">` +
     `<div class="certStamp">CLOSED</div>` +
     `<div class="certNo">GP-001</div>` +
-    `<div class="certBody">Case file　All ${trPool.length} stops<br>` +
-    `<small>Produced by a game. Not an official document. It is still riding.</small></div></div>`;
+    `<div class="certBody">Case file　${trCleared.length} of ${trPool.length} stops<br>` +
+    `<small>${all ? 'Every stop accounted for.'
+                  : 'Filed on partial evidence. The rest are still out there.'}<br>` +
+    `Produced by a game. Not an official document. It is still riding.</small></div></div>`;
   trEl('trCtl').appendChild(d);
 }
 trEl('trStart').addEventListener('click', trStart);
