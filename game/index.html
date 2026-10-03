@@ -476,7 +476,11 @@ const holes = STOPS.map((s, i) => {
   board.appendChild(d);
   return d;
 });
-let score = 0, combo = 0, best = +(localStorage.getItem('gpf-best') || 0), timer = null, t0 = 0, up = -1, playing = false;
+// 兩個 interval 分開存成獨立變數。舊版把補頭迴圈掛在 timer._loop 上，
+// 但 start() 會 clearInterval(timer) 後重新賦值，舊 handle 就失去引用——
+// end() 清不到它，切去別的分頁再回來會越跑越快。
+let score = 0, combo = 0, best = +(localStorage.getItem('gpf-best') || 0);
+let timer = null, loopTimer = null, t0 = 0, up = -1, playing = false;
 
 function popUp() {
   if (up >= 0) { holes[up].classList.remove('up', 'pg'); holes[up].classList.remove('got'); }
@@ -484,6 +488,9 @@ function popUp() {
   const h = holes[up];
   h.querySelector('.bird').textContent = '🐦';
   h.classList.remove('pg');
+  // 有 PIGEON_CHANCE 的機率這一格探出來的是鴿子而不是鳥。
+  // 蓋到鴿子不扣分，只吐槽一句就飛走——它是干擾項，不是penalty。
+  if (Math.random() < PIGEON_CHANCE) h.classList.add('pg');
   h.classList.add('up');
   SFX.pop();
 }
@@ -528,7 +535,7 @@ function start() {
   t0 = Date.now();
   const bar = document.getElementById('clockBar'), wrap = document.getElementById('clockWrap');
   wrap.classList.remove('low');
-  clearInterval(timer);
+  clearInterval(timer); clearInterval(loopTimer);
   timer = setInterval(() => {
     const left = Math.max(0, ROUND - (Date.now() - t0) / 1000);
     bar.style.transform = `scaleX(${left / ROUND})`;
@@ -536,11 +543,11 @@ function start() {
     if (left <= 0) end();
   }, 100);
   popUp();
-  timer._loop = setInterval(() => { if (playing && up < 0) popUp(); }, 500);   // 漏掉的頭會補上
+  loopTimer = setInterval(() => { if (playing && up < 0) popUp(); }, 500);   // 漏掉的頭會補上
 }
 function end() {
   playing = false;
-  clearInterval(timer); clearInterval(timer._loop);
+  clearInterval(timer); clearInterval(loopTimer);
   holes.forEach(h => h.classList.remove('up', 'pg'));
   up = -1;
   const btn = document.getElementById('startBtn');
