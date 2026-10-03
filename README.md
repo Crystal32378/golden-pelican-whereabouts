@@ -6,6 +6,20 @@
 
 A WANTED bulletin and sighting map for the golden pelican — one bicycle, 26 locations, built in a single day, last seen falling underground, and still at large.
 
+## 看一眼 Look
+
+<p align="center">
+  <img src="share/merch-12-all.jpg" width="640" alt="Twelve pieces of unofficial merchandise in two batches">
+</p>
+
+<p align="center">
+  <img src="share/gp001-16posters.jpg" width="640" alt="Sixteen case-file posters, two styles">
+</p>
+
+十二件商品分兩批：第一批 MK-09～12 的四個人只憑記憶畫，**每一隻鳥都不一樣、
+都沒有那個紅色圓徽**；第二批 MK-13～20 手上已有品牌手冊，**八件全部帶著它**。
+拼圖左上是第一批，右下是第二批。
+
 ## 線上看 Live
 
 **https://crystal32378.github.io/golden-pelican-whereabouts/**
