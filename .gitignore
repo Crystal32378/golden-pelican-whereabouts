@@ -10,3 +10,7 @@ __pycache__/
 # 不該把 Mach-O 二進位一起塞進版控（只有 macOS arm64 的機器能跑）。
 tools/ocr
 tools/*.o
+
+# macOS  Finder 自動寫的視窗狀態檔，每台機器內容都不同，沒有版控價值。
+# 原本 posters/.DS_Store 已經被 commit 進去，用 git rm --cached 拿掉了。
+.DS_Store
