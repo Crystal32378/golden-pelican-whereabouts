@@ -5,3 +5,8 @@ agent/
 skills-lock.json
 __pycache__/
 *.pyc
+
+# 編譯產物。tools/ocr.swift 是原始碼，執行 swiftc -O ocr.swift -o ocr 就能重建，
+# 不該把 Mach-O 二進位一起塞進版控（只有 macOS arm64 的機器能跑）。
+tools/ocr
+tools/*.o

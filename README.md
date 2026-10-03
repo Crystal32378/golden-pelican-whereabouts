@@ -41,6 +41,26 @@ A WANTED bulletin and sighting map for the golden pelican — one bicycle, 26 lo
 | **卷宗 GP-001** | [`/series/`](https://crystal32378.github.io/golden-pelican-whereabouts/series/) | 16 張海報，兩個樣式（機關側／外界側） |
 | **周邊 12 件** | [`/series/merch.html`](https://crystal32378.github.io/golden-pelican-whereabouts/series/merch.html) | 鄉民自製的 MK-009～MK-020。分兩批：第一批四件憑記憶畫、彼此不一致；第二批八件手上有品牌手冊，八件全都帶著紅色圓徽。**沒有 checkout，也沒有金流** |
 | **公開指導 GP-002** | [`/brand/`](https://crystal32378.github.io/golden-pelican-whereabouts/brand/) | 三個 SVG mark 與六張規範圖，免費下載、改寫不用審核、可商用。**自願贊助，無抽成**，爭議與客服不負責 |
+| **蓋章遊戲** | [`/game/`](https://crystal32378.github.io/golden-pelican-whereabouts/game/) | 四種玩法：24 秒蓋章、頭部物件設定檔、翻牌配對、「It Just Left」猜站。集滿 26 站給一張**假造的結案證書**。英文版，純前端，不收集任何資料 |
+
+## Repo 結構 Layout
+
+沒有 build step，所以目錄就是版面。**每個都有用途，沒有哪個是垃圾桶。**
+
+| | 用途 | 能刪嗎 |
+|---|---|---|
+| `index.html` | 地圖本體 + 證物牆（17 件）。中英混排 | ❌ |
+| `postcards/` | 26 張現場照。地圖與遊戲共用，**潮間帶刻意缺圖**（主站的祕密站） | ❌ |
+| `posters/` | 證物牆那 17 張海報的來源 | ❌ |
+| `game/` | 四種玩法。英文版 | ❌ |
+| `series/` `brand/` | 卷宗 GP-001、公開指導 GP-002 | ❌ |
+| `share/` | 社群分享配圖。README 引用其中兩張 | ❌ 除非同步改 README |
+| `works-posters/` | 19 張作品集海報（作品賽用）。沒有頁面引用，但還在用 | ❌ |
+| `docs/posters/` | 生成提示詞 + **GEAR 權威對照表**（防憑直覺配錯頭飾） | ❌ |
+| `tools/` | `gen_posters.py`、`ocr.swift`。`ocr` 二進位已 gitignore，用 `swiftc -O ocr.swift -o ocr` 重建 | ❌ |
+| `devpost/` | 比賽報名文件 | 投完可刪 |
+
+**為什麼沒有檔案被刪掉**：一開始以為 `share/`、`posters/`、`works-posters/` 是沒人用的舊資料，實際查引用之後發現全都還在用 —— `posters/` 更是證物牆 17 張海報的來源，刪了地圖頁就會開天窗。
 
 ## 技術 Tech
 
