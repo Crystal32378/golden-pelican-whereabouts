@@ -1,6 +1,9 @@
-# Handoff — Golden Pelican（2026-09-27）
+# Handoff — Golden Pelican Whereabouts（2026-10-03）
 
-主站 HEAD `c7f2fb0`　分店 HEAD `e35b0a1`　網域 `crystal32378.github.io`
+主站 HEAD `acaa6a7`　分店 HEAD `f8d626f`　網域 `crystal32378.github.io`
+
+> 本文件為**現況快照**。過期的競賽時程已於本次重寫移除（比賽未參加，該項線作廢）。
+> 寫作調性比照主站 README：有數字、有名字、講清楚為什麼是這樣。
 
 ---
 
@@ -8,62 +11,57 @@
 
 | | repo | 網址 | 狀態 |
 |---|---|---|---|
-| **主站** | `golden-pelican` | `/golden-pelican/` | 25 站（24 公開 + 1 祕密） |
-| **分店** | `golden-pelican-whereabouts` | `/golden-pelican-whereabouts/` | 24 站地圖 + 證物牆 17 件 |
-| **系列** | 同上，已併入 main | `…/golden-pelican-whereabouts/series/` | 16 張海報 |
+| **主站** | `golden-pelican` | `/golden-pelican/` | 27 個場景 |
+| **分店** | `golden-pelican-whereabouts` | `/golden-pelican-whereabouts/` | 地圖 24 站 + 證物牆 17 件 |
+| **系列** | 同上，已併入 main | `…/golden-pelican-whereabouts/series/` | 卷宗 16 張 + 周邊 12 件 |
 
-三者已串成一圈：
+三個數字（27／24／26）**不是筆誤，是數不同的東西**：
 
-```
-主站 README「延伸」→ 分店地圖
-   └ 證物牆第 17 件後「case file GP-001 →」→ 系列 16 張
-        ├ 6 張  → 主站 #rabbit / #venice / #salt / #shima
-        └ 10 張 → 回分店 #ballot（提名地圖）或 #wall（證物牆）
-```
-
-系列頁與分店首頁**都不放入口連結**，要自己找才找得到。
+- 主站 27 ＝ 全部場景，含兔子洞、島波海道
+- 分店地圖 24 ＝ 刻意不標兔子洞與島波海道（`postcards/` 有這兩張圖，但 `SIGHTINGS` 沒有）
+- 蓋章遊戲 26 ＝ 24 站 ＋ 兔子洞 ＋ 島波海道
 
 ---
 
 ## 本階段完成
 
-**主站 `#hash` 深連結修好**（`c7f2fb0`）
-初始 hash 檢查原本寫在 `pose(0)` 之前會被覆蓋回小島，已移到之後。
-這是三場景以來就存在的 bug，由系列頁的回連第一次暴露。
+**`share/README.md` 與 `README.md` 校正**（`f8d626f` 起）
 
-**16 張系列海報**（`series/`）
-- A「辦公室」× 6：卷宗、罰單、通緝令、證物袋、地圖、打字機
-- B「外界」× 6：證詞、失物、貓、鴿子、粉筆字、櫥窗
-- 全英文資訊文字；中文「鵜鶘」裝飾字已棄用
-- 12/16 一次過關
+- `share/README.md` 原寫「`singles-posters/`、`singles-merch/` 是資料夾」——**這兩個資料夾不存在**。
+  28 張 `single-*.jpg` 是平放在 `share/` 根目錄。已改正。
+- `README.md` Layout 表：`postcards/` 實際是 26 個 **`.png`**（非 jpg）；
+  `posters/` 實際 34 張（`A`～`V` 22 ＋ `reddit/` 12）。已改正並補上數字差異說明。
 
-**19 張作品集海報**（10 個作品，見 `WORKS-HANDOFF.md`）
+**`.DS_Store` 移出版控**（`f8d626f`）
+
+- `.gitignore` 加規則，`git rm --cached posters/.DS_Store`（本機檔案保留，只是不再追蹤）。
+
+**蓋章遊戲上線**（`78ed1ff`、`cc73fa3`）
+
+- 四種玩法：24 秒蓋章、頭部物件設定檔、翻牌配對、「It Just Left」猜站。
+- 集滿 26 站發一張**假造的結案證書**。英文版，純前端，不收集任何資料。
+- 地圖頁加入口（`cc73fa3`）——從證物牆進得去。
 
 ---
 
-## 競賽（唯一有硬期限）
+## ⚠️ 已知問題（本階段發現，未修）
 
-**HY Image Challenge**，Track 1「Type & Layout」
-- 截止 **2026-10-02 14:59（台灣）** ← 剩 5 天
-- 必須在 **X 公開發文**並 tag `@gmi_cloud` 與 `@TencentHunyuan`
-- 必須填 GMI 報名表單（X 連結、track、同意聲明）
-- 得獎 $1,800（$200 現金 + $200 credits + $200 Hy credits + 展覽機會）
+**🔴 `game/` 斷圖**：game/index.html 引用 `postcards/tide.png`，但該檔不存在。
+潮間帶是主站祕密站，**未在 repo 內提供圖片是刻意的**。需決定是改指向現有圖、
+或移除該卡的插圖。未自行修改，因牽涉祕密站設定。
 
-**投稿稿 `posters/A.jpg`（鄉民檔案室通緝令）已修好**
-- 重跑 7 次挑最佳，「鵜鶘」正確、「最後目擊」正確（原本誤寫成「最後目灣」）
-- 僅餘「目警者」與印章斷行兩處小瑕疵
-- 備份在 `~/Desktop/hermes/out/A.png` / `A.prev.png` / `A.new-try2.png`
-
-**⬜ 尚未做：X 發文。** 這是投稿必要條件，不能省。
+**數字不一致（有意為之，非 bug）**：`game/index.html` 內同時出現 24／26／27 三種說法，
+對應上文三個不同集合。README 已加註，但頁面文字本身仍混用。
 
 ---
 
 ## 待辦
 
 - **RC-02**（Reel Crew 索引卡牆）手寫中文變亂碼，已移出 `works-posters/`，待重做
-- **TT-02**（真話翻譯機）已重做，舊版「五種譯法五種筆跡」備份在 `hermes/out/old-posters/`
 - **BV-02** OCR 只讀到 `-1 -3 -5`，漏 `-2`，需目視確認
-- **證物牆** 17 件對 22 張海報，`F/G/H/I/S` 5 張未上牆
+- **TT-02**（真話翻譯機）已重做，舊版備份在 `~/Desktop/hermes/out/old-posters/`
+- **證物牆** 17 件對 22 張 `A`～`V` 海報，`F/G/H/I/S` 5 張未上牆
+- **`game/` 斷圖**（見上方已知問題）
 
 ---
 
@@ -145,8 +143,10 @@ python3 tools/gen_posters.py PS-01 --series docs/posters/works/works.md S 3:4
 
 ## 下一步
 
-1. **X 發文投稿**（硬期限 5 天）
-2. 作品集頁面與更多作品海報（無期限）
+1. **`game/` 斷圖**——唯一會壞掉的地方，先修這個
+2. RC-02 重做、BV-02 目視確認（見待辦）
+3. 金流若要轉 live：見下方「金流」段
+4. 作品集頁面與更多作品海報（無期限）
 
 ---
 

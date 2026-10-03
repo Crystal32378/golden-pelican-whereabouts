@@ -49,16 +49,18 @@ A WANTED bulletin and sighting map for the golden pelican — one bicycle, 26 lo
 
 | | 用途 | 能刪嗎 |
 |---|---|---|
-| `index.html` | 地圖本體 + 證物牆（17 件）。中英混排 | ❌ |
-| `postcards/` | 26 張現場照。地圖與遊戲共用，**潮間帶刻意缺圖**（主站的祕密站） | ❌ |
-| `posters/` | 證物牆那 17 張海報的來源 | ❌ |
+| `index.html` | 地圖本體（24 站）＋ 證物牆（17 件）。中英混排 | ❌ |
+| `postcards/` | 26 張現場照（`.png`）。地圖與遊戲共用；`rabbit`、`shima` 兩張**刻意不上地圖** | ❌ |
+| `posters/` | 證物牆 17 張的來源（`A`～`V` 22 張）＋ `reddit/` 12 張，共 34 張 | ❌ |
 | `game/` | 四種玩法。英文版 | ❌ |
 | `series/` `brand/` | 卷宗 GP-001、公開指導 GP-002 | ❌ |
-| `share/` | 社群分享配圖。README 引用其中兩張 | ❌ 除非同步改 README |
+| `share/` | 社群分享配圖（4 張拼圖 + 28 張單圖）。README 引用其中兩張 | ❌ 除非同步改 README |
 | `works-posters/` | 19 張作品集海報（作品賽用）。沒有頁面引用，但還在用 | ❌ |
 | `docs/posters/` | 生成提示詞 + **GEAR 權威對照表**（防憑直覺配錯頭飾） | ❌ |
 | `tools/` | `gen_posters.py`、`ocr.swift`。`ocr` 二進位已 gitignore，用 `swiftc -O ocr.swift -o ocr` 重建 | ❌ |
 | `devpost/` | 比賽報名文件 | 投完可刪 |
+
+**數字為什麼不一致**：主站 27 個場景、分店地圖 24 站、蓋章遊戲集滿 26 站——三個都是真的，因為數的不是同一個東西。主站多出的兔子洞與島波海道，地圖刻意不標（見 `postcards/`）。
 
 **為什麼沒有檔案被刪掉**：一開始以為 `share/`、`posters/`、`works-posters/` 是沒人用的舊資料，實際查引用之後發現全都還在用 —— `posters/` 更是證物牆 17 張海報的來源，刪了地圖頁就會開天窗。
 
