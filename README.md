@@ -95,3 +95,14 @@ python3 -m http.server 8000
 ## 製作筆記
 
 `devpost/scope.md` 是這條線的「菜單」：為什麼是航班追蹤器風格、為什麼不做帳號、為什麼票不存伺服器。
+
+## 授權 License
+
+本 repo 的原創應用程式碼採用 [MIT License](LICENSE)，Copyright (c) 2026 Crystal Chang。
+The MIT license applies only to the original application code in this repository.
+
+圖片、海報、明信片、品牌素材、截圖及其他媒體不因程式碼採用 MIT 而自動取得 MIT 授權；
+素材與第三方元件維持各自條款。品牌頁既有的免費下載、自由改作及商用許可保持有效。
+詳見 [素材說明](ASSET_NOTICES.md) 與 [第三方說明](THIRD_PARTY_NOTICES.md)。
+Assets and third-party components remain subject to their respective terms; existing permissions
+on the brand page remain in effect. This license does not extend to the separate Golden Pelican main-site repository.

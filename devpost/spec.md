@@ -26,7 +26,7 @@ PRD ref: `prd.md > The Core Journey`.
 ## Stack
 
 - **Plain HTML + CSS + JavaScript in one file** — no framework, no build step. The proof of concept must be openable by double-clicking a file and deployable by pushing to GitHub. Framework/build tooling would add nothing to a single-page map.
-- **Leaflet 1.9.4** (https://leafletjs.com) — the map itself, pinned via unpkg CDN. AGPL-2.0, free for this use.
+- **Leaflet 1.9.4** (https://leafletjs.com) — the map itself, pinned via unpkg CDN. BSD-2-Clause, free for this use.
 - **Leaflet.markercluster 1.5.3** (https://github.com/Leaflet/Leaflet.markercluster) — folds overlapping pins ("8 sightings"). Pinned via CDN.
 - **Esri World Dark Gray Canvas tiles** (https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer) — the dark map. No API key; attribution displayed on the map.
 - **localStorage** — the ballot box and the language choice. Two keys: `gpw-proposals` (array of nominations) and `gpw-lang` (`zh` or `en`).
